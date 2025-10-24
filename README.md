@@ -1,209 +1,155 @@
-# Waku
+# Waku - A Modern SvelteKit Component Library
 
-A modern, customizable SvelteKit component library with built-in dark mode support and flexible theming.
+[![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](LICENSE)
+
+**Waku** is a modern, opinionated SvelteKit component library designed for consistency, performance, and an exceptional developer experience. It features a unique, two-part system for managing depth and a flexible single-accent-color theming engine.
+
+> **Note**: This library is a personal project intended to create a uniform design system across multiple applications. It is actively developed but tailored to a specific aesthetic.
 
 ## Features
 
-- **Single Accent Color System**: Set one color, get a complete design system
-- **Dark Mode Support**: Built-in dark/light mode with automatic styling
-- **Tailwind v4 Integration**: Full Tailwind utility class support
-- **TypeScript First**: Complete type definitions for all components
-- **Accessible**: ARIA-compliant components with keyboard navigation
-- **Tree-shakeable**: Import only what you need
+- **Dimensional Design System**: Manages depth with a clear distinction between `Surface Elevation` (for layout) and `Overlay Layers` (for UI).
+- **"Material Glass" Effect**: A beautiful, subtle glassmorphism effect with frosted edges and gradients for all overlay components.
+- **Single Accent Color Theming**: Define one accent color in your project, and Waku generates a complete, perceptually uniform color palette.
+- **Developer-First API**: Components like `VStack`, `HStack`, and `elevation` props make building complex, consistent layouts trivial.
+- **Dark Mode First**: Meticulously designed to look stunning in both light and dark modes.
+- **Fully Typed & Accessible**: Built with TypeScript and ARIA best practices.
 
-## Installation
+## Library Usage
 
-Since Waku is added as a git dependency:
+Add Waku to your project's `package.json`. Since it's a private library, it's best installed directly from Git.
 
-```bash
-# In your package.json
-{
-  "dependencies": {
-    "waku": "github:yourusername/waku#v1.0.0"
-  }
+```json
+"devDependencies": {
+  "waku": "github:lumisxh/waku#v1.0.0"
 }
 ```
 
 ## Quick Start
 
-### 1. Import the CSS
+1.  **Import the CSS:** In your app's main CSS file (e.g., `app.css`), import the Waku stylesheet.
 
-In your app's main CSS file:
+    ```css
+    /* src/app.css */
+    @import 'waku/styles/waku.css';
+    ```
 
-```css
-/* app.css */
-@import '@waku/styles/waku.css';
+2.  **Set Your Accent Color:** In the same file, override the `--waku-accent` variable to theme the entire library.
 
-:root {
-	--accent-500: oklch(0.65 0.2 280); /* Your accent color */
-}
-```
+    ```css
+    /* src/app.css */
+    @import 'waku/styles/waku.css';
 
-### 2. Use Components
+    :root {
+    	--waku-accent: oklch(0.7 0.18 300); /* Your project's brand color (e.g., a vibrant pink) */
+    }
+    ```
+
+3.  **Use the Components:** Start building your UI with Waku's components.
+
+    ```svelte
+    <script>
+    	import { Card, VStack, Button } from 'waku';
+    </script>
+
+    <Card elevation={2} padding="lg">
+    	<VStack gap="md">
+    		<h1>Welcome to Waku</h1>
+    		<p>This card is automatically styled with an elevated background.</p>
+    		<Button variant="primary">Get Started</Button>
+    	</VStack>
+    </Card>
+    ```
+
+## The Waku Design System
+
+Waku is built on a few core principles that make it powerful and easy to use.
+
+### The Two-Part Depth System
+
+Understanding depth is key to using Waku effectively.
+
+#### 1. Surface Elevation
+
+Surface Elevation is for the **static structure of your page**. Use it to create a visual hierarchy in your main layout.
+
+- **Prop:** `elevation={0 | 1 | 2}`
+- **Components:** `VStack`, `HStack`, `Card`
+- **Effect:** Changes the background color to be subtly brighter, creating a sense of topographical depth. It does **not** apply the glass effect.
+
+**When to use it:**
+
+- A sidebar next to a main content area: `<HStack><VStack elevation={1}>...</VStack></HStack>`
+- A card that needs to stand out on a surface: `<Card elevation={2}>...</Card>`
 
 ```svelte
-<script>
-	import { Button } from '@waku/components';
-	import { VStack } from '@waku/layout';
-	import { clickOutside } from '@waku/actions';
-</script>
-
-<VStack gap="md">
-	<Button variant="primary">Click Me</Button>
-	<Button variant="secondary">Secondary</Button>
+<!-- A common page layout -->
+<VStack elevation={0} class="page">
+	<HStack elevation={1} class="header">...</HStack>
+	<Card elevation={2} class="content">
+		Your content here. The card is visually on top of the header, which is on top of the page.
+	</Card>
 </VStack>
 ```
 
-## Project Structure
+#### 2. Overlay Layers
 
-```
-waku/
-├── actions/          # Svelte actions (clickOutside, focusTrap, etc.)
-├── components/       # UI components (Button, Input, Modal, etc.)
-├── layout/           # Layout components (VStack, HStack, Card, etc.)
-├── types/            # Shared TypeScript types
-├── showcase/         # Component showcase/documentation
-└── index.ts          # Root exports
-```
+Overlay Layers are for **temporary, interactive UI** that appears _on top_ of the page structure.
 
-## Import Paths
+- **Mechanism:** These components automatically use the "Material Glass" effect, shadows, and high `z-index` values. They do **not** use the `elevation` prop.
+- **Components:** `Modal`, `Select` dropdown, `Tooltip`, `Toast`.
 
-```typescript
-// Root import (all exports)
-import { Button } from '@waku';
+**When to use it:**
 
-// Specific imports
-import { Button, Input } from '@waku/components';
-import { VStack, HStack } from '@waku/layout';
-import { clickOutside, focusTrap } from '@waku/actions';
-import type { ButtonProps, Variant, Size } from '@waku/types';
-```
+- Showing a dialog: `<Modal bind:open={...}>`
+- Displaying a notification: `toast('Profile updated!')`
 
-## Dark Mode
+The glass effect is the visual cue that tells the user, "This is a temporary layer."
 
-Toggle dark mode by adding the `dark` class to your root element:
+### Button Hierarchy
 
-```typescript
-// Toggle dark mode
-document.documentElement.classList.toggle('dark');
-```
+Waku provides a clear hierarchy of buttons. Use the variant that best matches the importance of the action.
 
-All components automatically adapt to dark mode.
+- `primary`: The single, most important action.
+- `outline`: The standard secondary action.
+- `subtle`: A less prominent action, perfect for "Cancel" or minor choices.
+- `ghost`: For tertiary actions with no visual weight, like in toolbars.
+- `danger`: For destructive actions only.
 
-## Available Components
+### Available Components (v1)
 
-### Components
+A complete showcase is available by running the project locally.
 
-- **Button** - Interactive button with variants and sizes
-- **Input** - Text and number inputs
-- **Toggle** - Switch/toggle component
-- **Modal** - Accessible modal dialogs
-- **Select** - Dropdown select component
-- **Tooltip** - Hover tooltips
-- **Tabs** - Tabbed interface
-- **Badge** - Status badges
-- **LoadingSpinner** - Loading indicator
-- **Toast** - Toast notifications
-- **Alert** - Alert messages
-
-### Layout
-
-- **VStack** - Vertical stack container
-- **HStack** - Horizontal stack container
-- **Separator** - Visual divider
-- **Card** - Content card
-
-### Actions
-
-- **clickOutside** - Detect clicks outside an element
-- **portalled** - Move elements to a different parent
-- **focusTrap** - Trap focus within an element
-- **trapScroll** - Prevent body scrolling
-- **autoFocus** - Auto-focus elements
-
-## Component Props
-
-All components follow consistent naming patterns:
-
-- `variant` - Visual style ('primary', 'secondary', 'ghost', 'outline', 'danger')
-- `size` - Size ('sm', 'md', 'lg')
-- `disabled` - Disabled state
-- Component-specific props as needed
-
-Example:
-
-```svelte
-<Button variant="primary" size="lg" disabled={false} onclick={() => console.log('clicked')}>
-	Click Me
-</Button>
-```
-
-## Theming
-
-### Accent Color
-
-Set your accent color in CSS:
-
-```css
-:root {
-	--accent-500: oklch(0.65 0.2 280);
-}
-```
-
-Or use the JavaScript utility:
-
-```typescript
-import { setAccentColor } from '@waku/styles';
-
-setAccentColor('hsl(280, 85%, 60%)');
-// or
-setAccentColor('oklch(0.65 0.2 280)');
-```
-
-### Available Colors
-
-- **Accent Scale**: `accent-50` through `accent-950`
-- **Neutral Scale**: `neutral-50` through `neutral-950`
-- **Feedback**: `success`, `warning`, `danger`, `info`
-
-Use in Tailwind classes:
-
-```svelte
-<div class="bg-accent-500 hover:bg-accent-600 text-white">Styled element</div>
-```
+- **Layout:**
+  - `VStack`, `HStack`: The workhorses for all layouts. Use them for everything from page structure to small component arrangements.
+  - `Separator`: A visual divider.
+  - `Card`: The primary container for grouped content.
+- **Components:**
+  - `Button`, `Input`, `Toggle`, `Select`: Core form and action elements.
+  - `Modal`, `Tooltip`, `Toast`: Overlay and notification components.
+  - `Badge`, `Alert`, `LoadingSpinner`: Status and feedback indicators.
 
 ## Development
 
-Run the showcase to see all components:
-
-```bash
-npm run dev
-```
-
-The showcase is available in the `showcase/` directory and demonstrates all components with different variants and states.
-
-## TypeScript
-
-All components export their prop types:
-
-```typescript
-import type { ButtonProps } from '@waku/components';
-import type { Variant, Size } from '@waku/types';
-
-// Use in your own components
-interface MyButtonWrapperProps extends ButtonProps {
-	customProp: string;
-}
-```
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/your-username/waku.git
+    cd waku
+    ```
+2.  **Install dependencies:**
+    ```bash
+    pnpm install
+    ```
+3.  **Run the showcase:**
+    ```bash
+    pnpm dev
+    ```
+    The component showcase will be available at `http://localhost:5173`.
 
 ## Contributing
 
-Waku is a personal component library. If you want to use it:
-
-1. Fork the repository
-2. Customize the accent color and design tokens
-3. Add your own components as needed
+This is a personal library, but contributions for bug fixes or performance improvements are welcome. Please open an issue to discuss any proposed changes.
 
 ## License
 
-BSD 3-Clause License
+This project is licensed under the BSD 3-Clause License - see the [LICENSE](LICENSE) file for details.
