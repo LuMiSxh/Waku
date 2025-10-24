@@ -1,0 +1,8 @@
+/* waku/src/app.css */
+/* Import Waku styles */
+@import './lib/styles/waku.css';
+
+/* Set accent color for showcase */
+:root {
+	--waku-accent: oklch(0.65 0.2 250); /* Blue accent */
+}

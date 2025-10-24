@@ -1,0 +1,93 @@
+{
+	"name": "waku",
+	"version": "0.1.0",
+	"description": "A modern SvelteKit component library with flexible theming",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./index.ts",
+			"svelte": "./index.ts"
+		},
+		"./components": {
+			"types": "./components/index.ts",
+			"svelte": "./components/index.ts"
+		},
+		"./layout": {
+			"types": "./layout/index.ts",
+			"svelte": "./layout/index.ts"
+		},
+		"./actions": {
+			"types": "./actions/index.ts",
+			"default": "./actions/index.ts"
+		},
+		"./types": {
+			"types": "./types/index.ts",
+			"default": "./types/index.ts"
+		},
+		"./styles": {
+			"types": "./styles/index.ts",
+			"default": "./styles/index.ts"
+		},
+		"./styles/*": "./styles/*"
+	},
+	"files": [
+		"actions",
+		"components",
+		"layout",
+		"types",
+		"styles",
+		"index.ts"
+	],
+	"sideEffects": [
+		"**/*.css"
+	],
+	"svelte": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build && npm run prepack",
+		"preview": "vite preview",
+		"prepare": "svelte-kit sync || echo ''",
+		"prepack": "svelte-kit sync && svelte-package && publint",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"format": "prettier --write .",
+		"lint": "prettier --check . && eslint ."
+	},
+	"peerDependencies": {
+		"svelte": "^5.0.0"
+	},
+	"devDependencies": {
+		"@eslint/compat": "^1.4.0",
+		"@eslint/js": "^9.36.0",
+		"@sveltejs/adapter-auto": "^6.1.0",
+		"@sveltejs/kit": "^2.43.2",
+		"@sveltejs/package": "^2.5.4",
+		"@sveltejs/vite-plugin-svelte": "^6.2.0",
+		"@tailwindcss/vite": "^4.1.13",
+		"@types/node": "^22",
+		"eslint": "^9.36.0",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-svelte": "^3.12.4",
+		"globals": "^16.4.0",
+		"prettier": "^3.6.2",
+		"prettier-plugin-svelte": "^3.4.0",
+		"prettier-plugin-tailwindcss": "^0.6.14",
+		"publint": "^0.3.13",
+		"svelte": "^5.39.5",
+		"svelte-check": "^4.3.2",
+		"tailwindcss": "^4.1.13",
+		"typescript": "^5.9.2",
+		"typescript-eslint": "^8.44.1",
+		"vite": "^7.1.7"
+	},
+	"keywords": [
+		"svelte"
+	],
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"esbuild",
+			"@tailwindcss/oxide"
+		]
+	}
+}
