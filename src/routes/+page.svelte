@@ -58,6 +58,11 @@
 			name: 'Modal',
 			path: '/modal' as const as '/',
 			description: 'A dialog window over the main content.'
+		},
+		{
+			name: 'Toast',
+			path: '/toast' as const as '/',
+			description: 'Transient notifications to inform users.'
 		}
 	];
 </script>

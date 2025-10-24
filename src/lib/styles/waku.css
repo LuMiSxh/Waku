@@ -54,19 +54,28 @@
 	--waku-glass-gradient-from: oklch(1 0 0 / 0.3);
 	--waku-glass-gradient-to: oklch(1 0 0 / 0.2);
 
+	/* 7. SHADOWS */
 	--shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.07);
 	--shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.08);
 	--shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 
+	/* 8. TRANSITION DURATIONS & EASINGS */
 	--transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
 	--transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
 	--transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
 
+	/* 9. Z-INDEX LAYERS */
 	--z-dropdown: 1000;
 	--z-modal: 1050;
 	--z-popover: 1060;
 	--z-tooltip: 1070;
 	--z-toast: 1080;
+
+	/* FEEDBACK COLORS */
+	--color-info: oklch(0.6 0.15 240);
+	--color-success: oklch(0.65 0.18 145);
+	--color-warning: oklch(0.7 0.16 70);
+	--color-danger: oklch(0.6 0.2 25);
 }
 
 /* ----------------------------------------- */

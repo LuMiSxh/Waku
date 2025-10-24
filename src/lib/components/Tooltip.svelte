@@ -11,7 +11,6 @@
 
 <div class="tooltip-wrapper {className || ''}">
 	{@render children()}
-	<!-- ADD THE .glass CLASS HERE -->
 	<span class="tooltip-text glass">
 		{text}
 	</span>
