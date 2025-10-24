@@ -26,8 +26,7 @@
 		bottom: 100%;
 		left: 50%;
 		transform: translateX(-50%);
-		/* Adjust margin to make space for the arrow */
-		margin-bottom: 0.75rem; /* 12px */
+		margin-bottom: 0.65rem;
 
 		background-color: var(--neutral-800);
 		color: var(--neutral-100);
