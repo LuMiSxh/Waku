@@ -59,7 +59,7 @@
 		position: fixed;
 		inset: 0;
 		z-index: var(--z-modal);
-		background-color: oklch(0 0 0 / 0.5);
+		background-color: var(--waku-backdrop-bg);
 		display: flex;
 		align-items: center;
 		justify-content: center;

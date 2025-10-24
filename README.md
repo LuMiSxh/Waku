@@ -169,7 +169,7 @@ setAccentColor('oklch(0.65 0.2 280)');
 Use in Tailwind classes:
 
 ```svelte
-<div class="bg-accent-500 text-white hover:bg-accent-600">Styled element</div>
+<div class="bg-accent-500 hover:bg-accent-600 text-white">Styled element</div>
 ```
 
 ## Development

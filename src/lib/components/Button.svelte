@@ -112,17 +112,13 @@
 		background-color: var(--accent-700);
 	}
 
-	.btn-secondary {
-		background-color: var(--waku-bg-layer-1);
-		color: var(--waku-fg-layer-1);
-		border-color: var(--waku-border);
-		backdrop-filter: blur(var(--waku-glass-blur));
+	.btn-subtle {
+		background-color: transparent;
+		color: var(--waku-fg-muted);
 	}
-	.btn-secondary:hover:not(:disabled) {
-		border-color: var(--accent-400);
-	}
-	.btn-secondary:active:not(:disabled) {
-		background-color: var(--accent-50);
+	.btn-subtle:hover:not(:disabled) {
+		background-color: var(--neutral-200);
+		color: var(--waku-fg-base);
 	}
 
 	.btn-ghost {

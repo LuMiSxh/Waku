@@ -118,8 +118,8 @@
 				class="demo-container w-full rounded p-4"
 				style="background: var(--waku-bg-layer-2);"
 			>
-				<div class="demo-item w-full bg-accent-100!">Nested Item A</div>
-				<div class="demo-item w-full bg-accent-100!">Nested Item B</div>
+				<div class="demo-item bg-accent-100! w-full">Nested Item A</div>
+				<div class="demo-item bg-accent-100! w-full">Nested Item B</div>
 			</VStack>
 
 			<!-- Footer -->

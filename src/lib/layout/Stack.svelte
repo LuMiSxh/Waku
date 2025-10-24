@@ -1,6 +1,12 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import type { Alignment, Justification, Direction, Spacing } from '$lib/types/index.js';
+	import type {
+		Alignment,
+		Justification,
+		Direction,
+		Spacing,
+		Elevation
+	} from '$lib/types/index.js';
 
 	interface Props {
 		children: Snippet;
@@ -10,6 +16,7 @@
 		align?: Alignment;
 		justify?: Justification;
 		class?: string;
+		elevation?: Elevation;
 	}
 
 	let {
@@ -19,6 +26,7 @@
 		gap = 'md',
 		align,
 		justify,
+		elevation,
 		class: className
 	}: Props = $props();
 
@@ -44,7 +52,11 @@
 	);
 </script>
 
-<svelte:element this={element} {style} class="stack {className || ''}">
+<svelte:element
+	this={element}
+	{style}
+	class="stack {elevation !== undefined ? `elevation-${elevation}` : ''} {className || ''}"
+>
 	{@render children()}
 </svelte:element>
 

@@ -2,7 +2,7 @@
 	import { Button, HStack, VStack } from '$lib/index.js';
 	import type { Variant, Size } from '$lib/types/index.js';
 
-	const variants: Variant[] = ['primary', 'secondary', 'outline', 'ghost', 'danger'];
+	const variants: Variant[] = ['primary', 'sublte', 'outline', 'ghost', 'danger'];
 	const sizes: Size[] = ['sm', 'md', 'lg'];
 </script>
 

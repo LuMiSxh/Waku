@@ -23,6 +23,11 @@
 			description: 'A line to visually divide content.'
 		},
 		{
+			name: 'Elevation',
+			path: '/elevation' as const as '/',
+			description: 'Different colors depending on Stack elevation levels.'
+		},
+		{
 			name: 'Badge',
 			path: '/badge' as const as '/',
 			description: 'Labels for statuses or properties.'

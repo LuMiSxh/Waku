@@ -1,13 +1,15 @@
 <script lang="ts">
+	import type { Elevation } from '$lib/types/index.js';
 	import type { Snippet } from 'svelte';
 
 	interface Props {
 		children: Snippet;
+		elevation?: Elevation;
 		class?: string;
 		padding?: 'sm' | 'md' | 'lg' | 'none';
 	}
 
-	let { children, class: className, padding = 'md' }: Props = $props();
+	let { children, class: className, padding = 'md', elevation = 1 }: Props = $props();
 
 	const paddingMap = {
 		none: 'p-0',
@@ -17,7 +19,7 @@
 	};
 </script>
 
-<div class="card glass {paddingMap[padding]} {className || ''}">
+<div class="card glass elevation-{elevation} {paddingMap[padding]} {className || ''}">
 	{@render children()}
 </div>
 

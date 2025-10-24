@@ -11,7 +11,8 @@
 
 <div class="tooltip-wrapper {className || ''}">
 	{@render children()}
-	<span class="tooltip-text">
+	<!-- ADD THE .glass CLASS HERE -->
+	<span class="tooltip-text glass">
 		{text}
 	</span>
 </div>
@@ -26,10 +27,13 @@
 		bottom: 100%;
 		left: 50%;
 		transform: translateX(-50%);
-		margin-bottom: 0.65rem;
+		margin-bottom: 0.75rem;
 
-		background-color: var(--neutral-800);
-		color: var(--neutral-100);
+		background-color: oklch(0.15 0 0 / 0.7);
+		color: oklch(0.98 0 0);
+		backdrop-filter: blur(8px);
+		box-shadow: inset 0 0 0 1px oklch(1 0 0 / 0.1);
+
 		padding: 0.25rem 0.5rem;
 		border-radius: var(--radius-sm);
 		font-size: 0.875rem;
@@ -43,16 +47,18 @@
 		z-index: var(--z-tooltip);
 	}
 
-	/* The new arrow */
 	.tooltip-text::after {
 		content: '';
 		position: absolute;
-		top: 85%;
+		top: 100%;
 		left: 50%;
+		margin-top: -4px;
 		transform: translateX(-50%) rotate(45deg);
-		width: 0.5rem; /* 8px */
-		height: 0.5rem; /* 8px */
-		background-color: var(--neutral-800);
+		width: 0.5rem;
+		height: 0.5rem;
+
+		background-color: oklch(0.15 0 0 / 0.7);
+		box-shadow: inset 0 0 0 1px oklch(1 0 0 / 0.1);
 	}
 
 	.tooltip-wrapper:hover .tooltip-text,
