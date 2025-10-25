@@ -9,3 +9,4 @@ export { default as Toggle } from './Toggle.svelte';
 export { default as Select } from './Select.svelte';
 export { default as Tooltip } from './Tooltip.svelte';
 export { default as Modal } from './Modal.svelte';
+export { default as Toast, toast } from './Toast.svelte';
