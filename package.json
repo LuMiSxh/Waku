@@ -3,65 +3,70 @@
 	"version": "1.0.0",
 	"description": "A modern SvelteKit component library with flexible theming",
 	"type": "module",
-	"exports": {
-		".": {
-			"types": "./index.ts",
-			"svelte": "./index.ts"
-		},
-		"./components": {
-			"types": "./components/index.ts",
-			"svelte": "./components/index.ts"
-		},
-		"./layout": {
-			"types": "./layout/index.ts",
-			"svelte": "./layout/index.ts"
-		},
-		"./actions": {
-			"types": "./actions/index.ts",
-			"default": "./actions/index.ts"
-		},
-		"./types": {
-			"types": "./types/index.ts",
-			"default": "./types/index.ts"
-		},
-		"./styles": {
-			"types": "./styles/index.ts",
-			"default": "./styles/index.ts"
-		},
-		"./styles/*": "./styles/*"
+	"scripts": {
+		"dev": "vite dev",
+		"build": "npm run build:package && npm run build:app",
+		"build:app": "vite build",
+		"build:package": "svelte-kit sync && svelte-package",
+		"package": "npm run build:package",
+		"prepare": "npm run build:package",
+		"prepublishOnly": "npm run build:package",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"lint": "prettier --check . && eslint .",
+		"format": "prettier --write ."
 	},
-	"files": [
-		"actions",
-		"components",
-		"layout",
-		"types",
-		"styles",
-		"index.ts"
-	],
 	"sideEffects": [
 		"**/*.css"
 	],
+	"exports": {
+		".": {
+			"types": "./dist/index.ts",
+			"svelte": "./dist/index.ts"
+		},
+		"./components": {
+			"types": "./dist/components/index.ts",
+			"svelte": "./dist/components/index.ts"
+		},
+		"./layout": {
+			"types": "./dist/layout/index.ts",
+			"svelte": "./dist/layout/index.ts"
+		},
+		"./actions": {
+			"types": "./dist/actions/index.ts",
+			"default": "./dist/actions/index.ts"
+		},
+		"./types": {
+			"types": "./dist/types/index.ts",
+			"default": "./dist/types/index.ts"
+		},
+		"./styles": {
+			"types": "./dist/styles/index.ts",
+			"default": "./dist/styles/index.ts"
+		},
+		"./styles/*": "./dist/styles/*",
+		"./package.json": "./package.json"
+	},
 	"svelte": "./dist/index.js",
 	"types": "./dist/index.d.ts",
-	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build && npm run prepack",
-		"preview": "vite preview",
-		"prepare": "svelte-kit sync || echo ''",
-		"prepack": "svelte-kit sync && svelte-package && publint",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"format": "prettier --write .",
-		"lint": "prettier --check . && eslint ."
+	"files": [
+		"dist"
+	],
+	"typesVersions": {
+		">4.0": {
+			".": [
+				"./dist/index.d.ts"
+			]
+		}
 	},
 	"peerDependencies": {
-		"svelte": "^5.0.0"
+		"@sveltejs/kit": "^2.46.4",
+		"svelte": "^5.39.5"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.4.0",
 		"@eslint/js": "^9.36.0",
 		"@sveltejs/adapter-auto": "^6.1.0",
-		"@sveltejs/kit": "^2.43.2",
+		"@sveltejs/kit": "^2.46.4",
 		"@sveltejs/package": "^2.5.4",
 		"@sveltejs/vite-plugin-svelte": "^6.2.0",
 		"@tailwindcss/vite": "^4.1.13",
