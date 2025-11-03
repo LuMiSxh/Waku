@@ -1,0 +1,214 @@
+/**
+ * Waku Design Tokens
+ * All CSS variables and theme configuration
+ */
+
+@theme {
+	/* Register accent colors with Tailwind */
+	--color-accent-50: oklch(from var(--waku-accent) calc(l + 0.37) calc(c * 0.3) h);
+	--color-accent-100: oklch(from var(--waku-accent) calc(l + 0.32) calc(c * 0.4) h);
+	--color-accent-200: oklch(from var(--waku-accent) calc(l + 0.24) calc(c * 0.6) h);
+	--color-accent-300: oklch(from var(--waku-accent) calc(l + 0.16) calc(c * 0.8) h);
+	--color-accent-400: oklch(from var(--waku-accent) calc(l + 0.08) calc(c * 0.9) h);
+	--color-accent-500: var(--waku-accent);
+	--color-accent-600: oklch(from var(--waku-accent) calc(l - 0.08) calc(c * 1.05) h);
+	--color-accent-700: oklch(from var(--waku-accent) calc(l - 0.16) calc(c * 1.1) h);
+	--color-accent-800: oklch(from var(--waku-accent) calc(l - 0.24) calc(c * 1.1) h);
+	--color-accent-900: oklch(from var(--waku-accent) calc(l - 0.32) calc(c * 1.05) h);
+	--color-accent-950: oklch(from var(--waku-accent) calc(l - 0.37) calc(c * 0.9) h);
+}
+
+:root {
+	/* ========================================
+	   1. ACCENT COLOR (Project-specific)
+	   ======================================== */
+	--waku-accent: oklch(0.65 0.2 250);
+
+	/* Full accent color scale (backwards compatibility) */
+	--accent-50: oklch(from var(--waku-accent) calc(l + 0.37) calc(c * 0.3) h);
+	--accent-100: oklch(from var(--waku-accent) calc(l + 0.32) calc(c * 0.4) h);
+	--accent-200: oklch(from var(--waku-accent) calc(l + 0.24) calc(c * 0.6) h);
+	--accent-300: oklch(from var(--waku-accent) calc(l + 0.16) calc(c * 0.8) h);
+	--accent-400: oklch(from var(--waku-accent) calc(l + 0.08) calc(c * 0.9) h);
+	--accent-500: var(--waku-accent);
+	--accent-600: oklch(from var(--waku-accent) calc(l - 0.08) calc(c * 1.05) h);
+	--accent-700: oklch(from var(--waku-accent) calc(l - 0.16) calc(c * 1.1) h);
+	--accent-800: oklch(from var(--waku-accent) calc(l - 0.24) calc(c * 1.1) h);
+	--accent-900: oklch(from var(--waku-accent) calc(l - 0.32) calc(c * 1.05) h);
+	--accent-950: oklch(from var(--waku-accent) calc(l - 0.37) calc(c * 0.9) h);
+
+	/* ========================================
+	   2. NEUTRAL PALETTE (Light Mode)
+	   ======================================== */
+	--neutral-50: oklch(0.98 0 0);
+	--neutral-100: oklch(0.95 0 0);
+	--neutral-200: oklch(0.9 0 0);
+	--neutral-300: oklch(0.83 0 0);
+	--neutral-400: oklch(0.74 0 0);
+	--neutral-500: oklch(0.65 0 0);
+	--neutral-600: oklch(0.56 0 0);
+	--neutral-700: oklch(0.47 0 0);
+	--neutral-800: oklch(0.38 0 0);
+	--neutral-900: oklch(0.29 0 0);
+	--neutral-950: oklch(0.2 0 0);
+
+	/* ========================================
+	   3. SURFACE ELEVATION SYSTEM (Light Mode)
+	   ======================================== */
+	--waku-surface-0: var(--neutral-50);
+	--waku-surface-1: oklch(1 0 0);
+	--waku-surface-2: var(--neutral-50);
+
+	/* ========================================
+	   4. FOREGROUND & BORDERS (Light Mode)
+	   ======================================== */
+	--waku-fg-base: var(--neutral-950);
+	--waku-fg-muted: var(--neutral-600);
+	--waku-border: oklch(0.88 0.01 260);
+
+	/* ========================================
+	   5. OVERLAY LAYERS (Light Mode)
+	   ======================================== */
+	--waku-overlay-bg: oklch(0.98 0 0 / 0.4);
+	--waku-backdrop-bg: oklch(0.5 0 0 / 0.3);
+
+	/* ========================================
+	   6. LIQUID GLASS DESIGN TOKENS
+	   ======================================== */
+	--waku-glass-blur: 40px;
+	--waku-glass-blur-heavy: 60px;
+	--waku-glass-saturation: 180%;
+	--waku-glass-brightness: 105%;
+
+	/* Multi-layer glass effect */
+	--waku-glass-edge: oklch(1 0 0 / 0.8);
+	--waku-glass-inner-shadow: inset 0 1px 1px 0 oklch(1 0 0 / 0.9);
+	--waku-glass-gradient-from: oklch(0.98 0 0 / 0.72);
+	--waku-glass-gradient-to: oklch(0.96 0 0 / 0.58);
+
+	/* Liquid Glass reflection effect */
+	--waku-glass-reflection: linear-gradient(
+		135deg,
+		oklch(1 0 0 / 0.15) 0%,
+		oklch(1 0 0 / 0) 50%,
+		oklch(0 0 0 / 0.05) 100%
+	);
+
+	/* ========================================
+	   7. APPLE-STYLE SHADOWS
+	   ======================================== */
+	--shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.03), 0 1px 3px 0 rgb(0 0 0 / 0.02);
+	--shadow-md: 0 2px 8px -2px rgb(0 0 0 / 0.05), 0 6px 12px -4px rgb(0 0 0 / 0.04);
+	--shadow-lg: 0 8px 16px -4px rgb(0 0 0 / 0.06), 0 12px 24px -8px rgb(0 0 0 / 0.05);
+	--shadow-xl: 0 16px 32px -8px rgb(0 0 0 / 0.08), 0 20px 40px -12px rgb(0 0 0 / 0.06);
+	--shadow-2xl: 0 24px 48px -12px rgb(0 0 0 / 0.1), 0 32px 64px -16px rgb(0 0 0 / 0.08);
+
+	/* Glass-specific shadow */
+	--shadow-glass:
+		0 8px 32px -8px rgb(0 0 0 / 0.12), 0 0 0 1px oklch(1 0 0 / 0.1) inset,
+		0 1px 2px 0 oklch(1 0 0 / 0.6) inset;
+
+	/* ========================================
+	   8. TRANSITIONS & SPRING PHYSICS
+	   ======================================== */
+	--transition-fast: 200ms cubic-bezier(0.32, 0.72, 0, 1);
+	--transition-base: 300ms cubic-bezier(0.32, 0.72, 0, 1);
+	--transition-slow: 400ms cubic-bezier(0.32, 0.72, 0, 1);
+	--transition-bounce: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+	/* Spring easing functions */
+	--spring-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+	--spring-snappy: cubic-bezier(0.32, 0, 0.67, 0);
+
+	/* ========================================
+	   9. Z-INDEX LAYERS
+	   ======================================== */
+	--z-dropdown: 1000;
+	--z-modal: 1050;
+	--z-popover: 1060;
+	--z-tooltip: 1070;
+	--z-toast: 1080;
+
+	/* ========================================
+	   10. FEEDBACK COLORS
+	   ======================================== */
+	--color-info: oklch(0.6 0.18 240);
+	--color-success: oklch(0.65 0.2 145);
+	--color-warning: oklch(0.72 0.18 70);
+	--color-danger: oklch(0.6 0.22 25);
+
+	/* ========================================
+	   11. BORDER RADIUS
+	   ======================================== */
+	--radius-sm: 8px;
+	--radius-md: 12px;
+	--radius-lg: 16px;
+	--radius-xl: 20px;
+	--radius-2xl: 24px;
+	--radius-full: 9999px;
+
+	/* ========================================
+	   12. SPACING SCALE
+	   ======================================== */
+	--spacing-xs: 0.25rem;
+	--spacing-sm: 0.5rem;
+	--spacing-md: 1rem;
+	--spacing-lg: 1.5rem;
+	--spacing-xl: 2rem;
+	--spacing-2xl: 3rem;
+}
+
+/* ========================================
+   DARK MODE OVERRIDES
+   ======================================== */
+html.dark {
+	/* NEUTRAL PALETTE (Dark Mode) */
+	--neutral-50: oklch(0.2 0 0);
+	--neutral-100: oklch(0.25 0 0);
+	--neutral-200: oklch(0.32 0 0);
+	--neutral-300: oklch(0.4 0 0);
+	--neutral-400: oklch(0.48 0 0);
+	--neutral-500: oklch(0.56 0 0);
+	--neutral-600: oklch(0.65 0 0);
+	--neutral-700: oklch(0.74 0 0);
+	--neutral-800: oklch(0.83 0 0);
+	--neutral-900: oklch(0.9 0 0);
+	--neutral-950: oklch(0.98 0 0);
+
+	/* SURFACE ELEVATION SYSTEM (Dark Mode) */
+	--waku-surface-0: oklch(0.12 0.01 260);
+	--waku-surface-1: oklch(0.16 0.01 260);
+	--waku-surface-2: oklch(0.2 0.01 260);
+
+	/* FOREGROUND & BORDERS (Dark Mode) */
+	--waku-fg-base: var(--neutral-950);
+	--waku-fg-muted: var(--neutral-600);
+	--waku-border: oklch(0.35 0.01 260);
+
+	/* OVERLAY LAYERS (Dark Mode) */
+	--waku-overlay-bg: oklch(0.18 0 0 / 0.4);
+	--waku-backdrop-bg: oklch(0 0 0 / 0.4);
+
+	/* LIQUID GLASS (Dark Mode) */
+	--waku-glass-edge: oklch(1 0 0 / 0.15);
+	--waku-glass-inner-shadow: inset 0 1px 1px 0 oklch(1 0 0 / 0.15);
+	--waku-glass-gradient-from: oklch(0.22 0 0 / 0.7);
+	--waku-glass-gradient-to: oklch(0.18 0 0 / 0.6);
+	--waku-glass-reflection: linear-gradient(
+		135deg,
+		oklch(1 0 0 / 0.08) 0%,
+		oklch(1 0 0 / 0) 50%,
+		oklch(0 0 0 / 0.08) 100%
+	);
+
+	/* SHADOWS (Dark Mode) */
+	--shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4), 0 1px 3px 0 rgb(0 0 0 / 0.3);
+	--shadow-md: 0 2px 8px -2px rgb(0 0 0 / 0.5), 0 6px 12px -4px rgb(0 0 0 / 0.4);
+	--shadow-lg: 0 8px 16px -4px rgb(0 0 0 / 0.6), 0 12px 24px -8px rgb(0 0 0 / 0.5);
+	--shadow-xl: 0 16px 32px -8px rgb(0 0 0 / 0.7), 0 20px 40px -12px rgb(0 0 0 / 0.6);
+	--shadow-2xl: 0 24px 48px -12px rgb(0 0 0 / 0.8), 0 32px 64px -16px rgb(0 0 0 / 0.7);
+
+	--shadow-glass:
+		0 8px 32px -8px rgb(0 0 0 / 0.6), 0 0 0 1px oklch(1 0 0 / 0.08) inset,
+		0 1px 2px 0 oklch(1 0 0 / 0.15) inset;
+}

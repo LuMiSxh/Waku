@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { clickOutside, portalled } from '$lib/actions/index.js';
-	import { fly } from 'svelte/transition';
+	import { clickOutside, portalled, glassScale } from '$lib/actions/index.js';
 
 	export type SelectOption = {
 		value: string | number;
@@ -28,9 +27,9 @@
 	let open = $state(false);
 	let highlightedIndex = $state(-1);
 	let listboxElement: HTMLUListElement | undefined = $state();
-	let triggerElement: HTMLButtonElement | undefined = $state(); // Reference to the trigger button
+	let triggerElement: HTMLButtonElement | undefined = $state();
 
-	// State for portalled positioning
+	// State für die Positionierung des Portals
 	let top = $state(0);
 	let left = $state(0);
 	let width = $state(0);
@@ -43,7 +42,7 @@
 	function updatePosition() {
 		if (!triggerElement) return;
 		const rect = triggerElement.getBoundingClientRect();
-		top = rect.bottom + 4; // Position below the trigger with a 4px gap
+		top = rect.bottom + 4;
 		left = rect.left;
 		width = rect.width;
 	}
@@ -97,8 +96,7 @@
 
 	$effect(() => {
 		if (open) {
-			updatePosition(); // Calculate position when opened
-			// Set initial highlighted item
+			updatePosition();
 			const currentIndex = options.findIndex((opt) => opt.value === value);
 			highlightedIndex = currentIndex !== -1 ? currentIndex : 0;
 		}
@@ -145,11 +143,11 @@
 	{#if open}
 		<div use:portalled>
 			<ul
-				class="options-list glass"
+				class="options-list glass-heavy"
 				role="listbox"
 				bind:this={listboxElement}
-				style="top: {top}px; left: {left}px; width: {width}px;"
-				transition:fly={{ y: -5, duration: 150 }}
+				style="position: absolute; top: {top}px; left: {left}px; width: {width}px;"
+				transition:glassScale={{ duration: 400, start: 0.95 }}
 			>
 				{#each options as option, i (option.value)}
 					<li
@@ -167,81 +165,3 @@
 		</div>
 	{/if}
 </div>
-
-<style>
-	.select-wrapper {
-		position: relative;
-		display: inline-block;
-		width: 100%;
-	}
-	.select-trigger {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		width: 100%;
-		height: 2.5rem; /* h-10 */
-		padding: 0 0.75rem;
-		border-radius: var(--radius-md);
-		border: 1px solid var(--waku-border);
-		background-color: var(--waku-bg-layer-1);
-		color: var(--waku-fg-base);
-		transition: border-color var(--transition-fast);
-		text-align: left;
-		cursor: pointer;
-	}
-	.select-trigger:focus {
-		outline: none;
-		border-color: var(--waku-accent);
-	}
-	.select-trigger:disabled {
-		cursor: not-allowed;
-		opacity: 0.6;
-	}
-	.placeholder {
-		color: var(--waku-fg-muted);
-	}
-	.chevron {
-		color: var(--waku-fg-muted);
-		transition: transform var(--transition-fast);
-	}
-	.select-trigger[aria-expanded='true'] .chevron {
-		transform: rotate(180deg);
-	}
-
-	.options-list {
-		position: fixed;
-		z-index: var(--z-dropdown);
-		max-height: 200px;
-		overflow-y: auto;
-		list-style: none;
-		margin: 0;
-		padding: 0.25rem;
-		border-radius: var(--radius-md);
-		background-color: var(--waku-bg-layer-2);
-		border: 1px solid var(--waku-border);
-		box-shadow: var(--shadow-lg);
-	}
-
-	.options-list li {
-		padding: 0.5rem 0.75rem;
-		border-radius: var(--radius-sm);
-		cursor: pointer;
-		user-select: none;
-	}
-
-	.options-list li + li {
-		margin-top: 0.05rem;
-	}
-
-	.options-list li[aria-selected='true'] {
-		font-weight: 600;
-		background-color: var(--accent-200);
-		color: var(--accent-800);
-	}
-
-	.options-list li.highlighted {
-		background-color: var(--accent-300);
-		color: var(--accent-900);
-		outline: none;
-	}
-</style>

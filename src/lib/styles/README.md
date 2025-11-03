@@ -60,7 +60,7 @@ Waku automatically generates a full color scale from your accent color:
 Use these in Tailwind classes:
 
 ```svelte
-<div class="bg-accent-500 hover:bg-accent-600 text-white">Primary Button</div>
+<div class="bg-accent-500 text-white hover:bg-accent-600">Primary Button</div>
 ```
 
 ## Neutral Colors

@@ -1,0 +1,85 @@
+/**
+ * Waku Base Styles
+ * HTML element defaults and resets
+ */
+
+html {
+	background-color: var(--waku-surface-0);
+	color: var(--waku-fg-base);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Focus styles */
+*:focus-visible {
+	outline: 2px solid var(--waku-accent);
+	outline-offset: 2px;
+	transition: outline-offset var(--transition-fast);
+}
+
+*:focus:not(:focus-visible) {
+	outline: none;
+}
+
+/* Disabled elements */
+[disabled],
+[aria-disabled='true'] {
+	cursor: not-allowed;
+	opacity: 0.5;
+}
+
+/* Selection */
+::selection {
+	background-color: oklch(from var(--accent-500) l c h / 0.3);
+	color: var(--waku-fg-base);
+}
+
+/* Smooth scrolling */
+@media (prefers-reduced-motion: no-preference) {
+	html {
+		scroll-behavior: smooth;
+	}
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: var(--waku-surface-0);
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--accent-300);
+	border-radius: var(--radius-full);
+	border: 2px solid var(--waku-surface-0);
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--accent-400);
+}
+
+/* Firefox scrollbar */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: var(--accent-300) var(--waku-surface-0);
+}
+
+/* Backwards compatibility classes */
+.text-primary {
+	color: var(--accent-500);
+}
+
+.stroke-primary {
+	stroke: var(--accent-500);
+}
+
+.bg-primary {
+	background-color: var(--accent-500);
+}
+
+.border-primary {
+	border-color: var(--accent-500);
+}

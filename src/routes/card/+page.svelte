@@ -9,20 +9,40 @@
 	</section>
 
 	<section class="demo-section glass">
-		<h3 class="demo-title">Default Card</h3>
-		<Card class="max-w-md">
-			<VStack gap="sm" align="stretch">
-				<h4 class="text-xl font-semibold">Card Title</h4>
-				<p style="color: var(--waku-fg-muted);">
-					This is a standard card using default props. It includes the glass effect and a subtle
-					shadow to create a sense of elevation.
-				</p>
-				<Separator />
-				<HStack justify="end">
-					<Button variant="secondary">Action</Button>
-				</HStack>
-			</VStack>
-		</Card>
+		<HStack>
+			<div>
+				<h3 class="demo-title">Default Card</h3>
+				<Card class="max-w-md">
+					<VStack gap="sm" align="stretch">
+						<h4 class="text-xl font-semibold">Card Title</h4>
+						<p style="color: var(--waku-fg-muted);">
+							This is a standard card using default props. It a subtle shadow to create a sense of
+							elevation.
+						</p>
+						<Separator />
+						<HStack justify="end">
+							<Button variant="subtle">Action</Button>
+						</HStack>
+					</VStack>
+				</Card>
+			</div>
+			<div>
+				<h3 class="demo-title">Glass Card</h3>
+				<Card class="max-w-md" glass>
+					<VStack gap="sm" align="stretch">
+						<h4 class="text-xl font-semibold">Card Title</h4>
+						<p style="color: var(--waku-fg-muted);">
+							This is a glass card using mostly default props. It includes the glass effect and a
+							subtle shadow to create a sense of elevation.
+						</p>
+						<Separator />
+						<HStack justify="end">
+							<Button variant="subtle">Action</Button>
+						</HStack>
+					</VStack>
+				</Card>
+			</div>
+		</HStack>
 	</section>
 
 	<section class="demo-section glass">

@@ -1,15 +1,21 @@
 <script lang="ts">
-	import { clickOutside, focusTrap, portalled } from '$lib/actions/index.js';
+	import { clickOutside, focusTrap, portalled, glassScale, backdrop } from '$lib/actions/index.js';
 	import type { Snippet } from 'svelte';
-	import { fade, fly } from 'svelte/transition'; // Import transitions
 
 	interface Props {
 		open?: boolean;
 		children: Snippet;
 		onclose?: () => void;
+		size?: 'sm' | 'md' | 'lg';
 	}
 
-	let { open = $bindable(), children, onclose }: Props = $props();
+	let { open = $bindable(), children, onclose, size = 'md' }: Props = $props();
+
+	const sizeMap = {
+		sm: 'max-w-md',
+		md: 'max-w-2xl',
+		lg: 'max-w-4xl'
+	};
 
 	$effect(() => {
 		if (open) {
@@ -38,7 +44,7 @@
 
 {#if open}
 	<div use:portalled>
-		<div class="backdrop" transition:fade={{ duration: 200 }}>
+		<div class="modal-backdrop" transition:backdrop={{ duration: 400 }}>
 			<div
 				class="modal-container"
 				role="dialog"
@@ -46,7 +52,10 @@
 				use:focusTrap={[open, true]}
 				use:clickOutside={handleClose}
 			>
-				<div class="modal-content glass" transition:fly={{ y: 20, duration: 200, opacity: 0 }}>
+				<div
+					class="modal-content glass-heavy {sizeMap[size]}"
+					transition:glassScale={{ duration: 400, start: 0.95 }}
+				>
 					{@render children()}
 				</div>
 			</div>
@@ -55,22 +64,7 @@
 {/if}
 
 <style>
-	.backdrop {
-		position: fixed;
-		inset: 0;
-		z-index: var(--z-modal);
-		background-color: var(--waku-backdrop-bg);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-	.modal-content {
-		max-width: 500px;
-		width: calc(100vw - 2rem);
-		padding: 1.5rem;
-		border-radius: var(--radius-lg);
-		background-color: var(--waku-bg-layer-2);
-		border: 1px solid var(--waku-border);
-		box-shadow: var(--shadow-xl);
+	.modal-container {
+		display: contents;
 	}
 </style>

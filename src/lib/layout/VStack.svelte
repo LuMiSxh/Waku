@@ -3,7 +3,7 @@
 	import type { Snippet } from 'svelte';
 	import type { Alignment, Justification, Spacing, Elevation } from '$lib/types/index.js';
 
-	interface Props {
+	interface Props extends Record<string, unknown> {
 		children: Snippet;
 		as?: keyof HTMLElementTagNameMap;
 		gap?: Spacing;

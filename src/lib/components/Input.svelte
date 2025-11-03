@@ -27,21 +27,3 @@
 </script>
 
 <input bind:value {type} {placeholder} {disabled} class="input {sizeMap[size]} {className || ''}" />
-
-<style>
-	.input {
-		width: 100%;
-		border-radius: var(--radius-md);
-		border: 1px solid var(--waku-border);
-		background-color: var(--waku-bg-layer-1);
-		color: var(--waku-fg-base);
-		transition: border-color var(--transition-fast);
-	}
-	.input:focus {
-		outline: none;
-		border-color: var(--waku-accent);
-	}
-	.input::placeholder {
-		color: var(--waku-fg-muted);
-	}
-</style>

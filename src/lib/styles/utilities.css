@@ -1,0 +1,377 @@
+/**
+ * Waku Utility Classes
+ * Reusable utility classes for common patterns
+ */
+
+/* ========================================
+   GLASS EFFECTS
+   ======================================== */
+.glass {
+	backdrop-filter: blur(var(--waku-glass-blur)) saturate(var(--waku-glass-saturation))
+		brightness(var(--waku-glass-brightness));
+	-webkit-backdrop-filter: blur(var(--waku-glass-blur)) saturate(var(--waku-glass-saturation))
+		brightness(var(--waku-glass-brightness));
+	box-shadow: var(--shadow-glass);
+	background-image:
+		linear-gradient(to bottom, var(--waku-glass-gradient-from), var(--waku-glass-gradient-to)),
+		var(--waku-glass-reflection);
+	border-radius: var(--radius-lg);
+	border: 1px solid var(--waku-glass-edge);
+}
+
+.glass-heavy {
+	backdrop-filter: blur(var(--waku-glass-blur-heavy)) saturate(var(--waku-glass-saturation))
+		brightness(var(--waku-glass-brightness));
+	-webkit-backdrop-filter: blur(var(--waku-glass-blur-heavy)) saturate(var(--waku-glass-saturation))
+		brightness(var(--waku-glass-brightness));
+	box-shadow: var(--shadow-glass);
+	background-image:
+		linear-gradient(to bottom, var(--waku-glass-gradient-from), var(--waku-glass-gradient-to)),
+		var(--waku-glass-reflection);
+	border-radius: var(--radius-xl);
+	border: 1px solid var(--waku-glass-edge);
+}
+
+.glass-subtle {
+	backdrop-filter: blur(20px) saturate(150%) brightness(102%);
+	-webkit-backdrop-filter: blur(20px) saturate(150%) brightness(102%);
+	background: var(--waku-glass-gradient-from);
+	box-shadow: var(--shadow-md);
+	border-radius: var(--radius-md);
+	border: 1px solid var(--waku-border);
+}
+
+/* ========================================
+   SURFACE ELEVATION
+   ======================================== */
+.elevation-0 {
+	background-color: var(--waku-surface-0);
+}
+
+.elevation-1 {
+	background-color: var(--waku-surface-1);
+	box-shadow: var(--shadow-sm);
+}
+
+.elevation-2 {
+	background-color: var(--waku-surface-2);
+	box-shadow: var(--shadow-md);
+	border-radius: var(--radius-lg);
+}
+
+/* ========================================
+   INTERACTIVE STATES
+   ======================================== */
+.interactive {
+	transition:
+		transform var(--transition-fast),
+		box-shadow var(--transition-fast);
+	cursor: pointer;
+}
+
+.interactive:hover {
+	transform: translateY(-1px);
+}
+
+.interactive:active {
+	transform: translateY(0px);
+	transition-duration: 100ms;
+}
+
+.scale-interactive {
+	transition: transform var(--transition-base) var(--spring-smooth);
+	cursor: pointer;
+}
+
+.scale-interactive:hover {
+	transform: scale(1.02);
+}
+
+.scale-interactive:active {
+	transform: scale(0.98);
+}
+
+/* ========================================
+   BORDER RADIUS
+   ======================================== */
+.rounded-sm {
+	border-radius: var(--radius-sm);
+}
+
+.rounded-md {
+	border-radius: var(--radius-md);
+}
+
+.rounded-lg {
+	border-radius: var(--radius-lg);
+}
+
+.rounded-xl {
+	border-radius: var(--radius-xl);
+}
+
+.rounded-2xl {
+	border-radius: var(--radius-2xl);
+}
+
+.rounded-full {
+	border-radius: var(--radius-full);
+}
+
+/* ========================================
+   SHADOWS
+   ======================================== */
+.shadow-sm {
+	box-shadow: var(--shadow-sm);
+}
+
+.shadow-md {
+	box-shadow: var(--shadow-md);
+}
+
+.shadow-lg {
+	box-shadow: var(--shadow-lg);
+}
+
+.shadow-xl {
+	box-shadow: var(--shadow-xl);
+}
+
+.shadow-2xl {
+	box-shadow: var(--shadow-2xl);
+}
+
+.shadow-glass {
+	box-shadow: var(--shadow-glass);
+}
+
+.shadow-none {
+	box-shadow: none;
+}
+
+/* ========================================
+   TEXT COLORS
+   ======================================== */
+.text-base {
+	color: var(--waku-fg-base);
+}
+
+.text-muted {
+	color: var(--waku-fg-muted);
+}
+
+.text-accent {
+	color: var(--accent-500);
+}
+
+.text-success {
+	color: var(--color-success);
+}
+
+.text-warning {
+	color: var(--color-warning);
+}
+
+.text-danger {
+	color: var(--color-danger);
+}
+
+.text-info {
+	color: var(--color-info);
+}
+
+/* ========================================
+   BACKGROUND COLORS
+   ======================================== */
+.bg-surface-0 {
+	background-color: var(--waku-surface-0);
+}
+
+.bg-surface-1 {
+	background-color: var(--waku-surface-1);
+}
+
+.bg-surface-2 {
+	background-color: var(--waku-surface-2);
+}
+
+.bg-accent {
+	background-color: var(--accent-500);
+}
+
+/* ========================================
+   BORDERS
+   ======================================== */
+.border {
+	border: 1px solid var(--waku-border);
+}
+
+.border-accent {
+	border-color: var(--accent-500);
+}
+
+.border-t {
+	border-top: 1px solid var(--waku-border);
+}
+
+.border-b {
+	border-bottom: 1px solid var(--waku-border);
+}
+
+.border-l {
+	border-left: 1px solid var(--waku-border);
+}
+
+.border-r {
+	border-right: 1px solid var(--waku-border);
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes slideIn {
+	from {
+		transform: translateX(-100%);
+	}
+	to {
+		transform: translateX(0);
+	}
+}
+
+@keyframes scaleIn {
+	from {
+		transform: scale(0.95);
+		opacity: 0;
+	}
+	to {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+.animate-fade-in {
+	animation: fadeIn var(--transition-base) var(--spring-smooth);
+}
+
+.animate-slide-in {
+	animation: slideIn var(--transition-base) var(--spring-smooth);
+}
+
+.animate-scale-in {
+	animation: scaleIn var(--transition-base) var(--spring-smooth);
+}
+
+/* ========================================
+   LAYOUT HELPERS
+   ======================================== */
+.center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.stack {
+	display: flex;
+	flex-direction: column;
+}
+
+.hstack {
+	display: flex;
+	flex-direction: row;
+}
+
+.gap-xs {
+	gap: var(--spacing-xs);
+}
+
+.gap-sm {
+	gap: var(--spacing-sm);
+}
+
+.gap-md {
+	gap: var(--spacing-md);
+}
+
+.gap-lg {
+	gap: var(--spacing-lg);
+}
+
+.gap-xl {
+	gap: var(--spacing-xl);
+}
+
+.gap-2xl {
+	gap: var(--spacing-2xl);
+}
+
+/* ========================================
+   VISIBILITY
+   ======================================== */
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+/* ========================================
+   TRANSITIONS
+   ======================================== */
+.transition-fast {
+	transition: all var(--transition-fast);
+}
+
+.transition-base {
+	transition: all var(--transition-base);
+}
+
+.transition-slow {
+	transition: all var(--transition-slow);
+}
+
+.transition-spring {
+	transition: all var(--transition-base) var(--spring-smooth);
+}
+
+.transition-bounce {
+	transition: all var(--transition-bounce);
+}
+
+/* ========================================
+   Z-INDEX LAYERS
+   ======================================== */
+.z-dropdown {
+	z-index: var(--z-dropdown);
+}
+
+.z-modal {
+	z-index: var(--z-modal);
+}
+
+.z-popover {
+	z-index: var(--z-popover);
+}
+
+.z-tooltip {
+	z-index: var(--z-tooltip);
+}
+
+.z-toast {
+	z-index: var(--z-toast);
+}

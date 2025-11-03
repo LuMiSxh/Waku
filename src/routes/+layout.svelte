@@ -26,7 +26,7 @@
 </svelte:head>
 
 <div class="min-h-screen">
-	<header class="border-border glass sticky top-0 z-50 border-b">
+	<header class="glass-subtle sticky top-0 z-50 rounded-none!">
 		<div class="container mx-auto flex items-center justify-between px-4 py-4">
 			<h1 class="text-2xl font-bold"><a href={resolve('/')}>Waku Component Showcase</a></h1>
 			<button onclick={toggleDarkMode} class="btn btn-ghost rounded-md px-4 py-2 transition-colors">

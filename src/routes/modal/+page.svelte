@@ -22,7 +22,7 @@
 			</p>
 			<Input placeholder="Project name..." />
 			<HStack justify="end">
-				<Button variant="secondary" onclick={() => (isModalOpen = false)}>Cancel</Button>
+				<Button variant="outline" onclick={() => (isModalOpen = false)}>Cancel</Button>
 				<Button onclick={() => (isModalOpen = false)}>Create</Button>
 			</HStack>
 		</VStack>

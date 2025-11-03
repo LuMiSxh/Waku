@@ -8,7 +8,7 @@
 		Elevation
 	} from '$lib/types/index.js';
 
-	interface Props {
+	interface Props extends Record<string, unknown> {
 		children: Snippet;
 		as?: keyof HTMLElementTagNameMap;
 		direction?: Direction;
@@ -27,7 +27,8 @@
 		align,
 		justify,
 		elevation,
-		class: className
+		class: className,
+		...rest
 	}: Props = $props();
 
 	const spacingMap: Record<Spacing, string> = {
@@ -56,6 +57,7 @@
 	this={element}
 	{style}
 	class="stack {elevation !== undefined ? `elevation-${elevation}` : ''} {className || ''}"
+	{...rest}
 >
 	{@render children()}
 </svelte:element>

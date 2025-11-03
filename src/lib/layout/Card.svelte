@@ -7,9 +7,16 @@
 		elevation?: Elevation;
 		class?: string;
 		padding?: 'sm' | 'md' | 'lg' | 'none';
+		glass?: boolean;
 	}
 
-	let { children, class: className, padding = 'md', elevation = 1 }: Props = $props();
+	let {
+		children,
+		class: className,
+		padding = 'md',
+		elevation = 1,
+		glass = false
+	}: Props = $props();
 
 	const paddingMap = {
 		none: 'p-0',
@@ -19,7 +26,9 @@
 	};
 </script>
 
-<div class="card glass elevation-{elevation} {paddingMap[padding]} {className || ''}">
+<div
+	class="card {glass ? 'glass' : `elevation-${elevation}`} {paddingMap[padding]} {className || ''}"
+>
 	{@render children()}
 </div>
 
@@ -29,5 +38,10 @@
 		border: 1px solid var(--waku-border);
 		background-color: var(--waku-bg-layer-1);
 		box-shadow: var(--shadow-md);
+	}
+
+	/* Remove default bg when glass is used */
+	.card.glass {
+		background-color: transparent;
 	}
 </style>
