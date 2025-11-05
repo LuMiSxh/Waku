@@ -48,7 +48,7 @@
 
 <script lang="ts">
 	/* eslint svelte/no-at-html-tags: "off" */
-	import { fly } from 'svelte/transition';
+	import { glassSlide } from '$lib/actions/index.js';
 	import VStack from '$lib/layout/VStack.svelte';
 
 	const icons = {
@@ -60,29 +60,26 @@
 	};
 </script>
 
-{#if toasts.length > 0}
-	<div class="toast-container">
-		{#each toasts as t (t.id)}
-			<div
-				class="toast-wrapper glass"
-				in:fly={{ y: -20, duration: 300 }}
-				out:fly={{ x: '100%', duration: 200 }}
-			>
-				<div class="toast-content toast-{t.type ?? 'info'}">
-					<div class="icon">{@html icons[t.type ?? 'info']}</div>
+<div class="toast-container">
+	{#each toasts as t (t.id)}
+		<div
+			class="toast-wrapper glass"
+			transition:glassSlide={{ duration: 200, x: 200 }}
+		>
+			<div class="toast-content toast-{t.type ?? 'info'}">
+				<div class="icon">{@html icons[t.type ?? 'info']}</div>
 
-					<VStack gap="none" class="grow">
-						<p class="title">{@html t.title}</p>
-						{#if t.description}
-							<p class="description">{@html t.description}</p>
-						{/if}
-					</VStack>
+				<VStack gap="none" class="grow">
+					<p class="title">{@html t.title}</p>
+					{#if t.description}
+						<p class="description">{@html t.description}</p>
+					{/if}
+				</VStack>
 
-					<button class="close-button" onclick={() => removeToast(t.id)} aria-label="Close">
-						{@html icons.close}
-					</button>
-				</div>
+				<button class="close-button" onclick={() => removeToast(t.id)} aria-label="Close">
+					{@html icons.close}
+				</button>
 			</div>
-		{/each}
-	</div>
-{/if}
+		</div>
+	{/each}
+</div>
