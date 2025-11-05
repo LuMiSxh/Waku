@@ -88,7 +88,7 @@
 		border-radius: var(--radius-lg);
 		padding: 1.5rem;
 		border: 1px solid var(--waku-border);
-		background: var(--waku-bg-layer-1);
+		background: var(--waku-surface-1);
 	}
 	.demo-title {
 		font-size: 1.5rem;

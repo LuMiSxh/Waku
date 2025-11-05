@@ -103,7 +103,7 @@
 		<VStack
 			gap="md"
 			class="demo-container glass rounded-lg border p-4 shadow-lg"
-			style="background: var(--waku-bg-layer-1); border-color: var(--waku-border);"
+			style="background: var(--waku-surface-1); border-color: var(--waku-border);"
 		>
 			<!-- Header -->
 			<HStack justify="between" align="center" class="w-full">
@@ -116,7 +116,7 @@
 			<VStack
 				gap="sm"
 				class="demo-container w-full rounded p-4"
-				style="background: var(--waku-bg-layer-2);"
+				style="background: var(--waku-surface-2);"
 			>
 				<div class="demo-item w-full bg-accent-100!">Nested Item A</div>
 				<div class="demo-item w-full bg-accent-100!">Nested Item B</div>
@@ -133,7 +133,7 @@
 	<!-- Usage Example -->
 	<section
 		class="demo-section rounded-lg border p-6"
-		style="border-color: var(--waku-border); background: var(--waku-bg-layer-1);"
+		style="border-color: var(--waku-border); background: var(--waku-surface-1);"
 	>
 		<h3 class="demo-title">Usage</h3>
 		<pre class="overflow-x-auto rounded-md p-4" style="background: var(--neutral-100);"><code

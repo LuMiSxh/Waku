@@ -82,7 +82,7 @@
 				<a
 					href={resolve(item.path)}
 					class="glass block rounded-lg p-6 transition-all hover:shadow-lg"
-					style="background: var(--waku-bg-layer-1); border: 1px solid var(--waku-border);"
+					style="background: var(--waku-surface-1); border: 1px solid var(--waku-border);"
 				>
 					<h4 class="mb-2 text-xl font-semibold">{item.name}</h4>
 					<p style="color: var(--waku-fg-muted);">{item.description}</p>

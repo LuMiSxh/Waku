@@ -36,7 +36,7 @@
 	.card {
 		border-radius: var(--radius-lg);
 		border: 1px solid var(--waku-border);
-		background-color: var(--waku-bg-layer-1);
+		background-color: var(--waku-surface-1);
 		box-shadow: var(--shadow-md);
 	}
 

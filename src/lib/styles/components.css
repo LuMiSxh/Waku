@@ -121,7 +121,7 @@ html.dark .btn-subtle:hover:not(:disabled) {
 	backdrop-filter: blur(20px);
 	-webkit-backdrop-filter: blur(20px);
 	color: var(--waku-fg-base);
-	border: 1.5px solid var(--waku-border);
+	border: 2px solid var(--waku-border);
 	box-shadow: var(--shadow-sm);
 }
 
@@ -226,7 +226,7 @@ html.dark .btn-subtle:hover:not(:disabled) {
 	width: 100%;
 	padding: 0.625rem 1rem;
 	border-radius: var(--radius-md);
-	border: 1.5px solid var(--waku-border);
+	border: 2px solid var(--waku-border);
 	background-color: var(--waku-surface-1);
 	color: var(--waku-fg-base);
 	font-size: 1rem;
@@ -238,9 +238,9 @@ html.dark .btn-subtle:hover:not(:disabled) {
 }
 
 .input:focus {
-	outline: none;
-	border-color: var(--accent-500);
-	box-shadow: 0 0 0 3px oklch(from var(--accent-500) l c h / 0.1);
+    border-color: var(--accent-500);
+    outline: 2px solid var(--accent-500);
+    outline-offset: 1px;
 }
 
 .input::placeholder {
@@ -604,15 +604,19 @@ html.dark .btn-subtle:hover:not(:disabled) {
 	padding: 0 0.75rem;
 	border-radius: var(--radius-md);
 	border: 1px solid var(--waku-border);
-	background-color: var(--waku-bg-layer-1);
+	background-color: var(--waku-surface-1);
 	color: var(--waku-fg-base);
 	transition: border-color var(--transition-fast);
 	text-align: left;
 	cursor: pointer;
 }
-.select-trigger:focus {
-	outline: none;
-	border-color: var(--waku-accent);
+.select-trigger:focus-visible {
+    border-color: var(--waku-accent);
+    outline: 2px solid var(--waku-accent);
+    outline-offset: 1px;
+}
+.select-trigger:focus:not(:focus-visible) {
+    outline: none;
 }
 .select-trigger:disabled {
 	cursor: not-allowed;
@@ -634,7 +638,6 @@ html.dark .btn-subtle:hover:not(:disabled) {
 	z-index: var(--z-popover);
 	top: calc(100% + 4px); /* Position below the trigger with a gap */
 	width: 100%;
-	z-index: var(--z-popover); /* Ensure it's above other content */
 	list-style: none;
 	margin: 0;
 	padding: 0.5rem;
