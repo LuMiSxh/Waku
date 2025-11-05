@@ -11,6 +11,6 @@
 	let { children, variant = 'info', class: className, glass = false }: Props = $props();
 </script>
 
-<div role="alert" class="alert {variant} {glass ? 'glass-subtle' : ''} {className || ''}">
+<div role="alert" class="alert alert-{variant} {glass ? 'glass-subtle' : ''} {className || ''}">
 	{@render children()}
 </div>

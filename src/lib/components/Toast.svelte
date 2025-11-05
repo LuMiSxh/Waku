@@ -62,10 +62,7 @@
 
 <div class="toast-container">
 	{#each toasts as t (t.id)}
-		<div
-			class="toast-wrapper glass"
-			transition:glassSlide={{ duration: 200, x: 200 }}
-		>
+		<div class="toast-wrapper glass" transition:glassSlide={{ duration: 200, x: 200 }}>
 			<div class="toast-content toast-{t.type ?? 'info'}">
 				<div class="icon">{@html icons[t.type ?? 'info']}</div>
 
