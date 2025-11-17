@@ -463,8 +463,10 @@ html.dark .btn-subtle:hover:not(:disabled) {
 	border-left: 4px solid;
 	display: flex;
 	gap: 0.75rem;
+	position: relative;
 }
 
+/* Solid Alert Variants (Default) */
 .alert-info {
 	background-color: oklch(from var(--color-info) l c h / 0.1);
 	border-color: var(--color-info);
@@ -487,6 +489,56 @@ html.dark .btn-subtle:hover:not(:disabled) {
 	background-color: oklch(from var(--color-danger) l c h / 0.1);
 	border-color: var(--color-danger);
 	color: oklch(from var(--color-danger) calc(l - 0.2) c h);
+}
+
+/* Glass Alert Variants */
+.alert.glass-subtle {
+	background: linear-gradient(
+		135deg,
+		var(--waku-glass-gradient-from),
+		var(--waku-glass-gradient-to)
+	);
+	backdrop-filter: blur(20px) saturate(130%);
+	-webkit-backdrop-filter: blur(20px) saturate(130%);
+	box-shadow:
+		var(--shadow-sm),
+		inset 0 1px 0 0 oklch(1 0 0 / 0.08);
+}
+
+.alert.glass-subtle.alert-info {
+	border-color: var(--color-info);
+	color: var(--color-info);
+	box-shadow:
+		var(--shadow-sm),
+		inset 0 1px 0 0 oklch(1 0 0 / 0.08),
+		0 0 16px oklch(from var(--color-info) l c h / 0.15);
+}
+
+.alert.glass-subtle.alert-success {
+	border-color: var(--color-success);
+	color: var(--color-success);
+	box-shadow:
+		var(--shadow-sm),
+		inset 0 1px 0 0 oklch(1 0 0 / 0.08),
+		0 0 16px oklch(from var(--color-success) l c h / 0.15);
+}
+
+.alert.glass-subtle.alert-warning {
+	border-color: var(--color-warning);
+	color: var(--color-warning);
+	box-shadow:
+		var(--shadow-sm),
+		inset 0 1px 0 0 oklch(1 0 0 / 0.08),
+		0 0 16px oklch(from var(--color-warning) l c h / 0.15);
+}
+
+.alert.glass-subtle.alert-danger {
+	border-color: var(--color-danger);
+	color: var(--color-danger);
+	box-shadow:
+		var(--shadow-sm),
+		inset 0 1px 0 0 oklch(1 0 0 / 0.08),
+		0 0 16px oklch(from var(--color-danger) l c h / 0.15);
 }
 
 /* ========================================
