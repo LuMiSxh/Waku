@@ -24,3 +24,6 @@ export * from './layout/index.js';
 
 // Context & Theme
 export * from './context/index.js';
+
+// Showcase System (Storybook-like documentation)
+export * from './showcase/index.js';

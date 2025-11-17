@@ -121,25 +121,56 @@
 	</section>
 	<section
 		class="rounded-lg p-6"
-		style="background: var(--color-surface); border: 1px solid var(--color-border);"
+		style="background: var(--waku-surface-1); border: 1px solid var(--waku-border);"
 	>
 		<h3 class="mb-4 text-2xl font-semibold">Getting Started</h3>
-		<pre class="overflow-x-auto rounded-md p-4" style="background: var(--neutral-100);"><code
-				>{`// Import styles in your +layout.svelte
-import '$lib/styles/waku.css';
-
-// Use ThemeProvider to set accent color
-import { ThemeProvider, Button } from '$lib';
-
-<ThemeProvider accent="oklch(0.65 0.2 280)">
-  <Button variant="primary">Click Me</Button>
-</ThemeProvider>`}</code
-			></pre>
+		<div class="space-y-4">
+			<div>
+				<h4 class="text-lg font-semibold mb-2">1. Wrap your app with ThemeProvider</h4>
+				<p class="text-muted text-sm">
+					Add ThemeProvider to your root layout to enable depth awareness and set your accent color.
+				</p>
+			</div>
+			<div>
+				<h4 class="text-lg font-semibold mb-2">2. Components auto-style themselves</h4>
+				<p class="text-muted text-sm">
+					No manual elevation props needed! Components detect their depth and apply the appropriate
+					styling automatically.
+				</p>
+			</div>
+			<div>
+				<h4 class="text-lg font-semibold mb-2">3. Explore the showcases</h4>
+				<p class="text-muted text-sm">
+					Click any component above to see interactive examples, prop documentation, and generated
+					code snippets.
+				</p>
+			</div>
+		</div>
 	</section>
 </div>
 
 <style>
 	.space-y-8 > :global(* + *) {
 		margin-top: 2rem;
+	}
+
+	.space-y-4 > * + * {
+		margin-top: 1rem;
+	}
+
+	.mb-2 {
+		margin-bottom: 0.5rem;
+	}
+
+	.mb-4 {
+		margin-bottom: 1rem;
+	}
+
+	.text-sm {
+		font-size: 0.875rem;
+	}
+
+	.text-lg {
+		font-size: 1.125rem;
 	}
 </style>
