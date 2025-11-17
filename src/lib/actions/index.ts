@@ -8,5 +8,6 @@ export { portalled } from './portalled.js';
 export { focusTrap } from './focusTrap.js';
 export { trapScroll } from './trapScroll.js';
 export { autoFocus } from './autoFocus.js';
+export { buttonCursor } from './buttonCursor.js';
 export * from './transitions.js';
 export * from './interactiveGlass.js';

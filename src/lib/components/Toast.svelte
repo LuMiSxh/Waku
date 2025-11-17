@@ -48,7 +48,7 @@
 
 <script lang="ts">
 	/* eslint svelte/no-at-html-tags: "off" */
-	import { glassSlide, premiumGlass } from '$lib/actions/index.js';
+	import { glassSlide, liquidGlass } from '$lib/actions/index.js';
 	import VStack from '$lib/layout/VStack.svelte';
 	import { getThemeContext } from '$lib/context/theme.svelte.js';
 
@@ -69,9 +69,9 @@
 	{#each toasts as t (t.id)}
 		{#if enableInteractive}
 			<div
-				use:premiumGlass
-				class="toast-wrapper glass"
-				transition:glassSlide={{ duration: 200, x: 200 }}
+				use:liquidGlass
+				class="toast-wrapper glass-heavy"
+				transition:glassSlide={{ duration: 350, x: 300, blur: 4 }}
 				data-depth="5"
 			>
 				<div class="toast-content toast-{t.type ?? 'info'}">
@@ -91,8 +91,8 @@
 			</div>
 		{:else}
 			<div
-				class="toast-wrapper glass"
-				transition:glassSlide={{ duration: 200, x: 200 }}
+				class="toast-wrapper glass-heavy"
+				transition:glassSlide={{ duration: 350, x: 300, blur: 4 }}
 				data-depth="5"
 			>
 				<div class="toast-content toast-{t.type ?? 'info'}">

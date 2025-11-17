@@ -50,6 +50,8 @@
 </script>
 
 <script lang="ts">
+	import { buttonCursor } from '$lib/actions/index.js';
+
 	let {
 		variant = 'primary',
 		size = 'md',
@@ -63,6 +65,7 @@
 </script>
 
 <button
+	use:buttonCursor
 	{type}
 	{disabled}
 	{onclick}

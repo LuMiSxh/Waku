@@ -212,15 +212,19 @@ export function scrollGlass(node: HTMLElement) {
 }
 
 /**
- * Full-featured interactive glass
+ * Full-featured interactive liquid glass
+ * All effects enabled with enhanced cursor tracking
  */
-export function premiumGlass(node: HTMLElement) {
+export function liquidGlass(node: HTMLElement) {
 	return interactiveGlass(node, {
 		enableCursor: true,
-		enableScroll: true,
+		enableScroll: false, // Scroll is too subtle, focus on cursor
 		enableHoverGlow: true,
 		enableSpeckles: true,
-		intensity: 1.3,
-		speed: 0.12
+		intensity: 1.8, // Increased for better visibility
+		speed: 0.18 // Faster response to cursor
 	});
 }
+
+// Alias for backwards compatibility
+export const premiumGlass = liquidGlass;
