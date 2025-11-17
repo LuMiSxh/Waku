@@ -21,3 +21,6 @@ export * from './types/index.js';
 
 // Layout
 export * from './layout/index.js';
+
+// Context & Theme
+export * from './context/index.js';

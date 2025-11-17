@@ -10,3 +10,7 @@ export { default as Select } from './Select.svelte';
 export { default as Tooltip } from './Tooltip.svelte';
 export { default as Modal } from './Modal.svelte';
 export { default as Toast, toast } from './Toast.svelte';
+
+// Theme & Context
+export { default as ThemeProvider } from './ThemeProvider.svelte';
+export { default as DepthContext } from './DepthContext.svelte';

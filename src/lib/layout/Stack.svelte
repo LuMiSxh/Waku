@@ -7,6 +7,7 @@
 		Spacing,
 		Elevation
 	} from '$lib/types/index.js';
+	import { createNestedDepthContext, getThemeContext } from '$lib/context/theme.svelte.js';
 
 	interface Props extends Record<string, unknown> {
 		children: Snippet;
@@ -17,6 +18,11 @@
 		justify?: Justification;
 		class?: string;
 		elevation?: Elevation;
+		/**
+		 * Disable automatic depth increment for children
+		 * @default false
+		 */
+		noDepth?: boolean;
 	}
 
 	let {
@@ -27,9 +33,19 @@
 		align,
 		justify,
 		elevation,
+		noDepth = false,
 		class: className,
 		...rest
 	}: Props = $props();
+
+	// Create nested depth context (auto-increment depth)
+	// unless noDepth is true
+	if (!noDepth) {
+		createNestedDepthContext();
+	}
+
+	const theme = getThemeContext();
+	const currentDepth = $derived(theme.depth);
 
 	const spacingMap: Record<Spacing, string> = {
 		none: '0',
@@ -46,7 +62,9 @@
 			`--stack-direction: ${direction === 'vertical' ? 'column' : 'row'}`,
 			`--stack-gap: ${spacingMap[gap]}`,
 			align ? `--stack-align: ${align}` : '',
-			justify ? `--stack-justify: ${justify}` : ''
+			justify ? `--stack-justify: ${justify}` : '',
+			`--current-depth: ${currentDepth}`,
+			`--parent-depth: ${currentDepth}`
 		]
 			.filter(Boolean)
 			.join('; ')
@@ -57,6 +75,7 @@
 	this={element}
 	{style}
 	class="stack {elevation !== undefined ? `elevation-${elevation}` : ''} {className || ''}"
+	data-depth={currentDepth}
 	{...rest}
 >
 	{@render children()}
