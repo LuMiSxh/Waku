@@ -65,6 +65,19 @@
 			description: 'Transient notifications to inform users.'
 		}
 	];
+
+	const newFeatures = [
+		{
+			name: 'Interactive Glass',
+			path: '/interactive-glass' as const as '/',
+			description: '✨ Liquid glass with reactive highlights, speckles, and cursor tracking.'
+		},
+		{
+			name: 'Depth Showcase',
+			path: '/showcase' as const as '/',
+			description: '🎨 Automatic depth awareness and ThemeProvider demo.'
+		}
+	];
 </script>
 
 <div class="space-y-8">
@@ -76,7 +89,23 @@
 	</section>
 
 	<section>
-		<h3 class="mb-6 text-2xl font-semibold">V1 Component Showcases</h3>
+		<h3 class="mb-6 text-2xl font-semibold">✨ New Features</h3>
+		<div class="grid gap-4" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
+			{#each newFeatures as item (item.path)}
+				<a
+					href={resolve(item.path)}
+					class="glass-heavy block rounded-lg p-6 transition-all hover:shadow-lg"
+					style="border: 1px solid oklch(from var(--waku-accent) l c h / 0.3);"
+				>
+					<h4 class="mb-2 text-xl font-semibold">{item.name}</h4>
+					<p style="color: var(--waku-fg-muted);">{item.description}</p>
+				</a>
+			{/each}
+		</div>
+	</section>
+
+	<section>
+		<h3 class="mb-6 text-2xl font-semibold">Component Showcases</h3>
 		<div class="grid gap-4" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
 			{#each showcases as item (item.path)}
 				<a
@@ -96,17 +125,15 @@
 	>
 		<h3 class="mb-4 text-2xl font-semibold">Getting Started</h3>
 		<pre class="overflow-x-auto rounded-md p-4" style="background: var(--neutral-100);"><code
-				>{`// Import styles in your app.css
-@import "@waku/styles/waku.css";
+				>{`// Import styles in your +layout.svelte
+import '$lib/styles/waku.css';
 
-:root {
-  --accent-500: oklch(0.65 0.2 280);
-}
+// Use ThemeProvider to set accent color
+import { ThemeProvider, Button } from '$lib';
 
-// Use components
-import { Button } from '@waku/components';
-
-<Button variant="primary">Click Me</Button>`}</code
+<ThemeProvider accent="oklch(0.65 0.2 280)">
+  <Button variant="primary">Click Me</Button>
+</ThemeProvider>`}</code
 			></pre>
 	</section>
 </div>

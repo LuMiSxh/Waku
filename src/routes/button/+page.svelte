@@ -69,7 +69,7 @@
 			class="overflow-x-auto rounded-md p-4"
 			style="background: oklch(from var(--waku-bg-base) l c h / 0.3);"><code
 				>{`<script>
-  import { Button } from '@waku/components';
+  import { Button } from '$lib';
 </script>
 
 <Button variant="primary" size="md" onclick={() => alert('Clicked!')}>

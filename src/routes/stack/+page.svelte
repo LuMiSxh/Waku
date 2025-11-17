@@ -138,7 +138,7 @@
 		<h3 class="demo-title">Usage</h3>
 		<pre class="overflow-x-auto rounded-md p-4" style="background: var(--neutral-100);"><code
 				>{`<script>
-  import { VStack, HStack } from '@waku/layout';
+  import { VStack, HStack } from '$lib/layout';
 </script>
 
 <VStack gap="sm" align="center">
