@@ -7,50 +7,112 @@
    GLASS EFFECTS
    ======================================== */
 
+/* Global glass speckles - Always visible, follows cursor */
+body::before {
+	content: '';
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: 9999;
+	opacity: 0.3;
+	background: radial-gradient(
+			circle 4px at var(--waku-global-cursor-x, 50%) var(--waku-global-cursor-y, 50%),
+			oklch(from var(--waku-accent) calc(l + 0.2) calc(c * 0.6) h / 0.15) 0%,
+			oklch(from var(--waku-accent) calc(l + 0.15) calc(c * 0.4) h / 0.08) 30%,
+			transparent 100%
+		),
+		radial-gradient(
+			circle 3px at calc(var(--waku-global-cursor-x, 50%) + 10%) calc(var(--waku-global-cursor-y, 50%) - 8%),
+			oklch(1 0 0 / 0.12) 0%,
+			oklch(1 0 0 / 0.06) 50%,
+			transparent 100%
+		),
+		radial-gradient(
+			circle 2.5px at calc(var(--waku-global-cursor-x, 50%) - 12%) calc(var(--waku-global-cursor-y, 50%) + 6%),
+			oklch(1 0 0 / 0.1) 0%,
+			oklch(1 0 0 / 0.05) 50%,
+			transparent 100%
+		);
+	transition: opacity 0.2s ease-out;
+	mix-blend-mode: screen;
+}
+
+/* Reduce global speckles in dark mode */
+html.dark body::before {
+	opacity: 0.15;
+}
+
+/* Hide on non-glass areas - components can use .no-glass to hide */
+.no-glass body::before {
+	opacity: 0;
+}
+
 /* Base Interactive Glass - used by the interactiveGlass action */
 .interactive-glass {
 	position: relative;
 	overflow: hidden;
 }
 
-/* Floating speckles/light particles */
+/* Floating speckles/light particles - Now uses global cursor */
 .interactive-glass::before {
 	content: '';
 	position: absolute;
 	inset: 0;
 	pointer-events: none;
-	opacity: calc(0.4 + var(--glass-hover, 0) * 0.4);
-	transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+	opacity: calc(0.3 + var(--glass-hover, 0) * 0.4);
+	transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 	background: radial-gradient(
 			circle 3px at var(--glass-speckle-1-x, 30%) var(--glass-speckle-1-y, 40%),
-			oklch(1 0 0 / 0.8) 0%,
-			oklch(1 0 0 / 0.4) 50%,
-			transparent 100%
-		),
-		radial-gradient(
-			circle 2px at var(--glass-speckle-2-x, 70%) var(--glass-speckle-2-y, 60%),
-			oklch(1 0 0 / 0.7) 0%,
+			oklch(1 0 0 / 0.6) 0%,
 			oklch(1 0 0 / 0.3) 50%,
 			transparent 100%
 		),
 		radial-gradient(
+			circle 2px at var(--glass-speckle-2-x, 70%) var(--glass-speckle-2-y, 60%),
+			oklch(1 0 0 / 0.5) 0%,
+			oklch(1 0 0 / 0.25) 50%,
+			transparent 100%
+		),
+		radial-gradient(
 			circle 2.5px at var(--glass-speckle-3-x, 50%) var(--glass-speckle-3-y, 30%),
-			oklch(1 0 0 / 0.75) 0%,
-			oklch(1 0 0 / 0.35) 50%,
+			oklch(1 0 0 / 0.55) 0%,
+			oklch(1 0 0 / 0.28) 50%,
 			transparent 100%
 		);
 }
 
-/* Cursor glow overlay */
+/* Dark mode - reduce speckle intensity */
+html.dark .interactive-glass::before {
+	opacity: calc(0.15 + var(--glass-hover, 0) * 0.25);
+}
+
+/* Cursor glow overlay - Now uses global cursor position */
 .interactive-glass::after {
 	content: '';
 	position: absolute;
-	inset: 0;
+	inset: -10%;
 	pointer-events: none;
 	opacity: var(--glass-hover, 0);
-	transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-	background: var(--waku-glass-cursor-glow);
+	transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+	background: radial-gradient(
+		circle 180px at var(--glass-mouse-x, 50%) var(--glass-mouse-y, 50%),
+		oklch(from var(--waku-accent) calc(l + 0.12) calc(c * 0.5) h / 0.18) 0%,
+		oklch(from var(--waku-accent) calc(l + 0.08) calc(c * 0.3) h / 0.08) 40%,
+		transparent 100%
+	);
 	mix-blend-mode: screen;
+	filter: blur(8px);
+}
+
+/* Dark mode - much more subtle cursor glow */
+html.dark .interactive-glass::after {
+	background: radial-gradient(
+		circle 160px at var(--glass-mouse-x, 50%) var(--glass-mouse-y, 50%),
+		oklch(from var(--waku-accent) calc(l + 0.08) calc(c * 0.4) h / 0.1) 0%,
+		oklch(from var(--waku-accent) calc(l + 0.05) calc(c * 0.2) h / 0.04) 40%,
+		transparent 100%
+	);
+	filter: blur(12px);
 }
 
 /* Standard glass effect (enhanced) */
@@ -70,6 +132,17 @@
 		box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Dark mode - adjust glass appearance */
+html.dark .glass {
+	background-image: var(--waku-glass-noise),
+		linear-gradient(
+			135deg,
+			oklch(from var(--waku-fg-base) l c h / 0.06) 0%,
+			oklch(from var(--waku-fg-base) l c h / 0.03) 100%
+		);
+	border-color: oklch(from var(--waku-border) calc(l + 0.08) c h / 0.6);
+}
+
 /* Heavy glass (modals, sheets) */
 .glass-heavy {
 	backdrop-filter: blur(var(--waku-glass-blur-heavy)) saturate(var(--waku-glass-saturation))
@@ -87,6 +160,17 @@
 		box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Dark mode - adjust heavy glass */
+html.dark .glass-heavy {
+	background-image: var(--waku-glass-noise),
+		linear-gradient(
+			135deg,
+			oklch(from var(--waku-fg-base) l c h / 0.08) 0%,
+			oklch(from var(--waku-fg-base) l c h / 0.04) 100%
+		);
+	border-color: oklch(from var(--waku-border) calc(l + 0.1) c h / 0.7);
+}
+
 /* Subtle glass (buttons, small UI) */
 .glass-subtle {
 	backdrop-filter: blur(20px) saturate(150%) brightness(102%);
@@ -98,100 +182,68 @@
 	transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Ultra-thin glass (toolbars, menu bars) */
-.glass-ultra-thin {
-	backdrop-filter: blur(var(--waku-glass-blur-ultra-thin)) saturate(var(--waku-glass-saturation))
-		brightness(var(--waku-glass-brightness));
-	-webkit-backdrop-filter: blur(var(--waku-glass-blur-ultra-thin))
-		saturate(var(--waku-glass-saturation)) brightness(var(--waku-glass-brightness));
-	background: var(--waku-glass-noise), var(--waku-glass-specular),
-		linear-gradient(180deg, oklch(0.99 0 0 / 0.8) 0%, oklch(0.97 0 0 / 0.7) 100%);
-	box-shadow: var(--waku-glass-edge-glow), 0 4px 16px -4px rgb(0 0 0 / 0.08);
-	border: 1px solid oklch(1 0 0 / 0.3);
-	border-radius: var(--radius-md);
-	transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+/* Dark mode - adjust subtle glass */
+html.dark .glass-subtle {
+	background: linear-gradient(
+		135deg,
+		oklch(from var(--waku-fg-base) l c h / 0.06) 0%,
+		oklch(from var(--waku-fg-base) l c h / 0.03) 100%
+	);
+	border-color: oklch(from var(--waku-border) calc(l + 0.08) c h / 0.6);
+	backdrop-filter: blur(20px) saturate(130%) brightness(100%);
+	-webkit-backdrop-filter: blur(20px) saturate(130%) brightness(100%);
 }
 
-html.dark .glass-ultra-thin {
-	background: var(--waku-glass-noise), var(--waku-glass-specular),
-		linear-gradient(180deg, oklch(0.22 0 0 / 0.85) 0%, oklch(0.18 0 0 / 0.75) 100%);
-	border-color: oklch(1 0 0 / 0.12);
-}
-
-/* Thin glass (dropdowns, popovers) */
+/* Thin glass (subtle accents) */
 .glass-thin {
-	backdrop-filter: blur(var(--waku-glass-blur-thin)) saturate(var(--waku-glass-saturation))
-		brightness(var(--waku-glass-brightness));
-	-webkit-backdrop-filter: blur(var(--waku-glass-blur-thin)) saturate(var(--waku-glass-saturation))
-		brightness(var(--waku-glass-brightness));
-	background: var(--waku-glass-noise), var(--waku-glass-specular),
-		linear-gradient(180deg, oklch(0.98 0 0 / 0.75) 0%, oklch(0.96 0 0 / 0.65) 100%);
-	box-shadow: var(--waku-glass-edge-glow), 0 8px 24px -6px rgb(0 0 0 / 0.12),
-		0 0 0 1px oklch(1 0 0 / 0.15) inset;
-	border: 1px solid oklch(1 0 0 / 0.4);
-	border-radius: var(--radius-lg);
+	backdrop-filter: blur(16px) saturate(140%) brightness(102%);
+	-webkit-backdrop-filter: blur(16px) saturate(140%) brightness(102%);
+	background: linear-gradient(
+		135deg,
+		var(--waku-glass-gradient-from),
+		var(--waku-glass-gradient-to)
+	);
+	box-shadow: var(--shadow-sm);
+	border: 1px solid var(--waku-glass-edge);
 	transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Dark mode - adjust thin glass */
 html.dark .glass-thin {
-	background: var(--waku-glass-noise), var(--waku-glass-specular),
-		linear-gradient(180deg, oklch(0.22 0 0 / 0.85) 0%, oklch(0.18 0 0 / 0.75) 100%);
-	border-color: oklch(1 0 0 / 0.15);
+	background: linear-gradient(
+		135deg,
+		oklch(from var(--waku-fg-base) l c h / 0.05) 0%,
+		oklch(from var(--waku-fg-base) l c h / 0.02) 100%
+	);
+	border-color: oklch(from var(--waku-border) calc(l + 0.06) c h / 0.5);
 }
 
-/* Thick glass (large modals, panels) */
+/* Thick glass variant */
 .glass-thick {
-	backdrop-filter: blur(var(--waku-glass-blur-thick)) saturate(var(--waku-glass-saturation))
-		brightness(var(--waku-glass-brightness));
-	-webkit-backdrop-filter: blur(var(--waku-glass-blur-thick)) saturate(var(--waku-glass-saturation))
-		brightness(var(--waku-glass-brightness));
-	background: var(--waku-glass-mesh), var(--waku-glass-noise), var(--waku-glass-specular),
-		linear-gradient(180deg, oklch(0.97 0 0 / 0.85) 0%, oklch(0.95 0 0 / 0.75) 100%);
-	box-shadow: var(--waku-glass-edge-glow), 0 16px 48px -8px rgb(0 0 0 / 0.16),
-		0 0 0 1px oklch(1 0 0 / 0.2) inset, 0 2px 4px 0 oklch(1 0 0 / 0.5) inset;
-	border: 1.5px solid oklch(1 0 0 / 0.5);
-	border-radius: var(--radius-xl);
+	backdrop-filter: blur(24px) saturate(160%) brightness(102%);
+	-webkit-backdrop-filter: blur(24px) saturate(160%) brightness(102%);
+	background: linear-gradient(
+		135deg,
+		var(--waku-glass-gradient-from),
+		var(--waku-glass-gradient-to)
+	);
+	box-shadow: var(--shadow-md), var(--waku-glass-edge-glow);
+	border: 1px solid var(--waku-glass-edge);
 	transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Dark mode - adjust thick glass */
 html.dark .glass-thick {
-	background: var(--waku-glass-mesh), var(--waku-glass-noise), var(--waku-glass-specular),
-		linear-gradient(180deg, oklch(0.22 0 0 / 0.85) 0%, oklch(0.18 0 0 / 0.75) 100%);
-	border-color: oklch(1 0 0 / 0.18);
-}
-
-/* Tinted glass (accent color variant) */
-.glass-tinted {
-	backdrop-filter: blur(var(--waku-glass-blur)) saturate(var(--waku-glass-saturation))
-		brightness(var(--waku-glass-brightness));
-	-webkit-backdrop-filter: blur(var(--waku-glass-blur)) saturate(var(--waku-glass-saturation))
-		brightness(var(--waku-glass-brightness));
-	background: var(--waku-glass-noise),
-		linear-gradient(
-			180deg,
-			oklch(from var(--waku-accent) calc(l + 0.3) calc(c * 0.4) h / 0.6) 0%,
-			oklch(from var(--waku-accent) calc(l + 0.25) calc(c * 0.35) h / 0.5) 100%
-		);
-	box-shadow: var(--waku-glass-edge-glow),
-		0 12px 32px -8px oklch(from var(--waku-accent) l c h / 0.3),
-		0 0 0 1px oklch(from var(--waku-accent) calc(l + 0.2) c h / 0.4) inset;
-	border: 1px solid oklch(from var(--waku-accent) calc(l + 0.3) c h / 0.6);
-	border-radius: var(--radius-lg);
-	transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-html.dark .glass-tinted {
-	background: var(--waku-glass-noise),
-		linear-gradient(
-			180deg,
-			oklch(from var(--waku-accent) calc(l - 0.1) calc(c * 0.6) h / 0.5) 0%,
-			oklch(from var(--waku-accent) calc(l - 0.15) calc(c * 0.5) h / 0.4) 100%
-		);
-	border-color: oklch(from var(--waku-accent) l c h / 0.4);
+	background: linear-gradient(
+		135deg,
+		oklch(from var(--waku-fg-base) l c h / 0.07) 0%,
+		oklch(from var(--waku-fg-base) l c h / 0.035) 100%
+	);
+	border-color: oklch(from var(--waku-border) calc(l + 0.09) c h / 0.65);
 }
 
 /* ========================================
-   SURFACE ELEVATION
+   ELEVATIONS
    ======================================== */
 .elevation-0 {
 	background-color: var(--waku-surface-0);
@@ -296,231 +348,4 @@ html.dark .glass-tinted {
 
 .shadow-none {
 	box-shadow: none;
-}
-
-/* ========================================
-   TEXT COLORS
-   ======================================== */
-.text-base {
-	color: var(--waku-fg-base);
-}
-
-.text-muted {
-	color: var(--waku-fg-muted);
-}
-
-.text-accent {
-	color: var(--accent-500);
-}
-
-.text-success {
-	color: var(--color-success);
-}
-
-.text-warning {
-	color: var(--color-warning);
-}
-
-.text-danger {
-	color: var(--color-danger);
-}
-
-.text-info {
-	color: var(--color-info);
-}
-
-/* ========================================
-   BACKGROUND COLORS
-   ======================================== */
-.bg-surface-0 {
-	background-color: var(--waku-surface-0);
-}
-
-.bg-surface-1 {
-	background-color: var(--waku-surface-1);
-}
-
-.bg-surface-2 {
-	background-color: var(--waku-surface-2);
-}
-
-.bg-accent {
-	background-color: var(--accent-500);
-}
-
-/* ========================================
-   BORDERS
-   ======================================== */
-.border {
-	border: 1px solid var(--waku-border);
-}
-
-.border-accent {
-	border-color: var(--accent-500);
-}
-
-.border-t {
-	border-top: 1px solid var(--waku-border);
-}
-
-.border-b {
-	border-bottom: 1px solid var(--waku-border);
-}
-
-.border-l {
-	border-left: 1px solid var(--waku-border);
-}
-
-.border-r {
-	border-right: 1px solid var(--waku-border);
-}
-
-/* ========================================
-   ANIMATIONS
-   ======================================== */
-@keyframes fadeIn {
-	from {
-		opacity: 0;
-		transform: translateY(10px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-
-@keyframes slideIn {
-	from {
-		transform: translateX(-100%);
-	}
-	to {
-		transform: translateX(0);
-	}
-}
-
-@keyframes scaleIn {
-	from {
-		transform: scale(0.95);
-		opacity: 0;
-	}
-	to {
-		transform: scale(1);
-		opacity: 1;
-	}
-}
-
-.animate-fade-in {
-	animation: fadeIn var(--transition-base) var(--spring-smooth);
-}
-
-.animate-slide-in {
-	animation: slideIn var(--transition-base) var(--spring-smooth);
-}
-
-.animate-scale-in {
-	animation: scaleIn var(--transition-base) var(--spring-smooth);
-}
-
-/* ========================================
-   LAYOUT HELPERS
-   ======================================== */
-.center {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.stack {
-	display: flex;
-	flex-direction: column;
-}
-
-.hstack {
-	display: flex;
-	flex-direction: row;
-}
-
-.gap-xs {
-	gap: var(--spacing-xs);
-}
-
-.gap-sm {
-	gap: var(--spacing-sm);
-}
-
-.gap-md {
-	gap: var(--spacing-md);
-}
-
-.gap-lg {
-	gap: var(--spacing-lg);
-}
-
-.gap-xl {
-	gap: var(--spacing-xl);
-}
-
-.gap-2xl {
-	gap: var(--spacing-2xl);
-}
-
-/* ========================================
-   VISIBILITY
-   ======================================== */
-.sr-only {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	margin: -1px;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
-	white-space: nowrap;
-	border-width: 0;
-}
-
-/* ========================================
-   TRANSITIONS
-   ======================================== */
-.transition-fast {
-	transition: all var(--transition-fast);
-}
-
-.transition-base {
-	transition: all var(--transition-base);
-}
-
-.transition-slow {
-	transition: all var(--transition-slow);
-}
-
-.transition-spring {
-	transition: all var(--transition-base) var(--spring-smooth);
-}
-
-.transition-bounce {
-	transition: all var(--transition-bounce);
-}
-
-/* ========================================
-   Z-INDEX LAYERS
-   ======================================== */
-.z-dropdown {
-	z-index: var(--z-dropdown);
-}
-
-.z-modal {
-	z-index: var(--z-modal);
-}
-
-.z-popover {
-	z-index: var(--z-popover);
-}
-
-.z-tooltip {
-	z-index: var(--z-tooltip);
-}
-
-.z-toast {
-	z-index: var(--z-toast);
 }

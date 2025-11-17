@@ -215,7 +215,15 @@ export function scrollGlass(node: HTMLElement) {
  * Full-featured interactive liquid glass
  * All effects enabled with enhanced cursor tracking
  */
-export function liquidGlass(node: HTMLElement) {
+export function liquidGlass(node: HTMLElement, enabled: boolean = true) {
+	if (!enabled) {
+		// Return empty action if disabled
+		return {
+			destroy() {},
+			update() {}
+		};
+	}
+
 	return interactiveGlass(node, {
 		enableCursor: true,
 		enableScroll: false, // Scroll is too subtle, focus on cursor

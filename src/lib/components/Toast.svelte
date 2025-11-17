@@ -67,50 +67,28 @@
 
 <div class="toast-container">
 	{#each toasts as t (t.id)}
-		{#if enableInteractive}
-			<div
-				use:liquidGlass
-				class="toast-wrapper glass-heavy"
-				transition:glassSlide={{ duration: 350, x: 300, blur: 4 }}
-				data-depth="5"
-			>
-				<div class="toast-content toast-{t.type ?? 'info'}">
-					<div class="icon">{@html icons[t.type ?? 'info']}</div>
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div
+			use:liquidGlass={enableInteractive}
+			class="toast-wrapper glass-heavy"
+			transition:glassSlide={{ duration: 350, x: 300, blur: 4 }}
+			data-depth="5"
+		>
+			<div class="toast-content toast-{t.type ?? 'info'}">
+				<div class="icon">{@html icons[t.type ?? 'info']}</div>
 
-					<VStack gap="none" class="grow">
-						<p class="title">{@html t.title}</p>
-						{#if t.description}
-							<p class="description">{@html t.description}</p>
-						{/if}
-					</VStack>
+				<VStack gap="none" class="grow">
+					<p class="title">{@html t.title}</p>
+					{#if t.description}
+						<p class="description">{@html t.description}</p>
+					{/if}
+				</VStack>
 
-					<button class="close-button" onclick={() => removeToast(t.id)} aria-label="Close">
-						{@html icons.close}
-					</button>
-				</div>
+				<button class="close-button" onclick={() => removeToast(t.id)} aria-label="Close">
+					{@html icons.close}
+				</button>
 			</div>
-		{:else}
-			<div
-				class="toast-wrapper glass-heavy"
-				transition:glassSlide={{ duration: 350, x: 300, blur: 4 }}
-				data-depth="5"
-			>
-				<div class="toast-content toast-{t.type ?? 'info'}">
-					<div class="icon">{@html icons[t.type ?? 'info']}</div>
-
-					<VStack gap="none" class="grow">
-						<p class="title">{@html t.title}</p>
-						{#if t.description}
-							<p class="description">{@html t.description}</p>
-						{/if}
-					</VStack>
-
-					<button class="close-button" onclick={() => removeToast(t.id)} aria-label="Close">
-						{@html icons.close}
-					</button>
-				</div>
-			</div>
-		{/if}
+		</div>
 	{/each}
 </div>
 

@@ -2,6 +2,7 @@
 	import type { Snippet } from 'svelte';
 	import '../app.css';
 	import { resolve } from '$app/paths';
+	import ThemeProvider from '$lib/components/ThemeProvider.svelte';
 
 	interface Props {
 		children: Snippet;
@@ -25,20 +26,22 @@
 	<title>Waku Component Showcase</title>
 </svelte:head>
 
-<div class="min-h-screen">
-	<header class="glass-subtle sticky top-0 z-50 rounded-none!">
-		<div class="container mx-auto flex items-center justify-between px-4 py-4">
-			<h1 class="text-2xl font-bold"><a href={resolve('/')}>Waku Component Showcase</a></h1>
-			<button onclick={toggleDarkMode} class="btn btn-ghost rounded-md px-4 py-2 transition-colors">
-				{darkMode ? 'Light Mode' : 'Dark Mode'}
-			</button>
-		</div>
-	</header>
+<ThemeProvider accent="oklch(0.65 0.25 250)" interactiveGlass={true}>
+	<div class="min-h-screen">
+		<header class="glass-subtle sticky top-0 z-50 rounded-none!">
+			<div class="container mx-auto flex items-center justify-between px-4 py-4">
+				<h1 class="text-2xl font-bold"><a href={resolve('/')}>Waku Component Showcase</a></h1>
+				<button onclick={toggleDarkMode} class="btn btn-ghost rounded-md px-4 py-2 transition-colors">
+					{darkMode ? 'Light Mode' : 'Dark Mode'}
+				</button>
+			</div>
+		</header>
 
-	<main class="container mx-auto px-4 py-8">
-		{@render children()}
-	</main>
-</div>
+		<main class="container mx-auto px-4 py-8">
+			{@render children()}
+		</main>
+	</div>
+</ThemeProvider>
 
 <style global>
 	:global(.demo-section) {

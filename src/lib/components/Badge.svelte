@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 
-	type Variant = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info';
+	type Variant = 'default' | 'primary' | 'success' | 'danger' | 'warning' | 'info';
 
 	interface Props {
 		children: Snippet;
@@ -9,9 +9,9 @@
 		class?: string;
 	}
 
-	let { children, variant = 'secondary', class: className }: Props = $props();
+	let { children, variant = 'default', class: className }: Props = $props();
 </script>
 
-<span class="badge {variant} {className || ''}">
+<span class="badge badge-{variant} {className || ''}">
 	{@render children()}
 </span>

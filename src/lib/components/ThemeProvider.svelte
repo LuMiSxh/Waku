@@ -43,6 +43,11 @@
 		reducedMotion
 	});
 
+	// Global cursor position tracking
+	let globalMouseX = $state(50);
+	let globalMouseY = $state(50);
+	let scrollRotation = $state(0);
+
 	onMount(() => {
 		// Apply accent color to CSS
 		if (accent) {
@@ -60,8 +65,40 @@
 			};
 			mediaQuery.addEventListener('change', handleChange);
 
+			// Global cursor tracking
+			const handleGlobalMouseMove = (e: MouseEvent) => {
+				// Calculate percentage position relative to viewport
+				const x = (e.clientX / window.innerWidth) * 100;
+				const y = (e.clientY / window.innerHeight) * 100;
+
+				globalMouseX = x;
+				globalMouseY = y;
+
+				// Update CSS variables on document root
+				document.documentElement.style.setProperty('--waku-global-cursor-x', `${x}%`);
+				document.documentElement.style.setProperty('--waku-global-cursor-y', `${y}%`);
+			};
+
+			// Global scroll tracking for subtle glass rotation
+			const handleGlobalScroll = () => {
+				const scrollY = window.scrollY;
+				const rotation = (scrollY * 0.05) % 360;
+				scrollRotation = rotation;
+
+				document.documentElement.style.setProperty('--waku-global-scroll-rotation', `${rotation}deg`);
+				document.documentElement.style.setProperty('--waku-global-scroll-y', `${scrollY}px`);
+			};
+
+			window.addEventListener('mousemove', handleGlobalMouseMove, { passive: true });
+			window.addEventListener('scroll', handleGlobalScroll, { passive: true });
+
+			// Initialize values
+			handleGlobalScroll();
+
 			return () => {
 				mediaQuery.removeEventListener('change', handleChange);
+				window.removeEventListener('mousemove', handleGlobalMouseMove);
+				window.removeEventListener('scroll', handleGlobalScroll);
 			};
 		}
 	});
