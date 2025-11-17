@@ -9,3 +9,4 @@ export { focusTrap } from './focusTrap.js';
 export { trapScroll } from './trapScroll.js';
 export { autoFocus } from './autoFocus.js';
 export * from './transitions.js';
+export * from './interactiveGlass.js';

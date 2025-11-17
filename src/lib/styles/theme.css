@@ -77,6 +77,10 @@
 	   ======================================== */
 	--waku-glass-blur: 40px;
 	--waku-glass-blur-heavy: 60px;
+	--waku-glass-blur-ultra-thin: 20px;
+	--waku-glass-blur-thin: 30px;
+	--waku-glass-blur-thick: 80px;
+	--waku-glass-blur-ultra-thick: 120px;
 	--waku-glass-saturation: 180%;
 	--waku-glass-brightness: 105%;
 
@@ -92,6 +96,64 @@
 		oklch(1 0 0 / 0.15) 0%,
 		oklch(1 0 0 / 0) 50%,
 		oklch(0 0 0 / 0.05) 100%
+	);
+
+	/* Interactive Glass - Dynamic Properties */
+	--glass-mouse-x: 50%;
+	--glass-mouse-y: 50%;
+	--glass-scroll-offset: 0px;
+	--glass-scroll-rotation: 0deg;
+	--glass-hover: 0;
+	--glass-glow-intensity: 0.5;
+
+	/* Speckle/particle positions */
+	--glass-speckle-1-x: 30%;
+	--glass-speckle-1-y: 40%;
+	--glass-speckle-2-x: 70%;
+	--glass-speckle-2-y: 60%;
+	--glass-speckle-3-x: 50%;
+	--glass-speckle-3-y: 30%;
+	--glass-speckle-time: 0;
+
+	/* Noise texture for realism */
+	--waku-glass-noise: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="300" height="300" filter="url(%23noise)" opacity="0.03"/></svg>');
+
+	/* Mesh gradient overlays (iOS 18+ style) */
+	--waku-glass-mesh: radial-gradient(
+			at 20% 30%,
+			oklch(from var(--waku-accent) calc(l + 0.1) calc(c * 0.6) h / 0.12) 0%,
+			transparent 50%
+		),
+		radial-gradient(
+			at 80% 20%,
+			oklch(from var(--waku-accent) calc(l + 0.08) calc(c * 0.5) calc(h + 60) / 0.1) 0%,
+			transparent 50%
+		),
+		radial-gradient(
+			at 60% 80%,
+			oklch(from var(--waku-accent) calc(l + 0.06) calc(c * 0.4) calc(h + 120) / 0.08) 0%,
+			transparent 50%
+		);
+
+	/* Specular highlights (moving reflections) */
+	--waku-glass-specular: linear-gradient(
+		calc(115deg + var(--glass-scroll-rotation, 0deg)),
+		oklch(1 0 0 / calc(0.25 * (1 + var(--glass-hover) * 0.3))) 0%,
+		oklch(1 0 0 / 0) 30%,
+		oklch(1 0 0 / 0) 70%,
+		oklch(1 0 0 / calc(0.12 * (1 + var(--glass-hover) * 0.2))) 100%
+	);
+
+	/* Edge glow (reactive to hover) */
+	--waku-glass-edge-glow: 0 0.5px 0 0.5px oklch(1 0 0 / calc(0.2 + var(--glass-hover) * 0.3)) inset,
+		0 -0.5px 0 0.5px oklch(0 0 0 / 0.1) inset;
+
+	/* Cursor glow effect */
+	--waku-glass-cursor-glow: radial-gradient(
+		circle 200px at var(--glass-mouse-x, 50%) var(--glass-mouse-y, 50%),
+		oklch(from var(--waku-accent) calc(l + 0.1) calc(c * 0.8) h / calc(0.15 * var(--glass-glow-intensity, 0)))
+			0%,
+		oklch(from var(--waku-accent) l c h / 0) 100%
 	);
 
 	/* ========================================
@@ -199,6 +261,43 @@ html.dark {
 		oklch(1 0 0 / 0.08) 0%,
 		oklch(1 0 0 / 0) 50%,
 		oklch(0 0 0 / 0.08) 100%
+	);
+
+	/* Interactive Glass (Dark Mode) - Enhanced glow */
+	--waku-glass-noise: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="300" height="300" filter="url(%23noise)" opacity="0.05"/></svg>');
+
+	--waku-glass-mesh: radial-gradient(
+			at 20% 30%,
+			oklch(from var(--waku-accent) calc(l + 0.05) calc(c * 0.7) h / 0.15) 0%,
+			transparent 50%
+		),
+		radial-gradient(
+			at 80% 20%,
+			oklch(from var(--waku-accent) calc(l + 0.04) calc(c * 0.6) calc(h + 60) / 0.12) 0%,
+			transparent 50%
+		),
+		radial-gradient(
+			at 60% 80%,
+			oklch(from var(--waku-accent) calc(l + 0.03) calc(c * 0.5) calc(h + 120) / 0.1) 0%,
+			transparent 50%
+		);
+
+	--waku-glass-specular: linear-gradient(
+		calc(115deg + var(--glass-scroll-rotation, 0deg)),
+		oklch(1 0 0 / calc(0.15 * (1 + var(--glass-hover) * 0.4))) 0%,
+		oklch(1 0 0 / 0) 30%,
+		oklch(1 0 0 / 0) 70%,
+		oklch(1 0 0 / calc(0.08 * (1 + var(--glass-hover) * 0.3))) 100%
+	);
+
+	--waku-glass-edge-glow: 0 0.5px 0 0.5px oklch(1 0 0 / calc(0.15 + var(--glass-hover) * 0.25)) inset,
+		0 -0.5px 0 0.5px oklch(0 0 0 / 0.2) inset;
+
+	--waku-glass-cursor-glow: radial-gradient(
+		circle 250px at var(--glass-mouse-x, 50%) var(--glass-mouse-y, 50%),
+		oklch(from var(--waku-accent) calc(l + 0.05) calc(c * 0.9) h / calc(0.2 * var(--glass-glow-intensity, 0)))
+			0%,
+		oklch(from var(--waku-accent) l c h / 0) 100%
 	);
 
 	/* SHADOWS (Dark Mode) */
