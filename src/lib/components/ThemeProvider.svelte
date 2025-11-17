@@ -47,6 +47,7 @@
 	let globalMouseX = $state(50);
 	let globalMouseY = $state(50);
 	let scrollRotation = $state(0);
+	let cursorAngle = $state(0);
 
 	onMount(() => {
 		// Apply accent color to CSS
@@ -65,40 +66,57 @@
 			};
 			mediaQuery.addEventListener('change', handleChange);
 
-			// Global cursor tracking
-			const handleGlobalMouseMove = (e: MouseEvent) => {
-				// Calculate percentage position relative to viewport
-				const x = (e.clientX / window.innerWidth) * 100;
-				const y = (e.clientY / window.innerHeight) * 100;
+			// Combined global cursor and scroll tracking
+			const handleGlobalUpdate = (e?: MouseEvent) => {
+				// Cursor tracking
+				if (e) {
+					// Calculate percentage position relative to viewport
+					const x = (e.clientX / window.innerWidth) * 100;
+					const y = (e.clientY / window.innerHeight) * 100;
 
-				globalMouseX = x;
-				globalMouseY = y;
+					globalMouseX = x;
+					globalMouseY = y;
 
-				// Update CSS variables on document root
-				document.documentElement.style.setProperty('--waku-global-cursor-x', `${x}%`);
-				document.documentElement.style.setProperty('--waku-global-cursor-y', `${y}%`);
-			};
+					// Calculate angle from center for hue rotation
+					const centerX = window.innerWidth / 2;
+					const centerY = window.innerHeight / 2;
+					const deltaX = e.clientX - centerX;
+					const deltaY = e.clientY - centerY;
+					const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+					cursorAngle = angle;
 
-			// Global scroll tracking for subtle glass rotation
-			const handleGlobalScroll = () => {
+					document.documentElement.style.setProperty('--waku-global-cursor-x', `${x}%`);
+					document.documentElement.style.setProperty('--waku-global-cursor-y', `${y}%`);
+					document.documentElement.style.setProperty('--waku-cursor-angle', `${angle}deg`);
+				}
+
+				// Scroll tracking - combine with cursor position for dynamic rotation
 				const scrollY = window.scrollY;
-				const rotation = (scrollY * 0.05) % 360;
-				scrollRotation = rotation;
+				const scrollInfluence = (scrollY * 0.03) % 360;
+				const combinedRotation = (scrollInfluence + cursorAngle * 0.5) % 360;
+				scrollRotation = combinedRotation;
 
-				document.documentElement.style.setProperty('--waku-global-scroll-rotation', `${rotation}deg`);
+				document.documentElement.style.setProperty(
+					'--waku-global-rotation',
+					`${combinedRotation}deg`
+				);
 				document.documentElement.style.setProperty('--waku-global-scroll-y', `${scrollY}px`);
+
+				// Calculate hue shift based on angle (-180 to 180 -> 0 to 360)
+				const hueShift = ((cursorAngle + 180) / 360) * 60 - 30; // -30 to +30 degree hue shift
+				document.documentElement.style.setProperty('--waku-cursor-hue-shift', `${hueShift}deg`);
 			};
 
-			window.addEventListener('mousemove', handleGlobalMouseMove, { passive: true });
-			window.addEventListener('scroll', handleGlobalScroll, { passive: true });
+			window.addEventListener('mousemove', handleGlobalUpdate, { passive: true });
+			window.addEventListener('scroll', () => handleGlobalUpdate(), { passive: true });
 
 			// Initialize values
-			handleGlobalScroll();
+			handleGlobalUpdate();
 
 			return () => {
 				mediaQuery.removeEventListener('change', handleChange);
-				window.removeEventListener('mousemove', handleGlobalMouseMove);
-				window.removeEventListener('scroll', handleGlobalScroll);
+				window.removeEventListener('mousemove', handleGlobalUpdate);
+				window.removeEventListener('scroll', handleGlobalUpdate);
 			};
 		}
 	});

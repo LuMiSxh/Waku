@@ -7,7 +7,7 @@
    GLASS EFFECTS
    ======================================== */
 
-/* Global glass speckles - Always visible, follows cursor */
+/* Global glass speckles - Always visible, follows cursor with hue rotation */
 body::before {
 	content: '';
 	position: fixed;
@@ -17,8 +17,16 @@ body::before {
 	opacity: 0.3;
 	background: radial-gradient(
 			circle 4px at var(--waku-global-cursor-x, 50%) var(--waku-global-cursor-y, 50%),
-			oklch(from var(--waku-accent) calc(l + 0.2) calc(c * 0.6) h / 0.15) 0%,
-			oklch(from var(--waku-accent) calc(l + 0.15) calc(c * 0.4) h / 0.08) 30%,
+			oklch(
+				from var(--waku-accent) calc(l + 0.2) calc(c * 0.6)
+					calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.15
+			)
+				0%,
+			oklch(
+				from var(--waku-accent) calc(l + 0.15) calc(c * 0.4)
+					calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.08
+			)
+				30%,
 			transparent 100%
 		),
 		radial-gradient(
@@ -37,9 +45,35 @@ body::before {
 	mix-blend-mode: screen;
 }
 
-/* Reduce global speckles in dark mode */
+/* Reduce global speckles in dark mode, but keep color */
 html.dark body::before {
-	opacity: 0.15;
+	opacity: 0.2;
+	background: radial-gradient(
+			circle 4px at var(--waku-global-cursor-x, 50%) var(--waku-global-cursor-y, 50%),
+			oklch(
+				from var(--waku-accent) calc(l + 0.15) calc(c * 0.7)
+					calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.2
+			)
+				0%,
+			oklch(
+				from var(--waku-accent) calc(l + 0.1) calc(c * 0.5)
+					calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.1
+			)
+				30%,
+			transparent 100%
+		),
+		radial-gradient(
+			circle 3px at calc(var(--waku-global-cursor-x, 50%) + 10%) calc(var(--waku-global-cursor-y, 50%) - 8%),
+			oklch(from var(--waku-accent) calc(l + 0.2) calc(c * 0.6) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.15) 0%,
+			oklch(from var(--waku-accent) calc(l + 0.15) calc(c * 0.4) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.08) 50%,
+			transparent 100%
+		),
+		radial-gradient(
+			circle 2.5px at calc(var(--waku-global-cursor-x, 50%) - 12%) calc(var(--waku-global-cursor-y, 50%) + 6%),
+			oklch(1 0 0 / 0.12) 0%,
+			oklch(1 0 0 / 0.08) 50%,
+			transparent 100%
+		);
 }
 
 /* Hide on non-glass areas - components can use .no-glass to hide */
@@ -104,15 +138,15 @@ html.dark .interactive-glass::before {
 	filter: blur(8px);
 }
 
-/* Dark mode - much more subtle cursor glow */
+/* Dark mode - more colorful cursor glow */
 html.dark .interactive-glass::after {
 	background: radial-gradient(
-		circle 160px at var(--glass-mouse-x, 50%) var(--glass-mouse-y, 50%),
-		oklch(from var(--waku-accent) calc(l + 0.08) calc(c * 0.4) h / 0.1) 0%,
-		oklch(from var(--waku-accent) calc(l + 0.05) calc(c * 0.2) h / 0.04) 40%,
+		circle 170px at var(--glass-mouse-x, 50%) var(--glass-mouse-y, 50%),
+		oklch(from var(--waku-accent) calc(l + 0.1) calc(c * 0.8) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.15) 0%,
+		oklch(from var(--waku-accent) calc(l + 0.08) calc(c * 0.6) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.08) 40%,
 		transparent 100%
 	);
-	filter: blur(12px);
+	filter: blur(10px);
 }
 
 /* Standard glass effect (enhanced) */
@@ -132,13 +166,14 @@ html.dark .interactive-glass::after {
 		box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Dark mode - adjust glass appearance */
+/* Dark mode - adjust glass appearance with color tint */
 html.dark .glass {
 	background-image: var(--waku-glass-noise),
 		linear-gradient(
-			135deg,
-			oklch(from var(--waku-fg-base) l c h / 0.06) 0%,
-			oklch(from var(--waku-fg-base) l c h / 0.03) 100%
+			calc(135deg + var(--waku-global-rotation, 0deg)),
+			oklch(from var(--waku-accent) calc(l * 0.3) calc(c * 0.4) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.12) 0%,
+			oklch(from var(--waku-fg-base) l c h / 0.06) 50%,
+			oklch(from var(--waku-fg-base) l c h / 0.04) 100%
 		);
 	border-color: oklch(from var(--waku-border) calc(l + 0.08) c h / 0.6);
 }
@@ -160,13 +195,14 @@ html.dark .glass {
 		box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Dark mode - adjust heavy glass */
+/* Dark mode - adjust heavy glass with color */
 html.dark .glass-heavy {
 	background-image: var(--waku-glass-noise),
 		linear-gradient(
-			135deg,
-			oklch(from var(--waku-fg-base) l c h / 0.08) 0%,
-			oklch(from var(--waku-fg-base) l c h / 0.04) 100%
+			calc(135deg + var(--waku-global-rotation, 0deg)),
+			oklch(from var(--waku-accent) calc(l * 0.35) calc(c * 0.5) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.15) 0%,
+			oklch(from var(--waku-fg-base) l c h / 0.08) 50%,
+			oklch(from var(--waku-fg-base) l c h / 0.05) 100%
 		);
 	border-color: oklch(from var(--waku-border) calc(l + 0.1) c h / 0.7);
 }
@@ -182,11 +218,12 @@ html.dark .glass-heavy {
 	transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Dark mode - adjust subtle glass */
+/* Dark mode - adjust subtle glass with color */
 html.dark .glass-subtle {
 	background: linear-gradient(
-		135deg,
-		oklch(from var(--waku-fg-base) l c h / 0.06) 0%,
+		calc(135deg + var(--waku-global-rotation, 0deg)),
+		oklch(from var(--waku-accent) calc(l * 0.28) calc(c * 0.35) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.1) 0%,
+		oklch(from var(--waku-fg-base) l c h / 0.06) 60%,
 		oklch(from var(--waku-fg-base) l c h / 0.03) 100%
 	);
 	border-color: oklch(from var(--waku-border) calc(l + 0.08) c h / 0.6);
@@ -208,11 +245,12 @@ html.dark .glass-subtle {
 	transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Dark mode - adjust thin glass */
+/* Dark mode - adjust thin glass with color */
 html.dark .glass-thin {
 	background: linear-gradient(
-		135deg,
-		oklch(from var(--waku-fg-base) l c h / 0.05) 0%,
+		calc(135deg + var(--waku-global-rotation, 0deg)),
+		oklch(from var(--waku-accent) calc(l * 0.25) calc(c * 0.3) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.08) 0%,
+		oklch(from var(--waku-fg-base) l c h / 0.05) 60%,
 		oklch(from var(--waku-fg-base) l c h / 0.02) 100%
 	);
 	border-color: oklch(from var(--waku-border) calc(l + 0.06) c h / 0.5);
@@ -232,12 +270,13 @@ html.dark .glass-thin {
 	transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Dark mode - adjust thick glass */
+/* Dark mode - adjust thick glass with color */
 html.dark .glass-thick {
 	background: linear-gradient(
-		135deg,
-		oklch(from var(--waku-fg-base) l c h / 0.07) 0%,
-		oklch(from var(--waku-fg-base) l c h / 0.035) 100%
+		calc(135deg + var(--waku-global-rotation, 0deg)),
+		oklch(from var(--waku-accent) calc(l * 0.32) calc(c * 0.45) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.13) 0%,
+		oklch(from var(--waku-fg-base) l c h / 0.07) 50%,
+		oklch(from var(--waku-fg-base) l c h / 0.04) 100%
 	);
 	border-color: oklch(from var(--waku-border) calc(l + 0.09) c h / 0.65);
 }

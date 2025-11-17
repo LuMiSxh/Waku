@@ -650,14 +650,14 @@ html.dark .btn-subtle:hover:not(:disabled) {
 		0 0 0 1px oklch(from var(--waku-fg-base) l c h / 0.1);
 }
 
-/* Thumb/knob - Pill shaped */
+/* Thumb/knob - Pill shaped (elongated) */
 .toggle-slider::before {
 	content: '';
 	position: absolute;
-	height: 28px;
-	width: 28px;
-	left: 2px;
-	top: 2px;
+	height: 26px;
+	width: 32px;
+	left: 3px;
+	top: 3px;
 	background: linear-gradient(
 		135deg,
 		oklch(1 0 0 / 1),
@@ -687,7 +687,7 @@ html.dark .btn-subtle:hover:not(:disabled) {
 }
 
 .toggle-input:checked + .toggle-slider::before {
-	transform: translateX(24px);
+	transform: translateX(21px);
 }
 
 /* Hover states */
@@ -710,14 +710,14 @@ html.dark .btn-subtle:hover:not(:disabled) {
 		0 0 12px oklch(from var(--toggle-bg-active, var(--waku-accent)) l c h / 0.3);
 }
 
-/* Active/pressed state - Pill stretches */
+/* Active/pressed state - Pill stretches more */
 .toggle:active .toggle-slider::before {
-	width: 32px;
+	width: 36px;
 }
 
 .toggle:active .toggle-input:checked + .toggle-slider::before {
-	transform: translateX(20px);
-	width: 32px;
+	transform: translateX(17px);
+	width: 36px;
 }
 
 /* ========================================
