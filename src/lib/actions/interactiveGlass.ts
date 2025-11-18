@@ -190,7 +190,7 @@ export function interactiveGlass(node: HTMLElement, options: InteractiveGlassOpt
 			if (rafId !== null) {
 				cancelAnimationFrame(rafId);
 			}
-			node.removeEventListener('mousemove', handleMouseMove);
+			window.removeEventListener('mousemove', handleMouseMove);
 			window.removeEventListener('scroll', handleScroll);
 			node.removeEventListener('mouseenter', handleMouseEnter);
 			node.removeEventListener('mouseleave', handleMouseLeave);
