@@ -57,16 +57,22 @@ const defaultOptions: Required<InteractiveGlassOptions> = {
 export function interactiveGlass(node: HTMLElement, options: InteractiveGlassOptions = {}) {
 	const opts = { ...defaultOptions, ...options };
 
-	let mouseX = 0;
-	let mouseY = 0;
-	let targetX = 0;
-	let targetY = 0;
+	let mouseX = 50;
+	let mouseY = 50;
+	let targetX = 50;
+	let targetY = 50;
 	let scrollY = 0;
 	let isHovering = false;
 	let rafId: number | null = null;
+	let lastSpeckleUpdate = 0;
 
 	// Add class for CSS targeting
 	node.classList.add('interactive-glass');
+
+	// Initialize hover state
+	node.style.setProperty('--glass-hover', '0');
+	node.style.setProperty('--glass-mouse-x', '50%');
+	node.style.setProperty('--glass-mouse-y', '50%');
 
 	/**
 	 * Track global mouse position
@@ -91,9 +97,14 @@ export function interactiveGlass(node: HTMLElement, options: InteractiveGlassOpt
 	/**
 	 * Handle hover state
 	 */
-	function handleMouseEnter() {
+	function handleMouseEnter(e: MouseEvent) {
 		isHovering = true;
 		node.style.setProperty('--glass-hover', '1');
+
+		// Initialize cursor position on enter
+		const rect = node.getBoundingClientRect();
+		targetX = ((e.clientX - rect.left) / rect.width) * 100;
+		targetY = ((e.clientY - rect.top) / rect.height) * 100;
 	}
 
 	function handleMouseLeave() {
@@ -108,6 +119,8 @@ export function interactiveGlass(node: HTMLElement, options: InteractiveGlassOpt
 	 * Animation loop - smooth interpolation
 	 */
 	function animate() {
+		const now = Date.now();
+
 		// Smooth lerp (linear interpolation)
 		mouseX += (targetX - mouseX) * opts.speed;
 		mouseY += (targetY - mouseY) * opts.speed;
@@ -126,9 +139,10 @@ export function interactiveGlass(node: HTMLElement, options: InteractiveGlassOpt
 			node.style.setProperty('--glass-scroll-rotation', `${scrollRotation}deg`);
 		}
 
-		// Speckle animation (time-based)
-		if (opts.enableSpeckles) {
-			const time = Date.now() * 0.0005; // Slow animation
+		// Speckle animation (time-based) - only when hovering and throttled to 10fps
+		if (opts.enableSpeckles && isHovering && now - lastSpeckleUpdate >= 100) {
+			lastSpeckleUpdate = now;
+			const time = now * 0.0005; // Slow animation
 			node.style.setProperty('--glass-speckle-time', `${time}`);
 
 			// Calculate speckle positions (floating effect)
@@ -149,7 +163,7 @@ export function interactiveGlass(node: HTMLElement, options: InteractiveGlassOpt
 
 		// Hover glow intensity (pulsing)
 		if (opts.enableHoverGlow && isHovering) {
-			const pulse = 0.5 + Math.sin(Date.now() * 0.002) * 0.2;
+			const pulse = 0.5 + Math.sin(now * 0.002) * 0.2;
 			node.style.setProperty('--glass-glow-intensity', `${pulse * opts.intensity}`);
 		}
 
@@ -161,7 +175,7 @@ export function interactiveGlass(node: HTMLElement, options: InteractiveGlassOpt
 
 	// Event listeners
 	if (opts.enableCursor) {
-		window.addEventListener('mousemove', handleMouseMove, { passive: true });
+		node.addEventListener('mousemove', handleMouseMove, { passive: true });
 		node.addEventListener('mouseenter', handleMouseEnter);
 		node.addEventListener('mouseleave', handleMouseLeave);
 	}
@@ -176,7 +190,7 @@ export function interactiveGlass(node: HTMLElement, options: InteractiveGlassOpt
 			if (rafId !== null) {
 				cancelAnimationFrame(rafId);
 			}
-			window.removeEventListener('mousemove', handleMouseMove);
+			node.removeEventListener('mousemove', handleMouseMove);
 			window.removeEventListener('scroll', handleScroll);
 			node.removeEventListener('mouseenter', handleMouseEnter);
 			node.removeEventListener('mouseleave', handleMouseLeave);
