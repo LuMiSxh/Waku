@@ -6,8 +6,8 @@
 		Modal,
 		toast,
 		Toast
-	} from '$lib/components';
-	import { VStack, HStack, Card } from '$lib/layout';
+	} from '$lib/components/index.js';
+	import { VStack, HStack, Card } from '$lib/layout/index.js';
 
 	let modalOpen = $state(false);
 	let accentColor = $state('oklch(0.65 0.2 250)'); // Default blue
@@ -40,12 +40,12 @@
 </script>
 
 <ThemeProvider accent={accentColor} interactiveGlass={true}>
-	<VStack gap="2xl" class="min-h-screen p-8 bg-surface-0">
+	<VStack gap="2xl" class="bg-surface-0 min-h-screen p-8">
 		<!-- Header -->
-		<VStack gap="md" class="max-w-6xl mx-auto w-full">
+		<VStack gap="md" class="mx-auto w-full max-w-6xl">
 			<HStack justify="between" align="center" class="w-full">
 				<div>
-					<h1 class="text-4xl font-bold text-base">Waku Component Showcase</h1>
+					<h1 class="text-4xl text-base font-bold">Waku Component Showcase</h1>
 					<p class="text-muted mt-2">
 						Automatic depth awareness, interactive glass, and dynamic theming
 					</p>
@@ -57,19 +57,19 @@
 
 			<div class="info-banner">
 				<p class="text-sm">
-					<strong>✨ What's New:</strong> Components automatically detect their depth and apply the
-					appropriate styling. No manual elevation props needed! Cards at depth 0-2 use solid
-					backgrounds, depth 3+ use glass effects.
+					<strong>✨ What's New:</strong> Components automatically detect their depth and apply the appropriate
+					styling. No manual elevation props needed! Cards at depth 0-2 use solid backgrounds, depth
+					3+ use glass effects.
 				</p>
 			</div>
 		</VStack>
 
 		<!-- Accent Color Selector -->
 		<DepthContext>
-			<Card class="max-w-6xl mx-auto w-full">
+			<Card class="mx-auto w-full max-w-6xl">
 				<VStack gap="lg">
 					<div>
-						<h2 class="text-2xl font-semibold text-base mb-2">Custom Accent Color</h2>
+						<h2 class="mb-2 text-2xl text-base font-semibold">Custom Accent Color</h2>
 						<p class="text-muted">
 							Choose an accent color - it propagates throughout the entire theme automatically
 						</p>
@@ -88,7 +88,7 @@
 						{/each}
 					</div>
 
-					<div class="flex gap-3 flex-wrap">
+					<div class="flex flex-wrap gap-3">
 						<Button variant="primary">Primary Button</Button>
 						<Button variant="subtle">Subtle Button</Button>
 						<Button variant="outline">Outline Button</Button>
@@ -99,8 +99,8 @@
 		</DepthContext>
 
 		<!-- Depth Demonstration -->
-		<VStack gap="md" class="max-w-6xl mx-auto w-full">
-			<h2 class="text-2xl font-semibold text-base">Automatic Depth Awareness</h2>
+		<VStack gap="md" class="mx-auto w-full max-w-6xl">
+			<h2 class="text-2xl text-base font-semibold">Automatic Depth Awareness</h2>
 			<p class="text-muted">
 				Cards automatically style themselves based on their nesting depth. Watch as depth increases!
 			</p>
@@ -110,8 +110,8 @@
 				<VStack gap="md">
 					<div>
 						<div class="depth-badge">Depth 0</div>
-						<h3 class="text-xl font-semibold text-base">Base Level Card</h3>
-						<p class="text-sm text-muted">Solid background, subtle shadow</p>
+						<h3 class="text-base text-xl font-semibold">Base Level Card</h3>
+						<p class="text-muted text-sm">Solid background, subtle shadow</p>
 					</div>
 
 					<!-- Depth 1 (auto-incremented by DepthContext) -->
@@ -120,8 +120,8 @@
 							<VStack gap="md">
 								<div>
 									<div class="depth-badge">Depth 1</div>
-									<h4 class="text-lg font-semibold text-base">Nested Card</h4>
-									<p class="text-sm text-muted">Slightly elevated background</p>
+									<h4 class="text-base text-lg font-semibold">Nested Card</h4>
+									<p class="text-muted text-sm">Slightly elevated background</p>
 								</div>
 
 								<!-- Depth 2 -->
@@ -130,8 +130,8 @@
 										<VStack gap="md">
 											<div>
 												<div class="depth-badge">Depth 2</div>
-												<h5 class="text-base font-semibold text-base">Deeply Nested Card</h5>
-												<p class="text-sm text-muted">Highest elevation with solid background</p>
+												<h5 class="text-base font-semibold">Deeply Nested Card</h5>
+												<p class="text-muted text-sm">Highest elevation with solid background</p>
 											</div>
 
 											<!-- Depth 3 - Glass starts! -->
@@ -139,8 +139,8 @@
 												<Card>
 													<div>
 														<div class="depth-badge glass-badge">Depth 3 🪟</div>
-														<h6 class="text-sm font-semibold text-base">Glass Effect Enabled!</h6>
-														<p class="text-xs text-muted">
+														<h6 class="text-base text-sm font-semibold">Glass Effect Enabled!</h6>
+														<p class="text-muted text-xs">
 															At depth 3+, cards automatically use glass with interactive effects
 														</p>
 													</div>
@@ -157,8 +157,8 @@
 		</VStack>
 
 		<!-- Interactive Elements -->
-		<VStack gap="md" class="max-w-6xl mx-auto w-full">
-			<h2 class="text-2xl font-semibold text-base">Interactive Components</h2>
+		<VStack gap="md" class="mx-auto w-full max-w-6xl">
+			<h2 class="text-2xl text-base font-semibold">Interactive Components</h2>
 			<p class="text-muted">Modal and Toast at depth 4-5 with premium glass effects</p>
 
 			<HStack gap="md" class="flex-wrap">
@@ -170,30 +170,33 @@
 		</VStack>
 
 		<!-- Code Examples -->
-		<VStack gap="md" class="max-w-6xl mx-auto w-full">
-			<h2 class="text-2xl font-semibold text-base">Usage Examples</h2>
+		<VStack gap="md" class="mx-auto w-full max-w-6xl">
+			<h2 class="text-2xl text-base font-semibold">Usage Examples</h2>
 
 			<DepthContext>
 				<Card>
 					<VStack gap="lg">
 						<div>
-							<h3 class="text-lg font-semibold text-base mb-3">1. Wrap your app with ThemeProvider</h3>
-							<pre
-								class="code-block"><code>{`<script>
+							<h3 class="mb-3 text-base text-lg font-semibold">
+								1. Wrap your app with ThemeProvider
+							</h3>
+							<pre class="code-block"><code
+									>{`<script>
   import { ThemeProvider } from 'waku';
 </script>
 
 <ThemeProvider accent="oklch(0.65 0.2 250)">
   <YourApp />
-</ThemeProvider>`}</code></pre>
+</ThemeProvider>`}</code
+								></pre>
 						</div>
 
 						<div>
-							<h3 class="text-lg font-semibold text-base mb-3">
+							<h3 class="mb-3 text-base text-lg font-semibold">
 								2. Use DepthContext to increment depth
 							</h3>
-							<pre
-								class="code-block"><code>{`<script>
+							<pre class="code-block"><code
+									>{`<script>
   import { DepthContext, Card } from 'waku';
 </script>
 
@@ -209,23 +212,29 @@
       </DepthContext>
     </Card>
   </DepthContext>
-</Card>`}</code></pre>
+</Card>`}</code
+								></pre>
 						</div>
 
 						<div>
-							<h3 class="text-lg font-semibold text-base mb-3">3. Components auto-style themselves</h3>
-							<pre
-								class="code-block"><code>{`<!-- No elevation prop needed! -->
+							<h3 class="mb-3 text-base text-lg font-semibold">
+								3. Components auto-style themselves
+							</h3>
+							<pre class="code-block"><code
+									>{`<!-- No elevation prop needed! -->
 <Card>Content</Card>
 
 <!-- At depth 0-2: Solid backgrounds
-     At depth 3+: Glass effects with interactivity -->`}</code></pre>
+     At depth 3+: Glass effects with interactivity -->`}</code
+								></pre>
 						</div>
 
 						<div>
-							<h3 class="text-lg font-semibold text-base mb-3">4. Customize accent color dynamically</h3>
-							<pre
-								class="code-block"><code>{`<script>
+							<h3 class="mb-3 text-base text-lg font-semibold">
+								4. Customize accent color dynamically
+							</h3>
+							<pre class="code-block"><code
+									>{`<script>
   let accent = $state('oklch(0.65 0.2 250)');
 </script>
 
@@ -237,7 +246,8 @@
   <button onclick={() => accent = 'oklch(0.65 0.2 145)'}>
     Switch to Green
   </button>
-</ThemeProvider>`}</code></pre>
+</ThemeProvider>`}</code
+								></pre>
 						</div>
 					</VStack>
 				</Card>
@@ -245,15 +255,15 @@
 		</VStack>
 
 		<!-- Benefits List -->
-		<VStack gap="md" class="max-w-6xl mx-auto w-full">
-			<h2 class="text-2xl font-semibold text-base">Key Benefits</h2>
+		<VStack gap="md" class="mx-auto w-full max-w-6xl">
+			<h2 class="text-2xl text-base font-semibold">Key Benefits</h2>
 
 			<div class="benefits-grid">
 				<DepthContext>
 					<Card class="benefit-card">
 						<div class="benefit-icon">🎨</div>
-						<h3 class="text-lg font-semibold text-base mb-2">Automatic Theming</h3>
-						<p class="text-sm text-muted">
+						<h3 class="mb-2 text-base text-lg font-semibold">Automatic Theming</h3>
+						<p class="text-muted text-sm">
 							Set one accent color, get a complete theme with proper contrast and accessibility
 						</p>
 					</Card>
@@ -262,8 +272,8 @@
 				<DepthContext>
 					<Card class="benefit-card">
 						<div class="benefit-icon">📏</div>
-						<h3 class="text-lg font-semibold text-base mb-2">Depth Awareness</h3>
-						<p class="text-sm text-muted">
+						<h3 class="mb-2 text-base text-lg font-semibold">Depth Awareness</h3>
+						<p class="text-muted text-sm">
 							Components detect their depth and apply appropriate styling automatically
 						</p>
 					</Card>
@@ -272,8 +282,8 @@
 				<DepthContext>
 					<Card class="benefit-card">
 						<div class="benefit-icon">✨</div>
-						<h3 class="text-lg font-semibold text-base mb-2">Interactive Glass</h3>
-						<p class="text-sm text-muted">
+						<h3 class="mb-2 text-base text-lg font-semibold">Interactive Glass</h3>
+						<p class="text-muted text-sm">
 							Reactive highlights, speckles, and edge lighting that respond to cursor and scroll
 						</p>
 					</Card>
@@ -282,8 +292,8 @@
 				<DepthContext>
 					<Card class="benefit-card">
 						<div class="benefit-icon">⚡</div>
-						<h3 class="text-lg font-semibold text-base mb-2">Performance</h3>
-						<p class="text-sm text-muted">
+						<h3 class="mb-2 text-base text-lg font-semibold">Performance</h3>
+						<p class="text-muted text-sm">
 							GPU-accelerated effects at 60fps with automatic cleanup and reduced motion support
 						</p>
 					</Card>
@@ -292,8 +302,8 @@
 				<DepthContext>
 					<Card class="benefit-card">
 						<div class="benefit-icon">🎯</div>
-						<h3 class="text-lg font-semibold text-base mb-2">Desktop Optimized</h3>
-						<p class="text-sm text-muted">
+						<h3 class="mb-2 text-base text-lg font-semibold">Desktop Optimized</h3>
+						<p class="text-muted text-sm">
 							Built for desktop apps with cursor tracking, keyboard navigation, and hover states
 						</p>
 					</Card>
@@ -302,8 +312,8 @@
 				<DepthContext>
 					<Card class="benefit-card">
 						<div class="benefit-icon">🔧</div>
-						<h3 class="text-lg font-semibold text-base mb-2">Easy to Use</h3>
-						<p class="text-sm text-muted">
+						<h3 class="mb-2 text-base text-lg font-semibold">Easy to Use</h3>
+						<p class="text-muted text-sm">
 							Minimal boilerplate - wrap with ThemeProvider and components handle the rest
 						</p>
 					</Card>
@@ -319,7 +329,7 @@
 	<Modal bind:open={modalOpen} size="md">
 		<VStack gap="lg">
 			<div>
-				<h2 class="text-2xl font-bold text-base">Interactive Glass Modal</h2>
+				<h2 class="text-2xl text-base font-bold">Interactive Glass Modal</h2>
 				<p class="text-muted mt-2">This modal is at depth 4 with premium glass effects</p>
 			</div>
 
@@ -337,7 +347,7 @@
 				<li>🌈 Mesh gradient overlays</li>
 			</ul>
 
-			<p class="text-sm text-muted">
+			<p class="text-muted text-sm">
 				Hover around and move your cursor to see the interactive effects in action!
 			</p>
 
