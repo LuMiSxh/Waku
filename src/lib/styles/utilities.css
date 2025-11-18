@@ -326,6 +326,40 @@ html.dark .glass-ultra-thin {
 	border-color: oklch(from var(--waku-border) calc(l + 0.05) c h / 0.4);
 }
 
+/* Tinted glass (accent color overlay) */
+.glass-tinted {
+	backdrop-filter: blur(var(--waku-glass-blur)) saturate(150%) brightness(102%);
+	-webkit-backdrop-filter: blur(var(--waku-glass-blur)) saturate(150%) brightness(102%);
+	background-image: var(--waku-glass-noise),
+		linear-gradient(
+			calc(135deg + var(--waku-global-rotation, 0deg)),
+			oklch(from var(--waku-accent) calc(l * 0.9) calc(c * 0.4) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.15) 0%,
+			oklch(from var(--waku-accent) calc(l * 0.85) calc(c * 0.3) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.1) 50%,
+			oklch(from var(--waku-glass-gradient-to) l c h / 0.95) 100%
+		),
+		var(--waku-glass-specular);
+	box-shadow: var(--shadow-glass),
+		0 0 0 1px oklch(from var(--waku-accent) l c h / 0.2),
+		var(--waku-glass-edge-glow);
+	border-radius: var(--radius-lg);
+	border: 1px solid oklch(from var(--waku-accent) l c h / 0.3);
+	transition:
+		transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+		box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Dark mode - adjust tinted glass */
+html.dark .glass-tinted {
+	background-image: var(--waku-glass-noise),
+		linear-gradient(
+			calc(135deg + var(--waku-global-rotation, 0deg)),
+			oklch(from var(--waku-accent) calc(l * 0.4) calc(c * 0.6) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.2) 0%,
+			oklch(from var(--waku-accent) calc(l * 0.35) calc(c * 0.5) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.12) 50%,
+			oklch(from var(--waku-fg-base) l c h / 0.05) 100%
+		);
+	border-color: oklch(from var(--waku-accent) calc(l + 0.1) c h / 0.4);
+}
+
 /* ========================================
    ELEVATIONS
    ======================================== */

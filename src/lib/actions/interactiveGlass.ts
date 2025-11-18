@@ -175,7 +175,7 @@ export function interactiveGlass(node: HTMLElement, options: InteractiveGlassOpt
 
 	// Event listeners
 	if (opts.enableCursor) {
-		node.addEventListener('mousemove', handleMouseMove, { passive: true });
+		window.addEventListener('mousemove', handleMouseMove, { passive: true });
 		node.addEventListener('mouseenter', handleMouseEnter);
 		node.addEventListener('mouseleave', handleMouseLeave);
 	}
