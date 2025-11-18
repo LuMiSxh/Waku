@@ -332,6 +332,14 @@ html.dark .glass-ultra-thin {
 .glass-tinted {
 	backdrop-filter: blur(var(--waku-glass-blur)) saturate(150%) brightness(102%);
 	-webkit-backdrop-filter: blur(var(--waku-glass-blur)) saturate(150%) brightness(102%);
+	/* Fallback for browsers without oklch(from) support */
+	background: linear-gradient(
+		135deg,
+		rgba(100, 120, 255, 0.15) 0%,
+		rgba(100, 120, 255, 0.1) 50%,
+		rgba(255, 255, 255, 0.05) 100%
+	);
+	/* Modern relative color syntax */
 	background-image: var(--waku-glass-noise),
 		linear-gradient(
 			calc(135deg + var(--waku-global-rotation, 0deg)),
@@ -341,17 +349,32 @@ html.dark .glass-ultra-thin {
 		),
 		var(--waku-glass-specular);
 	box-shadow: var(--shadow-glass),
-		0 0 0 1px oklch(from var(--waku-accent) l c h / 0.2),
+		0 0 0 1px rgba(100, 120, 255, 0.2),
 		var(--waku-glass-edge-glow);
 	border-radius: var(--radius-lg);
-	border: 1px solid oklch(from var(--waku-accent) l c h / 0.3);
+	border: 1px solid rgba(100, 120, 255, 0.3);
 	transition:
 		transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
 		box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+@supports (color: oklch(from white l c h)) {
+	.glass-tinted {
+		box-shadow: var(--shadow-glass),
+			0 0 0 1px oklch(from var(--waku-accent) l c h / 0.2),
+			var(--waku-glass-edge-glow);
+		border: 1px solid oklch(from var(--waku-accent) l c h / 0.3);
+	}
+}
+
 /* Dark mode - adjust tinted glass */
 html.dark .glass-tinted {
+	background: linear-gradient(
+		135deg,
+		rgba(100, 120, 255, 0.2) 0%,
+		rgba(100, 120, 255, 0.12) 50%,
+		rgba(0, 0, 0, 0.05) 100%
+	);
 	background-image: var(--waku-glass-noise),
 		linear-gradient(
 			calc(135deg + var(--waku-global-rotation, 0deg)),
@@ -359,7 +382,13 @@ html.dark .glass-tinted {
 			oklch(from var(--waku-accent) calc(l * 0.35) calc(c * 0.5) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.12) 50%,
 			oklch(from var(--waku-fg-base) l c h / 0.05) 100%
 		);
-	border-color: oklch(from var(--waku-accent) calc(l + 0.1) c h / 0.4);
+	border-color: rgba(100, 120, 255, 0.4);
+}
+
+@supports (color: oklch(from white l c h)) {
+	html.dark .glass-tinted {
+		border-color: oklch(from var(--waku-accent) calc(l + 0.1) c h / 0.4);
+	}
 }
 
 /* ========================================
