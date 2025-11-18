@@ -250,6 +250,14 @@
 <style>
 	/* Ensure background has enough content to show glass effect */
 	:global(body) {
+		/* Fallback for older browsers */
+		background:
+			radial-gradient(circle at 20% 50%, rgba(100, 120, 255, 0.1) 0%, transparent 50%),
+			radial-gradient(circle at 80% 50%, rgba(150, 100, 255, 0.08) 0%, transparent 50%),
+			linear-gradient(135deg, rgba(100, 120, 255, 0.05) 0%, transparent 50%),
+			linear-gradient(225deg, rgba(120, 255, 200, 0.03) 0%, transparent 50%),
+			#fafafa;
+		/* Modern syntax */
 		background: linear-gradient(
 				135deg,
 				oklch(from var(--waku-accent) calc(l + 0.35) calc(c * 0.2) h / 0.05) 0%,
@@ -262,6 +270,14 @@
 			),
 			var(--waku-surface-0);
 		background-attachment: fixed;
+		min-height: 100vh;
+	}
+
+	:global(html.dark body) {
+		background:
+			radial-gradient(circle at 20% 50%, rgba(100, 120, 255, 0.15) 0%, transparent 50%),
+			radial-gradient(circle at 80% 50%, rgba(150, 100, 255, 0.12) 0%, transparent 50%),
+			#0a0a0a;
 	}
 
 	/* Grid utilities */

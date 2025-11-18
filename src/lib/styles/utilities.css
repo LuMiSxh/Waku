@@ -225,12 +225,13 @@ html.dark .glass-heavy {
 .glass-subtle {
 	backdrop-filter: blur(20px) saturate(150%) brightness(102%);
 	-webkit-backdrop-filter: blur(20px) saturate(150%) brightness(102%);
-	background: linear-gradient(
-		calc(135deg + var(--waku-global-rotation, 0deg)),
-		oklch(from var(--waku-accent) calc(l * 0.94) calc(c * 0.12) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.05) 0%,
-		oklch(from var(--waku-glass-gradient-from) l c h / 0.8) 50%,
-		var(--waku-glass-gradient-to) 100%
-	);
+	background-image: var(--waku-glass-noise),
+		linear-gradient(
+			calc(135deg + var(--waku-global-rotation, 0deg)),
+			oklch(from var(--waku-accent) calc(l * 0.94) calc(c * 0.12) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.05) 0%,
+			oklch(from var(--waku-glass-gradient-from) l c h / 0.8) 50%,
+			var(--waku-glass-gradient-to) 100%
+		);
 	box-shadow: var(--shadow-md), var(--waku-glass-edge-glow);
 	border-radius: var(--radius-md);
 	border: 1px solid var(--waku-border);
@@ -239,12 +240,13 @@ html.dark .glass-heavy {
 
 /* Dark mode - adjust subtle glass with color */
 html.dark .glass-subtle {
-	background: linear-gradient(
-		calc(135deg + var(--waku-global-rotation, 0deg)),
-		oklch(from var(--waku-accent) calc(l * 0.28) calc(c * 0.35) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.1) 0%,
-		oklch(from var(--waku-fg-base) l c h / 0.06) 60%,
-		oklch(from var(--waku-fg-base) l c h / 0.03) 100%
-	);
+	background-image: var(--waku-glass-noise),
+		linear-gradient(
+			calc(135deg + var(--waku-global-rotation, 0deg)),
+			oklch(from var(--waku-accent) calc(l * 0.28) calc(c * 0.35) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.1) 0%,
+			oklch(from var(--waku-fg-base) l c h / 0.06) 60%,
+			oklch(from var(--waku-fg-base) l c h / 0.03) 100%
+		);
 	border-color: oklch(from var(--waku-border) calc(l + 0.08) c h / 0.6);
 	backdrop-filter: blur(20px) saturate(130%) brightness(100%);
 	-webkit-backdrop-filter: blur(20px) saturate(130%) brightness(100%);
@@ -254,12 +256,13 @@ html.dark .glass-subtle {
 .glass-thin {
 	backdrop-filter: blur(16px) saturate(140%) brightness(102%);
 	-webkit-backdrop-filter: blur(16px) saturate(140%) brightness(102%);
-	background: linear-gradient(
-		calc(135deg + var(--waku-global-rotation, 0deg)),
-		oklch(from var(--waku-accent) calc(l * 0.93) calc(c * 0.1) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.04) 0%,
-		oklch(from var(--waku-glass-gradient-from) l c h / 0.75) 55%,
-		var(--waku-glass-gradient-to) 100%
-	);
+	background-image: var(--waku-glass-noise),
+		linear-gradient(
+			calc(135deg + var(--waku-global-rotation, 0deg)),
+			oklch(from var(--waku-accent) calc(l * 0.93) calc(c * 0.1) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.04) 0%,
+			oklch(from var(--waku-glass-gradient-from) l c h / 0.75) 55%,
+			var(--waku-glass-gradient-to) 100%
+		);
 	box-shadow: var(--shadow-sm);
 	border: 1px solid var(--waku-glass-edge);
 	transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -267,12 +270,13 @@ html.dark .glass-subtle {
 
 /* Dark mode - adjust thin glass with color */
 html.dark .glass-thin {
-	background: linear-gradient(
-		calc(135deg + var(--waku-global-rotation, 0deg)),
-		oklch(from var(--waku-accent) calc(l * 0.25) calc(c * 0.3) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.08) 0%,
-		oklch(from var(--waku-fg-base) l c h / 0.05) 60%,
-		oklch(from var(--waku-fg-base) l c h / 0.02) 100%
-	);
+	background-image: var(--waku-glass-noise),
+		linear-gradient(
+			calc(135deg + var(--waku-global-rotation, 0deg)),
+			oklch(from var(--waku-accent) calc(l * 0.25) calc(c * 0.3) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.08) 0%,
+			oklch(from var(--waku-fg-base) l c h / 0.05) 60%,
+			oklch(from var(--waku-fg-base) l c h / 0.02) 100%
+		);
 	border-color: oklch(from var(--waku-border) calc(l + 0.06) c h / 0.5);
 }
 
@@ -280,12 +284,13 @@ html.dark .glass-thin {
 .glass-thick {
 	backdrop-filter: blur(24px) saturate(160%) brightness(102%);
 	-webkit-backdrop-filter: blur(24px) saturate(160%) brightness(102%);
-	background: linear-gradient(
-		calc(135deg + var(--waku-global-rotation, 0deg)),
-		oklch(from var(--waku-accent) calc(l * 0.95) calc(c * 0.16) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.07) 0%,
-		oklch(from var(--waku-glass-gradient-from) l c h / 0.85) 40%,
-		var(--waku-glass-gradient-to) 100%
-	);
+	background-image: var(--waku-glass-noise),
+		linear-gradient(
+			calc(135deg + var(--waku-global-rotation, 0deg)),
+			oklch(from var(--waku-accent) calc(l * 0.95) calc(c * 0.16) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.07) 0%,
+			oklch(from var(--waku-glass-gradient-from) l c h / 0.85) 40%,
+			var(--waku-glass-gradient-to) 100%
+		);
 	box-shadow: var(--shadow-md), var(--waku-glass-edge-glow);
 	border: 1px solid var(--waku-glass-edge);
 	transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -293,12 +298,13 @@ html.dark .glass-thin {
 
 /* Dark mode - adjust thick glass with color */
 html.dark .glass-thick {
-	background: linear-gradient(
-		calc(135deg + var(--waku-global-rotation, 0deg)),
-		oklch(from var(--waku-accent) calc(l * 0.32) calc(c * 0.45) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.13) 0%,
-		oklch(from var(--waku-fg-base) l c h / 0.07) 50%,
-		oklch(from var(--waku-fg-base) l c h / 0.04) 100%
-	);
+	background-image: var(--waku-glass-noise),
+		linear-gradient(
+			calc(135deg + var(--waku-global-rotation, 0deg)),
+			oklch(from var(--waku-accent) calc(l * 0.32) calc(c * 0.45) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.13) 0%,
+			oklch(from var(--waku-fg-base) l c h / 0.07) 50%,
+			oklch(from var(--waku-fg-base) l c h / 0.04) 100%
+		);
 	border-color: oklch(from var(--waku-border) calc(l + 0.09) c h / 0.65);
 }
 
@@ -306,12 +312,13 @@ html.dark .glass-thick {
 .glass-ultra-thin {
 	backdrop-filter: blur(12px) saturate(130%) brightness(102%);
 	-webkit-backdrop-filter: blur(12px) saturate(130%) brightness(102%);
-	background: linear-gradient(
-		calc(135deg + var(--waku-global-rotation, 0deg)),
-		oklch(from var(--waku-accent) calc(l * 0.92) calc(c * 0.08) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.03) 0%,
-		oklch(from var(--waku-glass-gradient-from) l c h / 0.7) 60%,
-		var(--waku-glass-gradient-to) 100%
-	);
+	background-image: var(--waku-glass-noise),
+		linear-gradient(
+			calc(135deg + var(--waku-global-rotation, 0deg)),
+			oklch(from var(--waku-accent) calc(l * 0.92) calc(c * 0.08) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.03) 0%,
+			oklch(from var(--waku-glass-gradient-from) l c h / 0.7) 60%,
+			var(--waku-glass-gradient-to) 100%
+		);
 	box-shadow: var(--shadow-sm);
 	border: 1px solid var(--waku-glass-edge);
 	transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -319,12 +326,13 @@ html.dark .glass-thick {
 
 /* Dark mode - adjust ultra thin glass with color */
 html.dark .glass-ultra-thin {
-	background: linear-gradient(
-		calc(135deg + var(--waku-global-rotation, 0deg)),
-		oklch(from var(--waku-accent) calc(l * 0.22) calc(c * 0.25) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.06) 0%,
-		oklch(from var(--waku-fg-base) l c h / 0.04) 60%,
-		oklch(from var(--waku-fg-base) l c h / 0.01) 100%
-	);
+	background-image: var(--waku-glass-noise),
+		linear-gradient(
+			calc(135deg + var(--waku-global-rotation, 0deg)),
+			oklch(from var(--waku-accent) calc(l * 0.22) calc(c * 0.25) calc(h + var(--waku-cursor-hue-shift, 0deg)) / 0.06) 0%,
+			oklch(from var(--waku-fg-base) l c h / 0.04) 60%,
+			oklch(from var(--waku-fg-base) l c h / 0.01) 100%
+		);
 	border-color: oklch(from var(--waku-border) calc(l + 0.05) c h / 0.4);
 }
 
