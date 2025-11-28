@@ -13,6 +13,7 @@
 		disabled?: boolean;
 		class?: string;
 		id?: string;
+		variant?: 'default' | 'seamless';
 	}
 
 	let {
@@ -21,20 +22,20 @@
 		placeholder = 'Select an option...',
 		disabled = false,
 		class: className,
+		variant = 'default',
 		id
 	}: Props = $props();
 
 	let open = $state(false);
 	let highlightedIndex = $state(-1);
-	let listboxElement: HTMLUListElement | undefined = $state();
 	let triggerElement: HTMLButtonElement | undefined = $state();
 
-	// State für die Positionierung des Portals
+	// State für die Positionierung
 	let top = $state(0);
 	let left = $state(0);
 	let width = $state(0);
 
-	const selectedLabel = $derived.by(() => {
+	let selectedLabel = $derived.by(() => {
 		const selectedOption = options.find((opt) => opt.value === value);
 		return selectedOption ? selectedOption.label : '';
 	});
@@ -42,6 +43,7 @@
 	function updatePosition() {
 		if (!triggerElement) return;
 		const rect = triggerElement.getBoundingClientRect();
+
 		top = rect.bottom + 4;
 		left = rect.left;
 		width = rect.width;
@@ -50,78 +52,112 @@
 	function selectOption(option: SelectOption) {
 		value = option.value;
 		open = false;
+		highlightedIndex = -1;
+		triggerElement?.focus();
 	}
 
-	function handleKeydown(event: KeyboardEvent) {
-		if (event.key === 'Tab' && open) {
-			open = false;
-			return;
-		}
-		if (!open) {
-			if (['Enter', ' ', 'ArrowDown', 'ArrowUp'].includes(event.key)) {
-				event.preventDefault();
-				open = true;
+	function syncHighlight() {
+		const idx = options.findIndex((o) => o.value === value);
+		highlightedIndex = idx >= 0 ? idx : 0;
+	}
+
+	function handleTriggerKeydown(e: KeyboardEvent) {
+		if (disabled) return;
+
+		if (open) {
+			if (['ArrowUp', 'ArrowDown'].includes(e.key)) {
+				e.preventDefault();
 			}
+			if (e.key === 'Tab') open = false;
 			return;
 		}
 
-		switch (event.key) {
+		switch (e.key) {
+			case 'Enter':
+			case ' ':
+			case 'ArrowDown':
+			case 'ArrowUp':
+				e.preventDefault();
+				e.stopPropagation();
+
+				updatePosition();
+				syncHighlight();
+				open = true;
+				break;
+		}
+	}
+
+	function handleTriggerClick() {
+		if (disabled) return;
+
+		if (!open) {
+			updatePosition();
+			syncHighlight();
+			open = true;
+		} else {
+			// Wir schließen
+			open = false;
+		}
+	}
+
+	function handleListKeydown(e: KeyboardEvent) {
+		if (!open) return;
+
+		switch (e.key) {
 			case 'Escape':
-				event.preventDefault();
+				e.preventDefault();
+				e.stopPropagation();
 				open = false;
+				triggerElement?.focus();
+				break;
+			case 'ArrowDown':
+				e.preventDefault();
+				highlightedIndex = (highlightedIndex + 1) % options.length;
+				scrollOptionIntoView(highlightedIndex);
+				break;
+			case 'ArrowUp':
+				e.preventDefault();
+				highlightedIndex = (highlightedIndex - 1 + options.length) % options.length;
+				scrollOptionIntoView(highlightedIndex);
 				break;
 			case 'Enter':
 			case ' ':
-				event.preventDefault();
-				if (highlightedIndex >= 0) selectOption(options[highlightedIndex]);
-				break;
-			case 'ArrowDown':
-				event.preventDefault();
-				highlightedIndex = Math.min(options.length - 1, highlightedIndex + 1);
-				break;
-			case 'ArrowUp':
-				event.preventDefault();
-				highlightedIndex = Math.max(0, highlightedIndex - 1);
-				break;
-			case 'Home':
-				event.preventDefault();
-				highlightedIndex = 0;
-				break;
-			case 'End':
-				event.preventDefault();
-				highlightedIndex = options.length - 1;
+				e.preventDefault();
+				e.stopPropagation();
+				if (highlightedIndex >= 0 && options[highlightedIndex]) {
+					selectOption(options[highlightedIndex]);
+				}
 				break;
 		}
+	}
+
+	function scrollOptionIntoView(index: number) {
+		const listId = `listbox-${id || 'select'}`;
+		const list = document.getElementById(listId);
+		const item = list?.children[index] as HTMLElement;
+		item?.scrollIntoView({ block: 'nearest' });
 	}
 
 	$effect(() => {
 		if (open) {
 			updatePosition();
-			const currentIndex = options.findIndex((opt) => opt.value === value);
-			highlightedIndex = currentIndex !== -1 ? currentIndex : 0;
-		}
-	});
-
-	$effect(() => {
-		if (listboxElement && highlightedIndex >= 0) {
-			const optionEl = listboxElement.children[highlightedIndex];
-			optionEl?.scrollIntoView({ block: 'nearest' });
 		}
 	});
 </script>
 
-<svelte:window on:resize={updatePosition} on:scroll={updatePosition} />
+<svelte:window onresize={updatePosition} onscroll={updatePosition} onkeydown={handleListKeydown} />
 
 <div class="select-wrapper {className || ''}" use:clickOutside={() => (open = false)}>
 	<button
 		type="button"
-		class="select-trigger"
+		class="select-trigger variant-{variant}"
 		bind:this={triggerElement}
-		onclick={() => (open = !open)}
-		onkeydown={handleKeydown}
+		onclick={handleTriggerClick}
+		onkeydown={handleTriggerKeydown}
 		{disabled}
 		aria-haspopup="listbox"
 		aria-expanded={open}
+		tabindex={disabled ? -1 : 0}
 		{id}
 	>
 		<span class:placeholder={!selectedLabel}>{selectedLabel || placeholder}</span>
@@ -143,20 +179,21 @@
 	{#if open}
 		<div use:portalled>
 			<ul
+				id={`listbox-${id || 'select'}`}
 				class="options-list glass-heavy"
 				role="listbox"
-				bind:this={listboxElement}
 				style="position: absolute; top: {top}px; left: {left}px; width: {width}px;"
-				transition:glassScale={{ duration: 400, start: 0.95 }}
+				transition:glassScale={{ duration: 200, start: 0.95 }}
 			>
 				{#each options as option, i (option.value)}
 					<li
 						role="option"
-						aria-selected={value === option.value}
+						aria-selected={i === highlightedIndex}
 						class:highlighted={i === highlightedIndex}
+						class:selected={value === option.value}
 						onclick={() => selectOption(option)}
 						onmouseenter={() => (highlightedIndex = i)}
-						onkeydown={handleKeydown}
+						onkeydown={() => {}}
 					>
 						{option.label}
 					</li>

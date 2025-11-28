@@ -18,6 +18,11 @@
 			description: 'An elevated container for grouping content.'
 		},
 		{
+			name: 'Bento Layout',
+			path: '/bento',
+			description: 'Modular grid system for dashboards.'
+		},
+		{
 			name: 'Separator',
 			path: '/separator' as const as '/',
 			description: 'A line to visually divide content.'
@@ -39,6 +44,11 @@
 		},
 		{ name: 'Alert', path: '/alert' as const as '/', description: 'Prominent messages for users.' },
 		{ name: 'Input', path: '/input' as const as '/', description: 'A standard form input field.' },
+		{
+			name: 'Label',
+			path: '/label',
+			description: 'Typography helper for layouts.'
+		},
 		{
 			name: 'Toggle',
 			path: '/toggle' as const as '/',

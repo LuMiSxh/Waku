@@ -86,6 +86,17 @@
 	--waku-glass-gradient-from: oklch(0.98 0 0 / 0.72);
 	--waku-glass-gradient-to: oklch(0.96 0 0 / 0.58);
 
+	/* Bento / Glass Specifics */
+	--glass-bg: oklch(1 0 0 / 0.4);
+	--glass-border: oklch(1 0 0 / 0.5);
+	--glass-gradient: linear-gradient(
+		135deg,
+		rgba(255, 255, 255, 0.6) 0%,
+		rgba(255, 255, 255, 0.2) 100%
+	);
+	--glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	--glass-highlight: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+
 	/* Liquid Glass reflection effect */
 	--waku-glass-reflection: linear-gradient(
 		135deg,
@@ -200,6 +211,15 @@ html.dark {
 		oklch(1 0 0 / 0) 50%,
 		oklch(0 0 0 / 0.08) 100%
 	);
+
+	--glass-bg: oklch(0 0 0 / 0.3);
+	--glass-border: oklch(1 0 0 / 0.15);
+	--glass-gradient: linear-gradient(
+		135deg,
+		rgba(255, 255, 255, 0.08) 0%,
+		rgba(255, 255, 255, 0.02) 100%
+	);
+	--glass-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
 
 	/* SHADOWS (Dark Mode) */
 	--shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4), 0 1px 3px 0 rgb(0 0 0 / 0.3);

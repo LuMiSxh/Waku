@@ -224,21 +224,58 @@ html.dark .btn-subtle:hover:not(:disabled) {
    ======================================== */
 .input {
 	width: 100%;
-	padding: 0.625rem 1rem;
-	border-radius: var(--radius-md);
-	border: 2px solid var(--waku-border);
-	background-color: var(--waku-surface-1);
 	color: var(--waku-fg-base);
 	font-size: 1rem;
 	transition: all var(--transition-fast);
 }
 
-.input:hover:not(:disabled) {
+/* ----------------------------------------
+   Variant: Default (The standard box)
+   ---------------------------------------- */
+.input.variant-default {
+	background-color: var(--waku-surface-1);
+	border: 1px solid var(--waku-border);
+	border-radius: var(--radius-md);
+}
+
+.input.variant-default:hover:not(:disabled) {
 	border-color: var(--neutral-400);
 }
 
-.input::placeholder {
+.input.variant-default::placeholder {
 	color: var(--waku-fg-muted);
+}
+
+.input.variant-default:focus {
+	outline: none;
+	border-color: transparent;
+	background-color: var(--waku-surface-2);
+	box-shadow: 0 0 0 2px var(--waku-accent);
+}
+
+/* ----------------------------------------
+   Variant: Seamless (For Bento Boxes)
+   ---------------------------------------- */
+.input.variant-seamless {
+	border: none;
+	background-color: transparent;
+	padding: 0;
+	margin: 0;
+	font-weight: 600;
+	font-size: 1.25rem;
+	line-height: 1.2;
+}
+
+.input.variant-seamless:focus {
+	box-shadow: none;
+	outline: none;
+	background-color: transparent;
+}
+
+.input.variant-seamless::placeholder {
+	font-weight: 400;
+	color: var(--waku-fg-muted);
+	opacity: 0.5;
 }
 
 /* ========================================
@@ -606,6 +643,35 @@ html.dark .btn-subtle:hover:not(:disabled) {
 	cursor: not-allowed;
 	opacity: 0.6;
 }
+/* VARIANT: Seamless (für Bento Boxen) */
+.select-trigger.variant-seamless {
+	border: none;
+	background-color: transparent;
+	padding: 0;
+	height: auto;
+	font-size: 1.25rem;
+	font-weight: 700;
+	color: var(--waku-fg-base);
+	box-shadow: none;
+}
+
+.select-trigger.variant-seamless:hover {
+	color: var(--waku-accent);
+}
+
+.select-trigger.variant-seamless .chevron {
+	margin-left: 0.5rem;
+	opacity: 0.5;
+}
+
+.select-trigger.variant-seamless:focus {
+	box-shadow: none;
+	text-decoration: underline;
+	text-decoration-color: var(--waku-accent);
+	text-decoration-thickness: 2px;
+	text-underline-offset: 4px;
+}
+
 .placeholder {
 	color: var(--waku-fg-muted);
 }
