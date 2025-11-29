@@ -1,14 +1,14 @@
-<script lang="ts">
+<script lang="ts" generics="T">
 	import { clickOutside, portalled, glassScale } from '$lib/actions/index.js';
 
-	export type SelectOption = {
-		value: string | number;
+	export type SelectOption<T> = {
+		value: T;
 		label: string;
 	};
 
-	interface Props {
-		options: SelectOption[];
-		value?: string | number;
+	interface Props<T> {
+		options: SelectOption<T>[];
+		value?: T;
 		placeholder?: string;
 		disabled?: boolean;
 		class?: string;
@@ -24,13 +24,13 @@
 		class: className,
 		variant = 'default',
 		id,
-	}: Props = $props();
+	}: Props<T> = $props();
 
 	let open = $state(false);
 	let highlightedIndex = $state(-1);
 	let triggerElement: HTMLButtonElement | undefined = $state();
 
-	// State für die Positionierung
+	// States for positioning
 	let top = $state(0);
 	let left = $state(0);
 	let width = $state(0);
@@ -49,7 +49,7 @@
 		width = rect.width;
 	}
 
-	function selectOption(option: SelectOption) {
+	function selectOption(option: SelectOption<T>) {
 		value = option.value;
 		open = false;
 		highlightedIndex = -1;
