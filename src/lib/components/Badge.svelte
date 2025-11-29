@@ -12,6 +12,6 @@
 	let { children, variant = 'secondary', class: className }: Props = $props();
 </script>
 
-<span class="badge {variant} {className || ''}">
+<span class="badge badge-{variant} {className || ''}">
 	{@render children()}
 </span>
