@@ -2,7 +2,7 @@
 	import type { Snippet } from 'svelte';
 	import { getContext } from 'svelte';
 
-	interface Props {
+	interface Props extends Record<string, unknown> {
 		children: Snippet;
 		// Layout
 		colspan?: 1 | 2 | 3 | 4;
@@ -31,6 +31,7 @@
 		class: className,
 		style,
 		disabled = false,
+		...rest
 	}: Props = $props();
 
 	const density = getContext<'compact' | 'normal' | 'comfortable'>('bento-density') || 'normal';
@@ -67,6 +68,7 @@
 	{href}
 	disabled={disabled || null}
 	{style}
+	{...rest}
 	class="bento-item variant-{variant} {activePadding} col-span-{colspan} row-span-{rowspan} {className ||
 		''}"
 	class:interactive={!!onclick || !!href}

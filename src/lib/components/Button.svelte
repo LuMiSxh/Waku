@@ -2,7 +2,7 @@
 	import type { Variant, Size } from '../types/index.js';
 	import type { Snippet } from 'svelte';
 
-	export interface ButtonProps {
+	export interface ButtonProps extends Record<string, unknown> {
 		/**
 		 * Visual style variant of the button
 		 * @default 'primary'
@@ -43,6 +43,11 @@
 		'aria-label'?: string;
 
 		/**
+		 * Tab index for keyboard navigation
+		 */
+		tabindex?: number;
+
+		/**
 		 * Content snippet
 		 */
 		children?: Snippet;
@@ -57,6 +62,7 @@
 		type = 'button',
 		onclick,
 		class: className,
+		tabindex,
 		children,
 		...rest
 	}: ButtonProps = $props();
@@ -66,6 +72,7 @@
 	{type}
 	{disabled}
 	{onclick}
+	{tabindex}
 	class="btn btn-{variant} btn-{size} {className || ''}"
 	{...rest}
 >
