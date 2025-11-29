@@ -61,26 +61,6 @@
 			{/each}
 		</VStack>
 	</section>
-
-	<!-- Usage Example -->
-	<section class="demo-section glass">
-		<h3 class="demo-title">Usage</h3>
-		<pre
-			class="overflow-x-auto rounded-md p-4"
-			style="background: oklch(from var(--waku-bg-base) l c h / 0.3);"><code
-				>{`<script>
-  import { Button } from '@waku/components';
-</script>
-
-<Button variant="primary" size="md" onclick={() => alert('Clicked!')}>
-  Click Me
-</Button>
-
-<Button variant="danger" disabled>
-  Cannot Click
-</Button>`}</code
-			></pre>
-	</section>
 </div>
 
 <style>

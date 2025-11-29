@@ -5,75 +5,75 @@
 		{
 			name: 'Button',
 			path: '/button' as const as '/',
-			description: 'Interactive buttons with variants and sizes.'
+			description: 'Interactive buttons with variants and sizes.',
 		},
 		{
 			name: 'Stack',
 			path: '/stack' as const as '/',
-			description: 'VStack and HStack for easy layouts.'
+			description: 'VStack and HStack for easy layouts.',
 		},
 		{
 			name: 'Card',
 			path: '/card' as const as '/',
-			description: 'An elevated container for grouping content.'
+			description: 'An elevated container for grouping content.',
 		},
 		{
 			name: 'Bento Layout',
 			path: '/bento',
-			description: 'Modular grid system for dashboards.'
+			description: 'Modular grid system for dashboards.',
 		},
 		{
 			name: 'Separator',
 			path: '/separator' as const as '/',
-			description: 'A line to visually divide content.'
+			description: 'A line to visually divide content.',
 		},
 		{
 			name: 'Elevation',
 			path: '/elevation' as const as '/',
-			description: 'Different colors depending on Stack elevation levels.'
+			description: 'Different colors depending on Stack elevation levels.',
 		},
 		{
 			name: 'Badge',
 			path: '/badge' as const as '/',
-			description: 'Labels for statuses or properties.'
+			description: 'Labels for statuses or properties.',
 		},
 		{
 			name: 'Loading Spinner',
 			path: '/loading-spinner' as const as '/',
-			description: 'A visual loading indicator.'
+			description: 'A visual loading indicator.',
 		},
 		{ name: 'Alert', path: '/alert' as const as '/', description: 'Prominent messages for users.' },
 		{ name: 'Input', path: '/input' as const as '/', description: 'A standard form input field.' },
 		{
 			name: 'Label',
 			path: '/label',
-			description: 'Typography helper for layouts.'
+			description: 'Typography helper for layouts.',
 		},
 		{
 			name: 'Toggle',
 			path: '/toggle' as const as '/',
-			description: 'A switch for boolean states.'
+			description: 'A switch for boolean states.',
 		},
 		{
 			name: 'Select',
 			path: '/select' as const as '/',
-			description: 'A custom dropdown selection component.'
+			description: 'A custom dropdown selection component.',
 		},
 		{
 			name: 'Tooltip',
 			path: '/tooltip' as const as '/',
-			description: 'A small pop-up label for extra info.'
+			description: 'A small pop-up label for extra info.',
 		},
 		{
 			name: 'Modal',
 			path: '/modal' as const as '/',
-			description: 'A dialog window over the main content.'
+			description: 'A dialog window over the main content.',
 		},
 		{
 			name: 'Toast',
 			path: '/toast' as const as '/',
-			description: 'Transient notifications to inform users.'
-		}
+			description: 'Transient notifications to inform users.',
+		},
 	];
 </script>
 

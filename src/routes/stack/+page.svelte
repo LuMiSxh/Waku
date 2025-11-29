@@ -118,8 +118,8 @@
 				class="demo-container w-full rounded p-4"
 				style="background: var(--waku-surface-2);"
 			>
-				<div class="demo-item w-full bg-accent-100!">Nested Item A</div>
-				<div class="demo-item w-full bg-accent-100!">Nested Item B</div>
+				<div class="demo-item bg-accent-100! w-full">Nested Item A</div>
+				<div class="demo-item bg-accent-100! w-full">Nested Item B</div>
 			</VStack>
 
 			<!-- Footer -->
@@ -137,10 +137,7 @@
 	>
 		<h3 class="demo-title">Usage</h3>
 		<pre class="overflow-x-auto rounded-md p-4" style="background: var(--neutral-100);"><code
-				>{`<script>
-  import { VStack, HStack } from '@waku/layout';
-</script>
-
+				>{`
 <VStack gap="sm" align="center">
   <p>Item 1</p>
   <p>Item 2</p>

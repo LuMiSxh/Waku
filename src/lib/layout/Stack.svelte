@@ -5,7 +5,7 @@
 		Justification,
 		Direction,
 		Spacing,
-		Elevation
+		Elevation,
 	} from '$lib/types/index.js';
 
 	interface Props extends Record<string, unknown> {
@@ -38,7 +38,7 @@
 		md: '1rem',
 		lg: '1.5rem',
 		xl: '2.5rem',
-		'2xl': '4rem'
+		'2xl': '4rem',
 	};
 
 	let style = $derived(
@@ -46,7 +46,7 @@
 			`--stack-direction: ${direction === 'vertical' ? 'column' : 'row'}`,
 			`--stack-gap: ${spacingMap[gap]}`,
 			align ? `--stack-align: ${align}` : '',
-			justify ? `--stack-justify: ${justify}` : ''
+			justify ? `--stack-justify: ${justify}` : '',
 		]
 			.filter(Boolean)
 			.join('; ')

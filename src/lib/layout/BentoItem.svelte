@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	import { getContext } from 'svelte';
 
 	interface Props {
 		children: Snippet;
@@ -24,31 +25,50 @@
 		colspan = 1,
 		rowspan = 1,
 		variant = 'surface',
-		padding = 'md',
+		padding,
 		onclick,
 		href,
 		class: className,
 		style,
-		disabled = false
+		disabled = false,
 	}: Props = $props();
 
-	// Determine HTML tag based on props
-	let tag = $derived(href ? 'a' : onclick ? 'button' : 'div');
+	const density = getContext<'compact' | 'normal' | 'comfortable'>('bento-density') || 'normal';
+
+	// Always use 'div' for onclick to avoid nested button issues
+	let tag = $derived(href ? 'a' : 'div');
+
+	// Keyboard handler for onclick functionality
+	function handleKeydown(e: KeyboardEvent) {
+		if (onclick && (e.key === 'Enter' || e.key === ' ')) {
+			e.preventDefault();
+			onclick(e as unknown as MouseEvent);
+		}
+	}
 
 	const paddingMap = { none: 'p-0', sm: 'p-3', md: 'p-5', lg: 'p-6' };
+
+	// Density-based padding map
+	const densityPaddingMap = {
+		compact: 'p-3',
+		normal: 'p-5',
+		comfortable: 'p-6',
+	};
+
+	const activePadding = $derived(padding ? paddingMap[padding] : densityPaddingMap[density]);
 </script>
 
 <svelte:element
 	this={tag}
-	role={onclick ? 'button' : undefined}
+	role={onclick && !href ? 'button' : undefined}
 	tabindex={onclick || href ? 0 : undefined}
 	{onclick}
+	onkeydown={handleKeydown}
 	{href}
 	disabled={disabled || null}
 	{style}
-	class="bento-item variant-{variant} {paddingMap[
-		padding
-	]} col-span-{colspan} row-span-{rowspan} {className || ''}"
+	class="bento-item variant-{variant} {activePadding} col-span-{colspan} row-span-{rowspan} {className ||
+		''}"
 	class:interactive={!!onclick || !!href}
 >
 	{@render children()}

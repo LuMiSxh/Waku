@@ -261,15 +261,34 @@ html.dark .btn-subtle:hover:not(:disabled) {
 	background-color: transparent;
 	padding: 0;
 	margin: 0;
-	font-weight: 600;
+	font-weight: 700;
 	font-size: 1.25rem;
-	line-height: 1.2;
+}
+
+/* Density-based font sizes for seamless inputs */
+[data-density='compact'] .input.variant-seamless {
+	font-size: 1rem;
+}
+
+[data-density='normal'] .input.variant-seamless {
+	font-size: 1.25rem;
+}
+
+[data-density='comfortable'] .input.variant-seamless {
+	font-size: 1.5rem;
 }
 
 .input.variant-seamless:focus {
 	box-shadow: none;
 	outline: none;
-	background-color: transparent;
+	background-color: oklch(from var(--waku-accent) l c h / 0.08);
+	padding: 0.25rem 0.5rem;
+	margin: -0.25rem -0.5rem;
+	border-radius: var(--radius-md);
+	text-decoration: underline;
+	text-decoration-color: var(--waku-accent);
+	text-decoration-thickness: 2px;
+	text-underline-offset: 4px;
 }
 
 .input.variant-seamless::placeholder {
@@ -281,6 +300,20 @@ html.dark .btn-subtle:hover:not(:disabled) {
 /* ========================================
    BADGE
    ======================================== */
+
+/* Density-based label sizes (global override for scoped label styles) */
+[data-density='compact'] .bento-label {
+	font-size: 0.75rem; /* 12px - text-xs */
+}
+
+[data-density='normal'] .bento-label {
+	font-size: 0.875rem; /* 14px - text-sm */
+}
+
+[data-density='comfortable'] .bento-label {
+	font-size: 1rem; /* 16px - text-base */
+}
+
 .badge {
 	display: inline-flex;
 	align-items: center;
@@ -655,6 +688,19 @@ html.dark .btn-subtle:hover:not(:disabled) {
 	box-shadow: none;
 }
 
+/* Density-based font sizes for seamless selects */
+[data-density='compact'] .select-trigger.variant-seamless {
+	font-size: 1rem;
+}
+
+[data-density='normal'] .select-trigger.variant-seamless {
+	font-size: 1.25rem;
+}
+
+[data-density='comfortable'] .select-trigger.variant-seamless {
+	font-size: 1.5rem;
+}
+
 .select-trigger.variant-seamless:hover {
 	color: var(--waku-accent);
 }
@@ -666,6 +712,10 @@ html.dark .btn-subtle:hover:not(:disabled) {
 
 .select-trigger.variant-seamless:focus {
 	box-shadow: none;
+	background-color: oklch(from var(--waku-accent) l c h / 0.08);
+	padding: 0.25rem 0.5rem;
+	margin: -0.25rem -0.5rem;
+	border-radius: var(--radius-md);
 	text-decoration: underline;
 	text-decoration-color: var(--waku-accent);
 	text-decoration-thickness: 2px;

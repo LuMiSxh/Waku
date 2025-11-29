@@ -49,6 +49,6 @@ export function trapScroll(node: HTMLElement, enabled: boolean = true): ActionRe
 		},
 		destroy() {
 			release();
-		}
+		},
 	};
 }

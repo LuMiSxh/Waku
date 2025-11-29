@@ -23,7 +23,7 @@
 					toast({
 						title: 'Success!',
 						description: 'Your profile has been updated.',
-						type: 'success'
+						type: 'success',
 					})}
 			>
 				Success Toast
@@ -39,7 +39,7 @@
 					toast({
 						title: 'Warning',
 						description: 'Your trial expires in 3 days.',
-						type: 'warning'
+						type: 'warning',
 					})}
 			>
 				Warning Toast

@@ -7,7 +7,7 @@
 		{ value: 'solid', label: 'Solid' },
 		{ value: 'vue', label: 'Vue' },
 		{ value: 'react', label: 'React' },
-		{ value: 'qwik', label: 'Qwik' }
+		{ value: 'qwik', label: 'Qwik' },
 	];
 
 	let selectedFramework = $state('svelte');
@@ -43,7 +43,7 @@
 					placeholder="Select a planet..."
 					options={[
 						{ value: 'earth', label: 'Earth' },
-						{ value: 'mars', label: 'Mars' }
+						{ value: 'mars', label: 'Mars' },
 					]}
 					bind:value={selectedPlanet}
 				/>

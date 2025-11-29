@@ -42,6 +42,6 @@ export function portalled(
 			if (node.parentNode) {
 				node.parentNode.removeChild(node);
 			}
-		}
+		},
 	};
 }

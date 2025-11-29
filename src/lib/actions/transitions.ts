@@ -22,7 +22,7 @@ export const spring = {
 		const c1 = 1.70158;
 		const c3 = c1 + 1;
 		return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
-	}
+	},
 };
 
 interface GlassParams {
@@ -62,7 +62,7 @@ export function glass(
 				filter: blur(${currentBlur}px);
 				transform: ${transform};
 			`;
-		}
+		},
 	};
 }
 
@@ -88,7 +88,7 @@ export function glassScale(
 		easing = spring.bounce,
 		opacity = 0,
 		start = 0.95,
-		blur = 10
+		blur = 10,
 	}: GlassScaleParams = {}
 ): TransitionConfig {
 	const style = getComputedStyle(node);
@@ -107,7 +107,7 @@ export function glassScale(
 				transform: ${transform} scale(${currentScale});
 				filter: blur(${currentBlur}px);
 			`;
-		}
+		},
 	};
 }
 
@@ -135,7 +135,7 @@ export function glassSlide(
 		opacity = 0,
 		x = 0,
 		y = 0,
-		blur = 8
+		blur = 8,
 	}: GlassSlideParams = {}
 ): TransitionConfig {
 	const style = getComputedStyle(node);
@@ -155,7 +155,7 @@ export function glassSlide(
 				transform: ${transform} translate(${currentX}px, ${currentY}px);
 				filter: blur(${currentBlur}px);
 			`;
-		}
+		},
 	};
 }
 
@@ -175,7 +175,7 @@ export function glassExpand(
 		duration = 250,
 		easing = spring.snappy,
 		opacity = 0,
-		start = 0.8
+		start = 0.8,
 	}: GlassScaleParams = {}
 ): TransitionConfig {
 	const style = getComputedStyle(node);
@@ -192,7 +192,7 @@ export function glassExpand(
 				transform: scale(${currentScale});
 				transform-origin: center;
 			`;
-		}
+		},
 	};
 }
 
@@ -216,6 +216,6 @@ export function backdrop(
 		css: (t) => `
 			opacity: ${t};
 			backdrop-filter: blur(${t * 8}px);
-		`
+		`,
 	};
 }

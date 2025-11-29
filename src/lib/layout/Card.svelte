@@ -15,14 +15,14 @@
 		class: className,
 		padding = 'md',
 		elevation = 1,
-		glass = false
+		glass = false,
 	}: Props = $props();
 
 	const paddingMap = {
 		none: 'p-0',
 		sm: 'p-4',
 		md: 'p-6',
-		lg: 'p-8'
+		lg: 'p-8',
 	};
 </script>
 

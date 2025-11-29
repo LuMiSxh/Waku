@@ -140,6 +140,6 @@ export function focusTrap(
 			node.removeEventListener('keydown', trapFocus);
 			node.removeEventListener('mousedown', handleMouseDown);
 			document.removeEventListener('focusin', handleGlobalFocus, true);
-		}
+		},
 	};
 }

@@ -14,7 +14,7 @@
 	const sizeMap = {
 		sm: 'max-w-md',
 		md: 'max-w-2xl',
-		lg: 'max-w-4xl'
+		lg: 'max-w-4xl',
 	};
 
 	$effect(() => {

@@ -12,8 +12,11 @@
 	-webkit-backdrop-filter: blur(var(--waku-glass-blur)) saturate(var(--waku-glass-saturation))
 		brightness(var(--waku-glass-brightness));
 	box-shadow: var(--shadow-glass);
-	background-image:
-		linear-gradient(to bottom, var(--waku-glass-gradient-from), var(--waku-glass-gradient-to)),
+	background-image: linear-gradient(
+			to bottom,
+			var(--waku-glass-gradient-from),
+			var(--waku-glass-gradient-to)
+		),
 		var(--waku-glass-reflection);
 	border-radius: var(--radius-lg);
 	border: 1px solid var(--waku-glass-edge);
@@ -25,8 +28,11 @@
 	-webkit-backdrop-filter: blur(var(--waku-glass-blur-heavy)) saturate(var(--waku-glass-saturation))
 		brightness(var(--waku-glass-brightness));
 	box-shadow: var(--shadow-glass);
-	background-image:
-		linear-gradient(to bottom, var(--waku-glass-gradient-from), var(--waku-glass-gradient-to)),
+	background-image: linear-gradient(
+			to bottom,
+			var(--waku-glass-gradient-from),
+			var(--waku-glass-gradient-to)
+		),
 		var(--waku-glass-reflection);
 	border-radius: var(--radius-xl);
 	border: 1px solid var(--waku-glass-edge);

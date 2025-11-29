@@ -23,7 +23,7 @@
 		disabled = false,
 		class: className,
 		variant = 'default',
-		id
+		id,
 	}: Props = $props();
 
 	let open = $state(false);

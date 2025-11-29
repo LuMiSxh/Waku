@@ -12,14 +12,14 @@
 		checked = $bindable(),
 		disabled = false,
 		variant = 'primary',
-		class: className
+		class: className,
 	}: Props = $props();
 
 	// Farb-Mapping für die CSS-Variable
 	const colorMap = {
 		primary: 'var(--waku-accent)',
 		success: 'var(--color-success)',
-		danger: 'var(--color-danger)'
+		danger: 'var(--color-danger)',
 	};
 </script>
 

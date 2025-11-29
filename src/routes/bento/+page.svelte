@@ -26,10 +26,91 @@
 		</p>
 	</section>
 
+	<!-- DEMO: Density Comparison -->
+	<section>
+		<h3 class="mb-4 text-xl font-semibold">Density Levels</h3>
+		<p class="text-muted mb-6">
+			Control spacing, padding, and font sizes across your entire grid with a single prop.
+		</p>
+
+		<div class="space-y-8">
+			<!-- Compact -->
+			<div>
+				<h4 class="text-muted mb-3 text-sm font-semibold tracking-wide uppercase">
+					Compact - Dense, information-heavy
+				</h4>
+				<BentoGrid cols={3} density="compact">
+					<BentoItem colspan={2}>
+						<Label text="Project Name" />
+						<Input variant="seamless" value="Bleach Vol. 1-74" />
+					</BentoItem>
+					<BentoItem>
+						<Label text="Format" />
+						<Select
+							variant="seamless"
+							options={[
+								{ value: 'CBZ', label: 'CBZ' },
+								{ value: 'EPUB', label: 'EPUB' },
+							]}
+						/>
+					</BentoItem>
+				</BentoGrid>
+			</div>
+
+			<!-- Normal -->
+			<div>
+				<h4 class="text-muted mb-3 text-sm font-semibold tracking-wide uppercase">
+					Normal (Default) - Balanced, general purpose
+				</h4>
+				<BentoGrid cols={3} density="normal">
+					<BentoItem colspan={2}>
+						<Label text="Project Name" />
+						<Input variant="seamless" value="Bleach Vol. 1-74" />
+					</BentoItem>
+					<BentoItem>
+						<Label text="Format" />
+						<Select
+							variant="seamless"
+							options={[
+								{ value: 'CBZ', label: 'CBZ' },
+								{ value: 'EPUB', label: 'EPUB' },
+							]}
+						/>
+					</BentoItem>
+				</BentoGrid>
+			</div>
+
+			<!-- Comfortable -->
+			<div>
+				<h4 class="text-muted mb-3 text-sm font-semibold tracking-wide uppercase">
+					Comfortable - Spacious, touch-friendly
+				</h4>
+				<BentoGrid cols={3} density="comfortable">
+					<BentoItem colspan={2}>
+						<Label text="Project Name" />
+						<Input variant="seamless" value="Bleach Vol. 1-74" />
+					</BentoItem>
+					<BentoItem>
+						<Label text="Format" />
+						<Select
+							variant="seamless"
+							options={[
+								{ value: 'CBZ', label: 'CBZ' },
+								{ value: 'EPUB', label: 'EPUB' },
+							]}
+						/>
+					</BentoItem>
+				</BentoGrid>
+			</div>
+		</div>
+	</section>
+
+	<Separator />
+
 	<!-- DEMO 1: Form / Settings -->
 	<section>
-		<h3 class="mb-4 text-xl font-semibold">1. Settings Layout (Dense)</h3>
-		<BentoGrid cols={3}>
+		<h3 class="mb-4 text-xl font-semibold">1. Settings Layout (Normal Density)</h3>
+		<BentoGrid cols={3} density="normal">
 			<!-- Project Name (Span 2) -->
 			<BentoItem colspan={2}>
 				<Label text="Project Name" />
@@ -57,7 +138,7 @@
 					variant="seamless"
 					options={[
 						{ value: 'CBZ', label: 'CBZ' },
-						{ value: 'EPUB', label: 'EPUB' }
+						{ value: 'EPUB', label: 'EPUB' },
 					]}
 				/>
 			</BentoItem>
@@ -70,7 +151,7 @@
 					options={[
 						{ value: 'WebP', label: 'WebP' },
 						{ value: 'AVIF', label: 'AVIF' },
-						{ value: 'JPEG', label: 'JPEG' }
+						{ value: 'JPEG', label: 'JPEG' },
 					]}
 				/>
 				<p class="text-muted animate-fade-in text-xs">
@@ -84,8 +165,8 @@
 
 	<!-- DEMO 2: Stats / Read Only -->
 	<section>
-		<h3 class="mb-4 text-xl font-semibold">2. Statistics Dashboard</h3>
-		<BentoGrid cols={4}>
+		<h3 class="mb-4 text-xl font-semibold">2. Statistics Dashboard (Comfortable Density)</h3>
+		<BentoGrid cols={4} density="comfortable">
 			<!-- Stat 1 -->
 			<BentoItem variant="glass" class="items-center justify-center">
 				<div class="text-4xl font-bold">74</div>
@@ -106,7 +187,7 @@
 				<div class="flex h-full items-end gap-2 px-5 pb-5">
 					<div class="h-2/5 flex-1 rounded-t bg-neutral-200 dark:bg-neutral-800"></div>
 					<div class="h-3/5 flex-1 rounded-t bg-neutral-200 dark:bg-neutral-800"></div>
-					<div class="h-1/2 flex-1 rounded-t bg-accent-500"></div>
+					<div class="bg-accent-500 h-1/2 flex-1 rounded-t"></div>
 					<div class="h-3/4 flex-1 rounded-t bg-neutral-200 dark:bg-neutral-800"></div>
 				</div>
 			</BentoItem>

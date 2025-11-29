@@ -28,6 +28,6 @@ export function autoFocus(node: HTMLElement, enabled: boolean = true): ActionRet
 		},
 		destroy() {
 			// Nothing to clean up
-		}
+		},
 	};
 }
