@@ -3,12 +3,13 @@
 
 	type Variant = 'primary' | 'success' | 'danger';
 
-	interface Props {
+	interface Props extends HTMLAttributes<HTMLInputElement> {
 		checked?: boolean;
 		disabled?: boolean;
 		variant?: Variant;
 		class?: string;
 		onclick?: HTMLAttributes<HTMLInputElement>['onclick'];
+		onkeydown?: HTMLAttributes<HTMLInputElement>['onkeydown'];
 		tabindex?: HTMLAttributes<HTMLInputElement>['tabindex'];
 	}
 
@@ -18,7 +19,9 @@
 		variant = 'primary',
 		class: className,
 		onclick,
+		onkeydown,
 		tabindex,
+		...rest
 	}: Props = $props();
 
 	// Farb-Mapping für die CSS-Variable
@@ -39,9 +42,12 @@
 		bind:checked
 		{disabled}
 		{onclick}
+		{onkeydown}
 		{tabindex}
 		class="toggle-input"
 		role="switch"
+		aria-checked={checked}
+		{...rest}
 	/>
 	<span class="toggle-slider"></span>
 </label>
