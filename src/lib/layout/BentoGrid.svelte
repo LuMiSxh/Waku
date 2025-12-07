@@ -1,8 +1,9 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import { setContext } from 'svelte';
+	import type { HTMLAttributes } from 'svelte/elements';
 
-	interface Props extends Record<string, unknown> {
+	interface Props extends HTMLAttributes<HTMLDivElement> {
 		children: Snippet;
 		cols?: 1 | 2 | 3 | 4;
 		gap?: 'sm' | 'md' | 'lg';

@@ -1,8 +1,9 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import { getContext } from 'svelte';
+	import type { HTMLAttributes } from 'svelte/elements';
 
-	interface Props extends Record<string, unknown> {
+	interface Props extends HTMLAttributes<HTMLDivElement> {
 		children: Snippet;
 		// Layout
 		colspan?: 1 | 2 | 3 | 4;

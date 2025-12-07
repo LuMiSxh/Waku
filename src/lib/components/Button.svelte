@@ -1,8 +1,9 @@
 <script module lang="ts">
+	import type { HTMLAttributes } from 'svelte/elements';
 	import type { Variant, Size } from '../types/index.js';
 	import type { Snippet } from 'svelte';
 
-	export interface ButtonProps extends Record<string, unknown> {
+	export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
 		/**
 		 * Visual style variant of the button
 		 * @default 'primary'

@@ -7,5 +7,5 @@
 </script>
 
 <div role="status" class="spinner spinner-{size} {className || ''}">
-	<span class="sr-only">Loading...</span>
+	<span class="sr-only">...</span>
 </div>

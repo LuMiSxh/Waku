@@ -1,4 +1,6 @@
 <script lang="ts">
+	import type { HTMLAttributes } from 'svelte/elements';
+
 	type Variant = 'primary' | 'success' | 'danger';
 
 	interface Props {
@@ -6,6 +8,8 @@
 		disabled?: boolean;
 		variant?: Variant;
 		class?: string;
+		onclick?: HTMLAttributes<HTMLInputElement>['onclick'];
+		tabindex?: HTMLAttributes<HTMLInputElement>['tabindex'];
 	}
 
 	let {
@@ -13,6 +17,8 @@
 		disabled = false,
 		variant = 'primary',
 		class: className,
+		onclick,
+		tabindex,
 	}: Props = $props();
 
 	// Farb-Mapping für die CSS-Variable
@@ -28,7 +34,15 @@
 	class:disabled
 	style="--toggle-bg-active: {colorMap[variant]};"
 >
-	<input type="checkbox" bind:checked {disabled} class="toggle-input" role="switch" />
+	<input
+		type="checkbox"
+		bind:checked
+		{disabled}
+		{onclick}
+		{tabindex}
+		class="toggle-input"
+		role="switch"
+	/>
 	<span class="toggle-slider"></span>
 </label>
 

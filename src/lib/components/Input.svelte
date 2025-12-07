@@ -1,7 +1,8 @@
 <script lang="ts">
 	import type { Size } from '$lib/types/index.js';
+	import type { HTMLAttributes } from 'svelte/elements';
 
-	interface Props {
+	interface Props extends HTMLAttributes<HTMLInputElement> {
 		value?: string;
 		placeholder?: string;
 		type?: 'text' | 'email' | 'password' | 'number' | 'search';
@@ -21,6 +22,7 @@
 		variant = 'default', // Default to standard look
 		class: className,
 		id,
+		...rest
 	}: Props = $props();
 
 	// Only apply size classes if we are in default mode.
@@ -37,4 +39,4 @@
 	);
 </script>
 
-<input {id} bind:value {type} {placeholder} {disabled} class={classes} />
+<input {id} bind:value {type} {placeholder} {disabled} class={classes} {...rest} />
