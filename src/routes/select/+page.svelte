@@ -2,7 +2,7 @@
 	import { Select, VStack } from '$lib/index.js';
 	import type { SelectOption } from '$lib/components/Select.svelte';
 
-	let frameworks: SelectOption[] = [
+	let frameworks: SelectOption<string>[] = [
 		{ value: 'svelte', label: 'Svelte' },
 		{ value: 'solid', label: 'Solid' },
 		{ value: 'vue', label: 'Vue' },

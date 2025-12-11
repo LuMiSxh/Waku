@@ -69,6 +69,7 @@
 		"@sveltejs/kit": "^2.49.0",
 		"@sveltejs/package": "^2.5.7",
 		"@sveltejs/vite-plugin-svelte": "^6.2.1",
+		"@tabler/icons-svelte": "^3.35.0",
 		"@tailwindcss/vite": "^4.1.17",
 		"@types/node": "^24.10.1",
 		"eslint": "^9.39.1",

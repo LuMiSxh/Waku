@@ -1,5 +1,12 @@
 <script lang="ts">
-	import { clickOutside, focusTrap, portalled, glassScale, backdrop } from '$lib/actions/index.js';
+	import {
+		clickOutside,
+		focusTrap,
+		portalled,
+		glassScale,
+		backdrop,
+		trapScroll,
+	} from '$lib/actions/index.js';
 	import type { Snippet } from 'svelte';
 
 	interface Props {
@@ -17,17 +24,6 @@
 		lg: 'max-w-4xl',
 	};
 
-	$effect(() => {
-		if (open) {
-			document.body.style.overflow = 'hidden';
-		} else {
-			document.body.style.overflow = '';
-		}
-		return () => {
-			document.body.style.overflow = '';
-		};
-	});
-
 	function handleClose() {
 		if (onclose) onclose();
 		else open = false;
@@ -44,7 +40,7 @@
 
 {#if open}
 	<div use:portalled>
-		<div class="modal-backdrop" transition:backdrop={{ duration: 400 }}>
+		<div class="modal-backdrop" transition:backdrop={{ duration: 400 }} use:trapScroll={open}>
 			<div
 				class="modal-container"
 				role="dialog"
@@ -66,5 +62,10 @@
 <style>
 	.modal-container {
 		display: contents;
+	}
+
+	.modal-backdrop {
+		width: 100vw;
+		height: 100dvh;
 	}
 </style>

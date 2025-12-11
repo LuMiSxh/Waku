@@ -2,14 +2,15 @@
 	import type { Size } from '$lib/types/index.js';
 	import type { HTMLAttributes } from 'svelte/elements';
 
-	interface Props extends HTMLAttributes<HTMLInputElement> {
+	interface Props extends HTMLAttributes<Omit<HTMLInputElement, 'style'>> {
 		value?: string;
 		placeholder?: string;
 		type?: 'text' | 'email' | 'password' | 'number' | 'search';
 		disabled?: boolean;
 		size?: Size;
-		variant?: 'default' | 'seamless';
+		style?: 'default' | 'seamless';
 		class?: string;
+		css?: string;
 		id?: string;
 	}
 
@@ -19,9 +20,10 @@
 		type = 'text',
 		disabled = false,
 		size = 'md',
-		variant = 'default', // Default to standard look
+		style = 'default', // Default to standard look
 		class: className,
 		id,
+		css = '',
 		...rest
 	}: Props = $props();
 
@@ -35,8 +37,8 @@
 
 	// Determine classes
 	let classes = $derived(
-		`input variant-${variant} ${variant === 'default' ? sizeMap[size] : ''} ${className || ''}`
+		`input variant-${style} ${style === 'default' ? sizeMap[size] : ''} ${className || ''}`
 	);
 </script>
 
-<input {id} bind:value {type} {placeholder} {disabled} class={classes} {...rest} />
+<input {id} bind:value {type} {placeholder} {disabled} class={classes} style={css} {...rest} />

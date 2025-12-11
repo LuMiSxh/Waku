@@ -41,12 +41,21 @@
 		'2xl': '4rem',
 	};
 
+	const justifyMap: Record<Justification, string> = {
+		start: 'flex-start',
+		center: 'center',
+		end: 'flex-end',
+		between: 'space-between',
+		around: 'space-around',
+		evenly: 'space-evenly',
+	};
+
 	let style = $derived(
 		[
 			`--stack-direction: ${direction === 'vertical' ? 'column' : 'row'}`,
 			`--stack-gap: ${spacingMap[gap]}`,
 			align ? `--stack-align: ${align}` : '',
-			justify ? `--stack-justify: ${justify}` : '',
+			justify ? `--stack-justify: ${justifyMap[justify]}` : '',
 		]
 			.filter(Boolean)
 			.join('; ')

@@ -1,5 +1,6 @@
 <script lang="ts" generics="T">
 	import { clickOutside, portalled, glassScale } from '$lib/actions/index.js';
+	import { IconChevronDown } from '@tabler/icons-svelte';
 
 	export type SelectOption<T> = {
 		value: T;
@@ -13,7 +14,8 @@
 		disabled?: boolean;
 		class?: string;
 		id?: string;
-		variant?: 'default' | 'seamless';
+		css?: string;
+		style?: 'default' | 'seamless';
 	}
 
 	let {
@@ -22,7 +24,8 @@
 		placeholder = 'Select an option...',
 		disabled = false,
 		class: className,
-		variant = 'default',
+		css = '',
+		style = 'default',
 		id,
 	}: Props<T> = $props();
 
@@ -44,8 +47,12 @@
 		if (!triggerElement) return;
 		const rect = triggerElement.getBoundingClientRect();
 
-		top = rect.bottom + 4;
-		left = rect.left;
+		// Add scroll offsets to support scrolled pages
+		const scrollX = window.scrollX || document.documentElement.scrollLeft;
+		const scrollY = window.scrollY || document.documentElement.scrollTop;
+
+		top = rect.bottom + scrollY + 4;
+		left = rect.left + scrollX;
 		width = rect.width;
 	}
 
@@ -147,10 +154,16 @@
 
 <svelte:window onresize={updatePosition} onscroll={updatePosition} onkeydown={handleListKeydown} />
 
-<div class="select-wrapper {className || ''}" use:clickOutside={() => (open = false)}>
+<div
+	class="select-wrapper {className || ''}"
+	use:clickOutside={{
+		handler: () => (open = false),
+		ignore: [id || 'select-trigger'],
+	}}
+>
 	<button
 		type="button"
-		class="select-trigger variant-{variant}"
+		class="select-trigger variant-{style}"
 		bind:this={triggerElement}
 		onclick={handleTriggerClick}
 		onkeydown={handleTriggerKeydown}
@@ -158,21 +171,12 @@
 		aria-haspopup="listbox"
 		aria-expanded={open}
 		tabindex={disabled ? -1 : 0}
-		{id}
+		id={id || 'select-trigger'}
+		style={css}
 	>
 		<span class:placeholder={!selectedLabel}>{selectedLabel || placeholder}</span>
 		<div class="chevron">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				width="16"
-				height="16"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg
-			>
+			<IconChevronDown size={16} stroke={2} />
 		</div>
 	</button>
 

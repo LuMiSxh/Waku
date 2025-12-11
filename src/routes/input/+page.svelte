@@ -30,12 +30,12 @@
 			<!-- Simulating a Bento Box -->
 			<BentoItem>
 				<Label text="Project Name" for="pname" />
-				<Input id="pname" variant="seamless" bind:value={textValue} />
+				<Input id="pname" style="seamless" bind:value={textValue} />
 			</BentoItem>
 
 			<BentoItem>
 				<Label text="Comment" />
-				<Input variant="seamless" placeholder="Enter a description..." />
+				<Input style="seamless" placeholder="Enter a description..." />
 			</BentoItem>
 		</div>
 	</section>

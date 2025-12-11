@@ -42,12 +42,12 @@
 				<BentoGrid cols={3} density="compact">
 					<BentoItem colspan={2}>
 						<Label text="Project Name" />
-						<Input variant="seamless" value="Bleach Vol. 1-74" />
+						<Input style="seamless" value="Bleach Vol. 1-74" />
 					</BentoItem>
 					<BentoItem>
 						<Label text="Format" />
 						<Select
-							variant="seamless"
+							style="seamless"
 							options={[
 								{ value: 'CBZ', label: 'CBZ' },
 								{ value: 'EPUB', label: 'EPUB' },
@@ -65,12 +65,12 @@
 				<BentoGrid cols={3} density="normal">
 					<BentoItem colspan={2}>
 						<Label text="Project Name" />
-						<Input variant="seamless" value="Bleach Vol. 1-74" />
+						<Input style="seamless" value="Bleach Vol. 1-74" />
 					</BentoItem>
 					<BentoItem>
 						<Label text="Format" />
 						<Select
-							variant="seamless"
+							style="seamless"
 							options={[
 								{ value: 'CBZ', label: 'CBZ' },
 								{ value: 'EPUB', label: 'EPUB' },
@@ -88,12 +88,12 @@
 				<BentoGrid cols={3} density="comfortable">
 					<BentoItem colspan={2}>
 						<Label text="Project Name" />
-						<Input variant="seamless" value="Bleach Vol. 1-74" />
+						<Input style="seamless" value="Bleach Vol. 1-74" />
 					</BentoItem>
 					<BentoItem>
 						<Label text="Format" />
 						<Select
-							variant="seamless"
+							style="seamless"
 							options={[
 								{ value: 'CBZ', label: 'CBZ' },
 								{ value: 'EPUB', label: 'EPUB' },
@@ -114,16 +114,11 @@
 			<!-- Project Name (Span 2) -->
 			<BentoItem colspan={2}>
 				<Label text="Project Name" />
-				<Input variant="seamless" value="Bleach Vol. 1-74" />
+				<Input style="seamless" value="Bleach Vol. 1-74" />
 			</BentoItem>
 
 			<!-- Interactive Action (Rowspan 2, Glass Highlight) -->
-			<BentoItem
-				rowspan={2}
-				variant="glass"
-				class="justify-between"
-				onclick={() => alert('Browse clicked')}
-			>
+			<BentoItem rowspan={2} glass class="justify-between" onclick={() => alert('Browse clicked')}>
 				<div>
 					<Label text="Target Location" class="text-accent-500!" />
 					<p class="text-sm break-all opacity-80">/Users/Luca/Manga/Output</p>
@@ -135,7 +130,7 @@
 			<BentoItem>
 				<Label text="Format" />
 				<Select
-					variant="seamless"
+					style="seamless"
 					options={[
 						{ value: 'CBZ', label: 'CBZ' },
 						{ value: 'EPUB', label: 'EPUB' },
@@ -147,7 +142,7 @@
 				<Label text="Compression" />
 				<Select
 					bind:value={format}
-					variant="seamless"
+					style="seamless"
 					options={[
 						{ value: 'WebP', label: 'WebP' },
 						{ value: 'AVIF', label: 'AVIF' },
@@ -168,7 +163,7 @@
 		<h3 class="mb-4 text-xl font-semibold">2. Statistics Dashboard (Comfortable Density)</h3>
 		<BentoGrid cols={4} density="comfortable">
 			<!-- Stat 1 -->
-			<BentoItem variant="glass" class="items-center justify-center">
+			<BentoItem glass class="items-center justify-center">
 				<div class="text-4xl font-bold">74</div>
 				<Label text="Volumes" class="mt-2 mb-0!" />
 			</BentoItem>

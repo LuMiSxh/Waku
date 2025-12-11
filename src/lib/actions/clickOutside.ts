@@ -5,12 +5,27 @@ import type { ActionReturn } from 'svelte/action';
  * Useful for closing dropdowns or modals when clicking outside of them.
  *
  * @param node - The HTML element to detect outside clicks for.
- * @param handler - The function to call when an outside click is detected.
- * @returns {ActionReturn<HTMLElement | null>} An object containing `update` and `destroy` methods.
+ * @param handler - A function to call when an outside click is detected, or an object containing the handler and optional ignore list.
+ * @returns {ActionReturn<() => void>>} An object containing a `destroy` method.
  */
-export function clickOutside(node: HTMLElement, handler: () => void): ActionReturn<() => void> {
+export function clickOutside(
+	node: HTMLElement,
+	handlerOrParams: (() => void) | { handler: () => void; ignore?: string[] }
+): ActionReturn<() => void> {
+	// Normalize params
+	const handler = typeof handlerOrParams === 'function' ? handlerOrParams : handlerOrParams.handler;
+	const ignore = typeof handlerOrParams === 'object' ? handlerOrParams.ignore : [];
+
 	const onClick = (event: MouseEvent) => {
-		if (node && !node.contains(event.target as HTMLElement) && !event.defaultPrevented) {
+		const target = event.target as HTMLElement;
+
+		// Check if click is inside an ignored element
+		const isIgnored = ignore?.some((id) => {
+			const el = document.getElementById(id);
+			return el && el.contains(target);
+		});
+
+		if (node && !node.contains(target) && !event.defaultPrevented && !isIgnored) {
 			handler();
 		}
 	};
@@ -18,9 +33,6 @@ export function clickOutside(node: HTMLElement, handler: () => void): ActionRetu
 	document.addEventListener('click', onClick, true);
 
 	return {
-		update(newHandler: () => void) {
-			handler = newHandler;
-		},
 		destroy() {
 			document.removeEventListener('click', onClick, true);
 		},

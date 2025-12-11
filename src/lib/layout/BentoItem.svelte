@@ -3,61 +3,70 @@
 	import { getContext } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 
-	interface Props extends HTMLAttributes<HTMLDivElement> {
+	interface Props extends HTMLAttributes<Omit<HTMLDivElement, 'style'>> {
 		children: Snippet;
-		// Layout
 		colspan?: 1 | 2 | 3 | 4;
-		rowspan?: 1 | 2 | 3 | 4;
-
-		// Style
-		variant?: 'surface' | 'glass' | 'outline' | 'danger';
+		rowspan?: number;
+		variant?: 'neutral' | 'primary' | 'danger';
+		style?: 'solid' | 'outline' | 'ghost';
+		glass?: boolean;
 		padding?: 'none' | 'sm' | 'md' | 'lg';
-
-		// Interaction
 		onclick?: (e: MouseEvent) => void;
 		href?: string;
-		class?: string;
-		style?: string;
 		disabled?: boolean;
+		css?: string;
 	}
 
 	let {
 		children,
 		colspan = 1,
 		rowspan = 1,
-		variant = 'surface',
+		variant = 'neutral',
+		style = 'solid',
+		glass = false,
 		padding,
 		onclick,
 		href,
 		class: className,
-		style,
 		disabled = false,
-		...rest
+		css = '',
+		...r
 	}: Props = $props();
+
+	const rest = r as HTMLAttributes<HTMLDivElement> & HTMLAttributes<HTMLAnchorElement>;
 
 	const density = getContext<'compact' | 'normal' | 'comfortable'>('bento-density') || 'normal';
 
-	// Always use 'div' for onclick to avoid nested button issues
+	const colorMap = {
+		neutral: 'var(--waku-surface-1)',
+		primary: 'var(--waku-accent)',
+		danger: 'var(--color-danger)',
+	};
+
+	// If style is outline/ghost, neutral uses border/fg colors instead of surface
+	const borderColorMap = {
+		neutral: 'var(--waku-border)',
+		primary: 'var(--waku-accent)',
+		danger: 'var(--color-danger)',
+	};
+
 	let tag = $derived(href ? 'a' : 'div');
 
-	// Keyboard handler for onclick functionality
 	function handleKeydown(e: KeyboardEvent) {
-		if (onclick && (e.key === 'Enter' || e.key === ' ')) {
+		const isLink = !!href;
+		if (e.key === 'Enter') {
 			e.preventDefault();
-			onclick(e as unknown as MouseEvent);
+			if (onclick && !isLink) onclick(e as unknown as MouseEvent);
+		}
+		if (e.key === ' ' && !isLink) {
+			e.preventDefault();
+			if (onclick) onclick(e as unknown as MouseEvent);
 		}
 	}
 
 	const paddingMap = { none: 'p-0', sm: 'p-3', md: 'p-5', lg: 'p-6' };
-
-	// Density-based padding map
-	const densityPaddingMap = {
-		compact: 'p-3',
-		normal: 'p-5',
-		comfortable: 'p-6',
-	};
-
-	const activePadding = $derived(padding ? paddingMap[padding] : densityPaddingMap[density]);
+	const densityPaddingMap = { compact: 'p-3', normal: 'p-5', comfortable: 'p-6' };
+	let activePadding = $derived(padding ? paddingMap[padding] : densityPaddingMap[density]);
 </script>
 
 <svelte:element
@@ -68,11 +77,16 @@
 	onkeydown={handleKeydown}
 	{href}
 	disabled={disabled || null}
-	{style}
 	{...rest}
-	class="bento-item variant-{variant} {activePadding} col-span-{colspan} row-span-{rowspan} {className ||
+	class="bento-item style-{style} variant-{variant} {activePadding} col-span-{colspan} row-span-{rowspan} {className ||
 		''}"
+	class:glass
 	class:interactive={!!onclick || !!href}
+	style="
+		--item-color: {colorMap[variant]};
+		--item-border: {borderColorMap[variant]};
+		{css || ''}
+	"
 >
 	{@render children()}
 </svelte:element>
@@ -87,48 +101,49 @@
 		text-align: left;
 		width: 100%;
 		border: 1px solid transparent;
-		transition:
-			transform 0.2s cubic-bezier(0.2, 0, 0, 1),
-			box-shadow 0.2s,
-			border-color 0.2s;
+		transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+
+		background-color: var(--item-color);
 	}
 
 	.bento-item:focus-visible {
 		outline: none;
-	}
-
-	:global(.bento-item:has(.variant-seamless:focus-visible)),
-	.bento-item:has(.variant-seamless:focus-within) {
-		border-color: var(--waku-accent);
-		box-shadow:
-			var(--shadow-md),
-			0 0 0 1px var(--waku-accent);
-		z-index: 5;
-	}
-	.interactive:focus-visible {
-		outline: none;
-		border-color: var(--waku-border);
-		box-shadow:
-			var(--shadow-md),
-			0 0 0 2px var(--waku-accent);
-
+		box-shadow: 0 0 0 2px var(--waku-accent);
 		z-index: 20;
 	}
 
-	.variant-glass.interactive:focus-visible {
-		border-color: var(--glass-border);
-		box-shadow:
-			var(--glass-shadow),
-			0 0 0 2px var(--waku-accent);
-	}
-
-	.variant-surface {
-		background-color: var(--waku-surface-1);
+	.style-solid {
 		border-color: var(--waku-border);
 		box-shadow: var(--shadow-sm);
 	}
+	/* Special case: Solid + Neutral = Surface color */
+	.style-solid.variant-neutral {
+		background-color: var(--waku-surface-1);
+	}
+	/* Special case: Solid + Danger = Light red bg */
+	.style-solid.variant-danger {
+		background-color: oklch(from var(--color-danger) 0.96 c h);
+		border-color: oklch(from var(--color-danger) 0.9 c h);
+		color: var(--color-danger);
+	}
 
-	.variant-glass {
+	.style-outline {
+		background-color: transparent;
+		border-color: var(--item-border);
+		box-shadow: none;
+	}
+	.style-outline.variant-danger {
+		color: var(--color-danger);
+	}
+
+	/* 3. GHOST */
+	.style-ghost {
+		background-color: transparent;
+		border-color: transparent;
+		box-shadow: none;
+	}
+
+	.glass {
 		background: var(--glass-bg);
 		background-image: var(--glass-gradient);
 		border-color: var(--glass-border);
@@ -136,36 +151,22 @@
 		backdrop-filter: blur(20px);
 		-webkit-backdrop-filter: blur(20px);
 	}
-	.variant-glass::after {
-		content: '';
-		position: absolute;
-		inset: 0;
-		border-radius: inherit;
-		pointer-events: none;
-		box-shadow: var(--glass-highlight, inset 0 0 0 1px rgba(255, 255, 255, 0.2));
-	}
 
-	:global(.variant-glass:has(.variant-seamless:focus-visible)) {
-		background-color: oklch(1 0 0 / 0.6);
+	:global(.glass:has(.variant-seamless:focus-visible)) {
+		background-color: var(--glass-bg-active);
 		border-color: var(--waku-accent);
-	}
-
-	.variant-danger {
-		background-color: oklch(from var(--color-danger) 0.96 c h);
-		border: 1px solid oklch(from var(--color-danger) 0.9 c h);
-		color: var(--color-danger);
 	}
 
 	.interactive {
 		cursor: pointer;
 	}
-	.interactive:hover:not(:disabled) {
+	.interactive:hover:not([disabled]) {
 		transform: translateY(-2px);
 		box-shadow: var(--shadow-md);
 		border-color: var(--waku-accent);
 		z-index: 10;
 	}
-	.interactive:active:not(:disabled) {
+	.interactive:active:not([disabled]) {
 		transform: translateY(0);
 	}
 
@@ -187,5 +188,11 @@
 	}
 	.row-span-2 {
 		grid-row: span 2;
+	}
+	.row-span-3 {
+		grid-row: span 3;
+	}
+	.row-span-4 {
+		grid-row: span 4;
 	}
 </style>

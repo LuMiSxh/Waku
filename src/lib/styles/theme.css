@@ -16,6 +16,12 @@
 	--color-accent-800: oklch(from var(--waku-accent) calc(l - 0.24) calc(c * 1.1) h);
 	--color-accent-900: oklch(from var(--waku-accent) calc(l - 0.32) calc(c * 1.05) h);
 	--color-accent-950: oklch(from var(--waku-accent) calc(l - 0.37) calc(c * 0.9) h);
+
+	/* Register semantic colors with tailwind  */
+	--color-success: var(--color-success);
+	--color-warning: var(--color-warning);
+	--color-danger: var(--color-danger);
+	--color-info: var(--color-info);
 }
 
 :root {
@@ -88,6 +94,7 @@
 
 	/* Bento / Glass Specifics */
 	--glass-bg: oklch(1 0 0 / 0.4);
+	--glass-bg-active: oklch(1 0 0 / 0.6);
 	--glass-border: oklch(1 0 0 / 0.5);
 	--glass-gradient: linear-gradient(
 		135deg,
@@ -212,6 +219,7 @@ html.dark {
 	);
 
 	--glass-bg: oklch(0 0 0 / 0.3);
+	--glass-bg-active: oklch(0 0 0 / 0.5);
 	--glass-border: oklch(1 0 0 / 0.15);
 	--glass-gradient: linear-gradient(
 		135deg,
