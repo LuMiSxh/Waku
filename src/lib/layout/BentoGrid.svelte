@@ -6,8 +6,8 @@
 	interface Props extends HTMLAttributes<HTMLDivElement> {
 		children: Snippet;
 		cols?: 1 | 2 | 3 | 4;
-		rows?: number;
-		rowHeight?: string;
+		rows?: number | string;
+		rowHeight?: string | 'auto' | 'fit-content';
 		gap?: 'sm' | 'md' | 'lg';
 		density?: 'compact' | 'normal' | 'comfortable';
 		class?: string;
@@ -17,7 +17,7 @@
 		children,
 		cols = 3,
 		rows,
-		rowHeight = 'minmax(50px, 1fr)',
+		rowHeight = 'auto',
 		gap = 'md',
 		density = 'normal',
 		class: className,
@@ -42,10 +42,17 @@
 		return 'none';
 	});
 
+	// Determine auto-rows value based on rowHeight
+	let autoRows = $derived.by(() => {
+		if (rowHeight === 'auto') return 'auto';
+		if (rowHeight === 'fit-content') return 'min-content';
+		return rowHeight;
+	});
+
 	let cssVars = $derived(`
 		--bento-cols: ${cols};
 		--bento-rows: ${templateRows};
-		--bento-row-height: ${rowHeight};
+		--bento-row-height: ${autoRows};
 	`);
 </script>
 

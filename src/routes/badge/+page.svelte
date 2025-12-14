@@ -29,10 +29,10 @@
 					</tr>
 				</thead>
 				<tbody>
-					{#each variants as variant}
+					{#each variants as variant (variant)}
 						<tr class="border-waku-border/50 hover:bg-surface-2 border-t transition-colors">
 							<td class="p-4 text-sm font-medium capitalize">{variant}</td>
-							{#each styles as style}
+							{#each styles as style (style)}
 								<td class="p-4">
 									<Badge {variant} {style}>
 										{variant}

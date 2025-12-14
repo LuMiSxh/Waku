@@ -5,7 +5,7 @@
 
 	interface Props extends HTMLAttributes<Omit<HTMLDivElement, 'style'>> {
 		children: Snippet;
-		colspan?: 1 | 2 | 3 | 4;
+		colspan?: number;
 		rowspan?: number;
 		variant?: 'neutral' | 'primary' | 'danger';
 		style?: 'solid' | 'outline' | 'ghost';
@@ -78,13 +78,14 @@
 	{href}
 	disabled={disabled || null}
 	{...rest}
-	class="bento-item style-{style} variant-{variant} {activePadding} col-span-{colspan} row-span-{rowspan} {className ||
-		''}"
+	class="bento-item style-{style} variant-{variant} {activePadding} {className || ''}"
 	class:glass
 	class:interactive={!!onclick || !!href}
 	style="
 		--item-color: {colorMap[variant]};
 		--item-border: {borderColorMap[variant]};
+		grid-column: span {colspan};
+		grid-row: span {rowspan};
 		{css || ''}
 	"
 >
@@ -168,31 +169,5 @@
 	}
 	.interactive:active:not([disabled]) {
 		transform: translateY(0);
-	}
-
-	.col-span-1 {
-		grid-column: span 1;
-	}
-	.col-span-2 {
-		grid-column: span 2;
-	}
-	.col-span-3 {
-		grid-column: span 3;
-	}
-	.col-span-4 {
-		grid-column: span 4;
-	}
-
-	.row-span-1 {
-		grid-row: span 1;
-	}
-	.row-span-2 {
-		grid-row: span 2;
-	}
-	.row-span-3 {
-		grid-row: span 3;
-	}
-	.row-span-4 {
-		grid-row: span 4;
 	}
 </style>
