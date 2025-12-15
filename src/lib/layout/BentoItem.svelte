@@ -153,7 +153,9 @@
 		-webkit-backdrop-filter: blur(20px);
 	}
 
-	:global(.glass:has(.variant-seamless:focus-visible)) {
+	/* Highlight parent BentoItem for all seamless elements (Input, Select, Button, Toggle) */
+	:global(.glass:has(.variant-seamless:focus-visible)),
+	:global(.glass:has(.variant-seamless:focus-within)) {
 		background-color: var(--glass-bg-active);
 		border-color: var(--waku-accent);
 	}

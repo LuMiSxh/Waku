@@ -3,7 +3,7 @@
 	import type { Snippet } from 'svelte';
 
 	export type ButtonVariant = 'primary' | 'neutral' | 'success' | 'warning' | 'danger';
-	export type ButtonStyle = 'solid' | 'subtle' | 'outline' | 'ghost';
+	export type ButtonStyle = 'solid' | 'subtle' | 'outline' | 'ghost' | 'seamless';
 	export type ButtonSize = 'sm' | 'md' | 'lg' | 'icon';
 
 	type BaseProps = {
@@ -49,18 +49,18 @@
 
 	// Helper for neutral solid background
 	const isNeutralSolid = variant === 'neutral' && style === 'solid';
-	const commonClasses = `btn style-${style} size-${size} ${className || ''}`;
 	const cssVars = `--btn-color: ${colorMap[variant]}; ${css}`;
 </script>
 
 {#if rest.href}
 	<a
-		class={commonClasses}
+		class="btn variant-{style} {style !== 'seamless' ? `size-${size}` : ''} {className || ''}"
 		class:glass
 		class:neutral-solid={isNeutralSolid}
 		style={cssVars}
 		role="button"
 		aria-disabled={loading}
+		tabindex={style === 'seamless' ? 0 : undefined}
 		{...rest}
 	>
 		{#if loading}
@@ -72,12 +72,13 @@
 	</a>
 {:else}
 	<button
-		class={commonClasses}
+		class="btn variant-{style} {style !== 'seamless' ? `size-${size}` : ''} {className || ''}"
 		class:glass
 		class:neutral-solid={isNeutralSolid}
 		style={cssVars}
 		type={rest.type ?? 'button'}
 		disabled={rest.disabled || loading}
+		tabindex={style === 'seamless' ? 0 : undefined}
 		{...rest}
 	>
 		{#if loading}
@@ -95,7 +96,6 @@
 		align-items: center;
 		justify-content: center;
 		position: relative;
-		overflow: hidden;
 
 		font-weight: 500;
 		border-radius: var(--radius-md);
@@ -189,6 +189,38 @@
 	}
 	.style-ghost:hover:not(:disabled) {
 		background-color: oklch(from var(--btn-color) l c h / 0.08);
+	}
+
+	.variant-seamless {
+		border: none;
+		background-color: transparent;
+		padding: 0;
+		margin: 0;
+		font-weight: 700;
+		font-size: 1.25rem;
+		height: auto;
+		color: var(--waku-fg-base);
+	}
+
+	.variant-seamless:hover:not(:disabled) {
+		color: var(--waku-accent);
+	}
+
+	.variant-seamless:focus-visible {
+		box-shadow: none;
+		outline: none;
+		background-color: oklch(from var(--waku-accent) l c h / 0.08);
+		padding: 0.25rem 0.5rem;
+		margin: -0.25rem -0.5rem;
+		border-radius: var(--radius-md);
+		text-decoration: underline;
+		text-decoration-color: var(--waku-accent);
+		text-decoration-thickness: 2px;
+		text-underline-offset: 4px;
+	}
+
+	.variant-seamless:active:not(:disabled) {
+		transform: scale(1);
 	}
 
 	.glass {

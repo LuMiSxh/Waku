@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { Button, Card, VStack, HStack, Separator } from '$lib/index.js';
+	import { BentoGrid, BentoItem } from '$lib/layout/index.js';
+	import { Label } from '$lib/components/index.js';
 	import { IconTrash, IconSend, IconPlus } from '@tabler/icons-svelte';
 
 	const variants = ['primary', 'neutral', 'success', 'warning', 'danger'] as const;
@@ -105,5 +107,141 @@
 				</div>
 			</VStack>
 		</HStack>
+	</section>
+
+	<Separator />
+
+	<!-- SEAMLESS VARIANT -->
+	<section>
+		<h3 class="mb-4 text-xl font-semibold">Seamless Variant</h3>
+		<p class="text-muted mb-6">
+			Use the <code>style="seamless"</code> variant for buttons inside BentoItems. Seamless buttons blend
+			into the layout, adapt to density, and highlight their parent when focused.
+		</p>
+
+		<div class="space-y-8">
+			<!-- Keyboard Navigation Test -->
+			<div>
+				<h4 class="text-muted mb-3 text-sm font-semibold">Keyboard Navigation</h4>
+				<p class="text-muted mb-4 text-sm">
+					Press <kbd class="rounded bg-neutral-200 px-2 py-1 font-mono text-xs dark:bg-neutral-800"
+						>Tab</kbd
+					>
+					to navigate and
+					<kbd class="rounded bg-neutral-200 px-2 py-1 font-mono text-xs dark:bg-neutral-800"
+						>Enter</kbd
+					>
+					or
+					<kbd class="rounded bg-neutral-200 px-2 py-1 font-mono text-xs dark:bg-neutral-800"
+						>Space</kbd
+					> to activate.
+				</p>
+				<BentoGrid cols={3} density="normal">
+					<BentoItem glass>
+						<Label text="Quick Action" />
+						<Button style="seamless" onclick={() => alert('Export clicked!')}>Export Project</Button
+						>
+					</BentoItem>
+					<BentoItem glass>
+						<Label text="Settings" />
+						<Button style="seamless" onclick={() => alert('Settings clicked!')}
+							>Open Settings</Button
+						>
+					</BentoItem>
+					<BentoItem glass>
+						<Label text="Publish" />
+						<Button style="seamless" onclick={() => alert('Publish clicked!')}>Publish Now</Button>
+					</BentoItem>
+				</BentoGrid>
+			</div>
+
+			<!-- Density Levels -->
+			<div>
+				<h4 class="text-muted mb-3 text-sm font-semibold">Density Levels</h4>
+				<div class="space-y-6">
+					<div>
+						<h5 class="text-muted mb-2 text-xs font-semibold tracking-wide uppercase">Compact</h5>
+						<BentoGrid cols={3} density="compact">
+							<BentoItem glass>
+								<Label text="Action" />
+								<Button style="seamless">Compact Button</Button>
+							</BentoItem>
+							<BentoItem glass>
+								<Label text="Action" />
+								<Button style="seamless">Another Action</Button>
+							</BentoItem>
+							<BentoItem glass>
+								<Label text="Action" />
+								<Button style="seamless">Third Action</Button>
+							</BentoItem>
+						</BentoGrid>
+					</div>
+
+					<div>
+						<h5 class="text-muted mb-2 text-xs font-semibold tracking-wide uppercase">Normal</h5>
+						<BentoGrid cols={3} density="normal">
+							<BentoItem glass>
+								<Label text="Action" />
+								<Button style="seamless">Normal Button</Button>
+							</BentoItem>
+							<BentoItem glass>
+								<Label text="Action" />
+								<Button style="seamless">Another Action</Button>
+							</BentoItem>
+							<BentoItem glass>
+								<Label text="Action" />
+								<Button style="seamless">Third Action</Button>
+							</BentoItem>
+						</BentoGrid>
+					</div>
+
+					<div>
+						<h5 class="text-muted mb-2 text-xs font-semibold tracking-wide uppercase">
+							Comfortable
+						</h5>
+						<BentoGrid cols={3} density="comfortable">
+							<BentoItem glass>
+								<Label text="Action" />
+								<Button style="seamless">Comfortable Button</Button>
+							</BentoItem>
+							<BentoItem glass>
+								<Label text="Action" />
+								<Button style="seamless">Another Action</Button>
+							</BentoItem>
+							<BentoItem glass>
+								<Label text="Action" />
+								<Button style="seamless">Third Action</Button>
+							</BentoItem>
+						</BentoGrid>
+					</div>
+				</div>
+			</div>
+
+			<!-- Multiple Actions Example -->
+			<div>
+				<h4 class="text-muted mb-3 text-sm font-semibold">Multiple Actions</h4>
+				<BentoGrid cols={2} density="normal">
+					<BentoItem glass>
+						<Label text="Quick Actions" />
+						<div class="flex gap-4">
+							<Button style="seamless" onclick={() => alert('Export')}>Export</Button>
+							<Button style="seamless" onclick={() => alert('Import')}>Import</Button>
+							<Button style="seamless" onclick={() => alert('Share')}>Share</Button>
+						</div>
+					</BentoItem>
+
+					<BentoItem glass class="justify-between">
+						<div>
+							<Label text="Project Actions" />
+							<div class="mt-2 flex gap-4">
+								<Button style="seamless" onclick={() => alert('Settings')}>Settings</Button>
+								<Button style="seamless" onclick={() => alert('Publish')}>Publish</Button>
+							</div>
+						</div>
+						<Button variant="primary" size="md">Save Changes</Button>
+					</BentoItem>
+				</BentoGrid>
+			</div>
+		</div>
 	</section>
 </div>
