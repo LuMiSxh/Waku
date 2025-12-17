@@ -75,6 +75,14 @@
 			description: 'Transient notifications to inform users.',
 		},
 	];
+
+	const tools = [
+		{
+			name: 'Icon Creator',
+			path: '/icon-creator',
+			description: 'Create beautiful macOS-style app icons with Waku aesthetics.',
+		},
+	];
 </script>
 
 <div class="space-y-8">
@@ -83,6 +91,22 @@
 		<p style="color: var(--waku-fg-muted);" class="text-lg">
 			A modern SvelteKit component library with flexible theming and dark mode support.
 		</p>
+	</section>
+
+	<section>
+		<h3 class="mb-6 text-2xl font-semibold">Interactive Tools</h3>
+		<div class="grid gap-4" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
+			{#each tools as item (item.path)}
+				<a
+					href={resolve(item.path as '/')}
+					class="glass block rounded-lg p-6 transition-all hover:shadow-lg"
+					style="background: linear-gradient(135deg, var(--accent-500) 0%, var(--accent-600) 100%); border: 1px solid var(--waku-border);"
+				>
+					<h4 class="mb-2 text-xl font-semibold" style="color: white;">{item.name}</h4>
+					<p style="color: rgba(255, 255, 255, 0.9);">{item.description}</p>
+				</a>
+			{/each}
+		</div>
 	</section>
 
 	<section>
