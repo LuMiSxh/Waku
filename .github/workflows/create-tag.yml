@@ -1,0 +1,60 @@
+name: Create Git Tag from Package Version
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create-tag:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Read version from package.json
+        id: package-version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+          echo "Package version: $VERSION"
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Check if tag exists
+        id: check-tag
+        run: |
+          if git rev-parse "refs/tags/${{ steps.package-version.outputs.tag }}" >/dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "Tag ${{ steps.package-version.outputs.tag }} already exists"
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "Tag ${{ steps.package-version.outputs.tag }} does not exist yet"
+          fi
+
+      - name: Delete existing tag (if exists)
+        if: steps.check-tag.outputs.exists == 'true'
+        run: |
+          git push --delete origin ${{ steps.package-version.outputs.tag }} || true
+          echo "Deleted existing remote tag"
+
+      - name: Create and push tag
+        run: |
+          git tag -f ${{ steps.package-version.outputs.tag }} -m "Release version ${{ steps.package-version.outputs.version }}"
+          git push origin ${{ steps.package-version.outputs.tag }}
+          echo "Created and pushed tag ${{ steps.package-version.outputs.tag }}"
+
+      - name: Summary
+        run: |
+          echo "### Tag Created Successfully" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version:** ${{ steps.package-version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Tag:** ${{ steps.package-version.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit:** \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY

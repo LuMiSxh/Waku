@@ -15,15 +15,29 @@
 - **Dark Mode First**: Meticulously designed to look stunning in both light and dark modes.
 - **Fully Typed & Accessible**: Built with TypeScript and ARIA best practices.
 
-## Library Usage
+## Installation
 
-Add Waku to your project's `package.json`. Since it's a private library, it's best installed directly from Git.
+Add Waku to your project's `package.json`. Since it's a private library, it's best installed directly from GitHub.
+
+### Install from a specific tag (recommended)
 
 ```json
 "devDependencies": {
   "waku": "github:lumisxh/waku#v1.0.0"
 }
 ```
+
+Replace `v1.0.0` with the desired version tag.
+
+### Install from main branch
+
+```json
+"devDependencies": {
+  "waku": "github:lumisxh/waku"
+}
+```
+
+This will always use the latest code from the main branch.
 
 ## Quick Start
 
