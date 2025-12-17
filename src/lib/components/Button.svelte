@@ -40,8 +40,8 @@
 
 	// Map colors to CSS variables
 	const colorMap: Record<ButtonVariant, string> = {
-		primary: 'var(--waku-accent)',
-		neutral: 'var(--waku-fg-base)',
+		primary: 'var(--accent-500)',
+		neutral: 'var(--neutral-950)',
 		success: 'var(--color-success)',
 		warning: 'var(--color-warning)',
 		danger: 'var(--color-danger)',
@@ -150,12 +150,17 @@
 		padding: 0;
 	}
 
-	.style-solid {
+	.variant-solid {
 		background-color: var(--btn-color);
 		color: white;
 		box-shadow: var(--shadow-sm);
 	}
-	.style-solid:hover:not(:disabled) {
+
+	/* Automatic text color for primary variant based on lightness */
+	.variant-solid:not(.neutral-solid) {
+		color: oklch(from var(--btn-color) clamp(0, (0.6 - l) * 999, 1) 0 0);
+	}
+	.variant-solid:hover:not(:disabled) {
 		filter: brightness(110%);
 		box-shadow: var(--shadow-md);
 		transform: translateY(-1px);
@@ -165,33 +170,58 @@
 		color: var(--waku-surface-1);
 	}
 
-	.style-subtle {
-		background-color: oklch(from var(--btn-color) l c h / 0.1);
+	.variant-subtle {
+		position: relative;
 		color: var(--btn-color);
 	}
-	.style-subtle:hover:not(:disabled) {
-		background-color: oklch(from var(--btn-color) l c h / 0.18);
+	.variant-subtle::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: var(--btn-color);
+		opacity: 0.1;
+		border-radius: inherit;
+		z-index: -1;
+	}
+	.variant-subtle:hover:not(:disabled)::before {
+		opacity: 0.18;
 	}
 
-	.style-outline {
+	.variant-outline {
 		background-color: transparent;
-		border-color: oklch(from var(--btn-color) l c h / 0.3);
-		color: var(--btn-color);
-	}
-	.style-outline:hover:not(:disabled) {
-		background-color: oklch(from var(--btn-color) l c h / 0.05);
 		border-color: var(--btn-color);
+		color: var(--btn-color);
+	}
+	.variant-outline {
+		position: relative;
+	}
+	.variant-outline:hover:not(:disabled)::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: var(--btn-color);
+		opacity: 0.05;
+		border-radius: inherit;
+		z-index: -1;
 	}
 
-	.style-ghost {
+	.variant-ghost {
+		position: relative;
 		background-color: transparent;
 		color: var(--btn-color);
 	}
-	.style-ghost:hover:not(:disabled) {
-		background-color: oklch(from var(--btn-color) l c h / 0.08);
+	.variant-ghost:hover:not(:disabled)::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: var(--btn-color);
+		opacity: 0.08;
+		border-radius: inherit;
+		z-index: -1;
 	}
 
 	.variant-seamless {
+		position: relative;
 		border: none;
 		background-color: transparent;
 		padding: 0;
@@ -206,17 +236,28 @@
 		color: var(--waku-accent);
 	}
 
+	.variant-seamless {
+		position: relative;
+	}
 	.variant-seamless:focus-visible {
 		box-shadow: none;
 		outline: none;
-		background-color: oklch(from var(--waku-accent) l c h / 0.08);
 		padding: 0.25rem 0.5rem;
 		margin: -0.25rem -0.5rem;
 		border-radius: var(--radius-md);
 		text-decoration: underline;
-		text-decoration-color: var(--waku-accent);
+		text-decoration-color: var(--accent-500);
 		text-decoration-thickness: 2px;
 		text-underline-offset: 4px;
+	}
+	.variant-seamless:focus-visible::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: var(--accent-500);
+		opacity: 0.08;
+		border-radius: inherit;
+		z-index: -1;
 	}
 
 	.variant-seamless:active:not(:disabled) {
@@ -228,20 +269,27 @@
 		-webkit-backdrop-filter: blur(10px);
 	}
 
-	.glass.style-solid {
-		background-color: oklch(from var(--btn-color) l c h / 0.8);
+	.glass.variant-solid {
+		position: relative;
 		border: 1px solid oklch(1 0 0 / 0.2);
-		box-shadow:
-			0 4px 16px oklch(from var(--btn-color) l c h / 0.3),
-			inset 0 1px 0 oklch(1 0 0 / 0.2);
+		box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.2);
 	}
-	.glass.style-solid:hover:not(:disabled) {
-		background-color: oklch(from var(--btn-color) l c h / 0.9);
+	.glass.variant-solid::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: var(--btn-color);
+		opacity: 0.8;
+		border-radius: inherit;
+		z-index: -1;
+	}
+	.glass.variant-solid:hover:not(:disabled)::before {
+		opacity: 0.9;
 	}
 
-	.glass.style-subtle,
-	.glass.style-outline,
-	.glass.style-ghost {
+	.glass.variant-subtle,
+	.glass.variant-outline,
+	.glass.variant-ghost {
 		/* Add a bit more opacity for readability on glass */
 		backdrop-filter: blur(8px);
 	}

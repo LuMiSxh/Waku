@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](LICENSE)
 
-**Waku** is a modern, opinionated SvelteKit component library designed for consistency, performance, and an exceptional developer experience. It features a unique, two-part system for managing depth and a flexible single-accent-color theming engine.
+**Waku** is a modern, opinionated SvelteKit component library designed for consistency, performance, and an exceptional developer experience. It features a unique, two-part system for managing depth, a flexible single-accent-color theming engine with automatic text contrast, and a beautiful "Material Glass" design aesthetic.
 
 > **Note**: This library is a personal project intended to create a uniform design system across multiple applications. It is actively developed but tailored to a specific aesthetic.
 
@@ -10,7 +10,7 @@
 
 - **Dimensional Design System**: Manages depth with a clear distinction between `Surface Elevation` (for layout) and `Overlay Layers` (for UI).
 - **"Material Glass" Effect**: A beautiful, subtle glassmorphism effect with frosted edges and gradients for all overlay components.
-- **Single Accent Color Theming**: Define one accent color in your project, and Waku generates a complete, perceptually uniform color palette.
+- **Single Accent Color Theming**: Define one accent color in your project, and Waku generates a complete, perceptually uniform color palette with automatic text contrast for optimal readability.
 - **Developer-First API**: Components like `VStack`, `HStack`, and `elevation` props make building complex, consistent layouts trivial.
 - **Dark Mode First**: Meticulously designed to look stunning in both light and dark modes.
 - **Fully Typed & Accessible**: Built with TypeScript and ARIA best practices.
@@ -41,8 +41,10 @@ Add Waku to your project's `package.json`. Since it's a private library, it's be
     @import 'waku/styles/waku.css';
 
     :root {
-    	--waku-accent: oklch(0.7 0.18 300); /* Your project's brand color (e.g., a vibrant pink) */
+    	--waku-accent: oklch(0.65 0.2 250); /* Your project's brand color (e.g., a vibrant blue) */
     }
+
+    /* The accent color can be light or dark - components automatically adapt text color for readability */
     ```
 
 3.  **Use the Components:** Start building your UI with Waku's components.
@@ -115,6 +117,29 @@ Waku provides a clear hierarchy of buttons. Use the variant that best matches th
 - `subtle`: A less prominent action, perfect for "Cancel" or minor choices.
 - `ghost`: For tertiary actions with no visual weight, like in toolbars.
 - `danger`: For destructive actions only.
+
+### Automatic Text Contrast
+
+Waku automatically ensures text is readable on colored backgrounds. Components like `Button`, `Badge`, and `Alert` automatically switch between black and white text based on the background lightness.
+
+For custom elements, use the opt-in utility classes:
+
+```svelte
+<!-- Automatic contrast for accent-500 backgrounds -->
+<div class="bg-accent-500 text-auto-contrast">
+	Text automatically switches between black/white for readability
+</div>
+
+<!-- For specific accent shades -->
+<div class="bg-accent-700 text-accent-contrast-700">Text adapts to accent-700 lightness</div>
+```
+
+**Available classes:**
+
+- `.text-auto-contrast` - For `bg-accent` or `bg-accent-500`
+- `.text-accent-contrast-50` through `.text-accent-contrast-950` - For all accent shades
+
+This works seamlessly with any accent color you choose, whether light or dark!
 
 ### Available Components (v1)
 

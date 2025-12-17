@@ -71,7 +71,7 @@
 
 	.style-solid {
 		background-color: var(--badge-color);
-		color: white;
+		color: oklch(from var(--badge-color) clamp(0, (0.6 - l) * 999, 1) 0 0);
 		box-shadow: var(--shadow-sm);
 	}
 
@@ -102,6 +102,7 @@
 
 	.glass.style-solid {
 		background-color: oklch(from var(--badge-color) l c h / 0.85);
+		color: oklch(from var(--badge-color) clamp(0, (0.6 - l) * 999, 1) 0 0);
 		border: 1px solid oklch(1 0 0 / 0.2);
 		box-shadow:
 			0 4px 12px oklch(from var(--badge-color) l c h / 0.3),

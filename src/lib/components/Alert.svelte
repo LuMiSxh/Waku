@@ -97,13 +97,13 @@
 
 	.style-solid {
 		background-color: var(--alert-color);
-		color: white;
+		color: oklch(from var(--alert-color) clamp(0, (0.6 - l) * 999, 1) 0 0);
 	}
 	.style-solid .alert-icon {
-		color: white;
+		color: oklch(from var(--alert-color) clamp(0, (0.6 - l) * 999, 1) 0 0);
 	}
 	.style-solid .alert-content {
-		color: white;
+		color: oklch(from var(--alert-color) clamp(0, (0.6 - l) * 999, 1) 0 0);
 	}
 
 	.style-outline {
@@ -126,6 +126,11 @@
 
 	.glass.style-solid {
 		background-color: oklch(from var(--alert-color) l c h / 0.85);
+		color: oklch(from var(--alert-color) clamp(0, (0.6 - l) * 999, 1) 0 0);
 		box-shadow: 0 4px 12px oklch(from var(--alert-color) l c h / 0.2);
+	}
+	.glass.style-solid .alert-icon,
+	.glass.style-solid .alert-content {
+		color: oklch(from var(--alert-color) clamp(0, (0.6 - l) * 999, 1) 0 0);
 	}
 </style>

@@ -222,6 +222,58 @@
 }
 
 /* ========================================
+   ADAPTIVE TEXT COLOR (Opt-in)
+   ======================================== */
+/* Use these classes on elements with accent/color backgrounds to get automatic contrast text */
+.text-auto-contrast {
+	color: oklch(from var(--accent-500) clamp(0, (0.6 - l) * 999, 1) 0 0);
+}
+
+.text-accent-contrast-50 {
+	color: oklch(from var(--accent-50) clamp(0, (0.6 - l) * 999, 1) 0 0);
+}
+
+.text-accent-contrast-100 {
+	color: oklch(from var(--accent-100) clamp(0, (0.6 - l) * 999, 1) 0 0);
+}
+
+.text-accent-contrast-200 {
+	color: oklch(from var(--accent-200) clamp(0, (0.6 - l) * 999, 1) 0 0);
+}
+
+.text-accent-contrast-300 {
+	color: oklch(from var(--accent-300) clamp(0, (0.6 - l) * 999, 1) 0 0);
+}
+
+.text-accent-contrast-400 {
+	color: oklch(from var(--accent-400) clamp(0, (0.6 - l) * 999, 1) 0 0);
+}
+
+.text-accent-contrast-500 {
+	color: oklch(from var(--accent-500) clamp(0, (0.6 - l) * 999, 1) 0 0);
+}
+
+.text-accent-contrast-600 {
+	color: oklch(from var(--accent-600) clamp(0, (0.6 - l) * 999, 1) 0 0);
+}
+
+.text-accent-contrast-700 {
+	color: oklch(from var(--accent-700) clamp(0, (0.6 - l) * 999, 1) 0 0);
+}
+
+.text-accent-contrast-800 {
+	color: oklch(from var(--accent-800) clamp(0, (0.6 - l) * 999, 1) 0 0);
+}
+
+.text-accent-contrast-900 {
+	color: oklch(from var(--accent-900) clamp(0, (0.6 - l) * 999, 1) 0 0);
+}
+
+.text-accent-contrast-950 {
+	color: oklch(from var(--accent-950) clamp(0, (0.6 - l) * 999, 1) 0 0);
+}
+
+/* ========================================
    BORDERS
    ======================================== */
 .border {

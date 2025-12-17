@@ -17,6 +17,39 @@
 	--color-accent-900: oklch(from var(--waku-accent) calc(l - 0.32) calc(c * 1.05) h);
 	--color-accent-950: oklch(from var(--waku-accent) calc(l - 0.37) calc(c * 0.9) h);
 
+	/* Adaptive text colors for accent backgrounds (auto black/white based on lightness) */
+	--color-accent-50-foreground: oklch(from var(--color-accent-50) clamp(0, (0.6 - l) * 999, 1) 0 0);
+	--color-accent-100-foreground: oklch(
+		from var(--color-accent-100) clamp(0, (0.6 - l) * 999, 1) 0 0
+	);
+	--color-accent-200-foreground: oklch(
+		from var(--color-accent-200) clamp(0, (0.6 - l) * 999, 1) 0 0
+	);
+	--color-accent-300-foreground: oklch(
+		from var(--color-accent-300) clamp(0, (0.6 - l) * 999, 1) 0 0
+	);
+	--color-accent-400-foreground: oklch(
+		from var(--color-accent-400) clamp(0, (0.6 - l) * 999, 1) 0 0
+	);
+	--color-accent-500-foreground: oklch(
+		from var(--color-accent-500) clamp(0, (0.6 - l) * 999, 1) 0 0
+	);
+	--color-accent-600-foreground: oklch(
+		from var(--color-accent-600) clamp(0, (0.6 - l) * 999, 1) 0 0
+	);
+	--color-accent-700-foreground: oklch(
+		from var(--color-accent-700) clamp(0, (0.6 - l) * 999, 1) 0 0
+	);
+	--color-accent-800-foreground: oklch(
+		from var(--color-accent-800) clamp(0, (0.6 - l) * 999, 1) 0 0
+	);
+	--color-accent-900-foreground: oklch(
+		from var(--color-accent-900) clamp(0, (0.6 - l) * 999, 1) 0 0
+	);
+	--color-accent-950-foreground: oklch(
+		from var(--color-accent-950) clamp(0, (0.6 - l) * 999, 1) 0 0
+	);
+
 	/* Register semantic colors with tailwind  */
 	--color-success: var(--color-success);
 	--color-warning: var(--color-warning);
@@ -42,6 +75,19 @@
 	--accent-800: oklch(from var(--waku-accent) calc(l - 0.24) calc(c * 1.1) h);
 	--accent-900: oklch(from var(--waku-accent) calc(l - 0.32) calc(c * 1.05) h);
 	--accent-950: oklch(from var(--waku-accent) calc(l - 0.37) calc(c * 0.9) h);
+
+	/* Adaptive text colors for accent backgrounds (auto black/white based on lightness) */
+	--accent-text-50: oklch(from var(--accent-50) clamp(0, (0.6 - l) * 999, 1) 0 0);
+	--accent-text-100: oklch(from var(--accent-100) clamp(0, (0.6 - l) * 999, 1) 0 0);
+	--accent-text-200: oklch(from var(--accent-200) clamp(0, (0.6 - l) * 999, 1) 0 0);
+	--accent-text-300: oklch(from var(--accent-300) clamp(0, (0.6 - l) * 999, 1) 0 0);
+	--accent-text-400: oklch(from var(--accent-400) clamp(0, (0.6 - l) * 999, 1) 0 0);
+	--accent-text-500: oklch(from var(--accent-500) clamp(0, (0.6 - l) * 999, 1) 0 0);
+	--accent-text-600: oklch(from var(--accent-600) clamp(0, (0.6 - l) * 999, 1) 0 0);
+	--accent-text-700: oklch(from var(--accent-700) clamp(0, (0.6 - l) * 999, 1) 0 0);
+	--accent-text-800: oklch(from var(--accent-800) clamp(0, (0.6 - l) * 999, 1) 0 0);
+	--accent-text-900: oklch(from var(--accent-900) clamp(0, (0.6 - l) * 999, 1) 0 0);
+	--accent-text-950: oklch(from var(--accent-950) clamp(0, (0.6 - l) * 999, 1) 0 0);
 
 	/* ========================================
 	   2. NEUTRAL PALETTE (Light Mode)
